@@ -8,13 +8,18 @@ const config = {
   // 들여쓰기 너비 2칸(기본값 2)
   tabWidth: 2,
   // 여러 줄의 쉼표로 구분된 구문 구조에서 후행 쉼표를 추가(none: 설정 안함, es5: 객체,배열에 설정, all(기본값): 함수 정의나 호출 등 가능한 모든 곳에 설정)
-  trailingComma: "all",
+  trailingComma: 'all',
   // 한줄에 80 글자가 넘어가면 줄바꿈(기본값 80)
   printWidth: 80,
   // 화살표 함수의 매개변수가 하나만 지정될 때 괄호 생략(always: 항상 괄호 명시, avoid: 가능하면 생략)
-  arrowParens: "avoid",
+  arrowParens: 'always',
   // windows에 뜨는 'Delete cr' 에러 해결
-  endOfLine: "auto",
+  endOfLine: 'auto',
+  // 객체 리터럴의 중괄호 안에 공백을 추가할지 여부(기본값 true)
+  bracketSpacing: true,
+  // HTML, JSX, Vue 등에서 공백 처리 방법 설정
+  htmlWhitespaceSensitivity: 'css',
+  plugins: ['prettier-plugin-tailwindcss'],
 };
 
 export default config;
