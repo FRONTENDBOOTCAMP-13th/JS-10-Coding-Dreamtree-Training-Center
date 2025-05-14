@@ -9,76 +9,57 @@
     <script type="module" src="../../main.ts"></script>
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
-    <!-- 폰트가 적용이 안되서 확인 부탁 -->
-    <style>
-      .active {
-        background-color: #d2b48c;
-      }
-    </style>
   </head>
-  <body class="m-0 box-border p-0">
+  <body class="font-pretendard m-0 box-border p-0">
     <aside>
-      <!-- 백그라운드 컬러 꿔까 화이트로 교체 필요 -->
-      <div class="flex h-screen w-32 flex-col items-center pt-6">
+      <div class="flex h-screen w-32 flex-col items-center px-2 pt-6">
         <!-- Logo -->
         <div class="mb-3 flex flex-col items-center">
-          <img src="/public/quokkadocs 2.svg" alt="Quokkadocs icon" />
+          <img src="/favicon.svg" alt="Quokkadocs icon" />
         </div>
 
         <!-- Navigation Items -->
         <nav class="flex w-full flex-col items-center gap-2">
           <div
-            class="nav-item active flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
+            data-active="true"
           >
-            <div class="flex h-6 w-6 items-center justify-center text-xl">
-              <img src="/public/icons/Vector.svg" alt="" />
+            <div class="flex h-5 w-5 items-center justify-center text-xl">
+              <img src="/src/assets/dashboard.svg" alt="dashboard-icon" />
             </div>
-            <span class="mt-1 text-sm font-medium text-gray-700">대시보드</span>
+            <span class="text-quokka-black mt-1 text-sm font-medium">대시보드</span>
           </div>
           <div
-            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
           >
-            <div class="flex h-6 w-6 items-center justify-center text-xl">
-              <img src="/public/icons/Group 42.svg" alt="" />
+            <div class="flex h-5 w-5 items-center justify-center text-xl">
+              <img src="/src/assets/compass.svg" alt="" />
             </div>
-            <span class="mt-1 text-sm font-medium text-gray-700">리소스</span>
+            <span class="text-quokka-black mt-1 text-sm font-medium">리소스</span>
           </div>
           <div
-            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
           >
-            <div class="flex h-6 w-6 items-center justify-center text-xl">
-              <img src="/public/icons/Intersect.svg" alt="" />
+            <div class="flex h-5 w-5 items-center justify-center text-xl">
+              <img src="/src/assets/bookmark.svg" alt="" />
             </div>
-            <span class="mt-1 text-sm font-medium text-gray-700">북마크</span>
+            <span class="text-quokka-black mt-1 text-sm font-medium">북마크</span>
           </div>
         </nav>
 
         <!-- Settings at bottom -->
         <nav class="mt-auto mb-5 w-full">
           <div
-            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
           >
-            <div class="flex h-6 w-6 items-center justify-center text-xl">
-              <img src="/public/icons/Setting.svg" alt="" />
+            <div class="flex h-5 w-5 items-center justify-center text-xl">
+              <img src="/src/assets/settings.svg" alt="" />
             </div>
-            <span class="mt-1 text-sm font-medium text-gray-700">설정</span>
+            <span class="text-quokka-black mt-1 text-sm font-medium">설정</span>
           </div>
         </nav>
       </div>
     </aside>
-    <script>
-      // 간단한 탭 활성화 기능
-      document.querySelectorAll('.nav-item').forEach((item) => {
-        item.addEventListener('click', () => {
-          // 모든 탭에서 active 클래스 제거
-          document.querySelectorAll('.nav-item').forEach((el) => {
-            el.classList.remove('active');
-          });
-
-          // 클릭한 탭에 active 클래스 추가
-          item.classList.add('active');
-        });
-      });
-    </script>
   </body>
+  <script src="sidebar.js"></script>
 </html>
