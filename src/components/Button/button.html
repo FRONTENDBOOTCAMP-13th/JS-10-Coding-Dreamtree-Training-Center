@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Component</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script type="module" src="../../main.ts"></script>
+    <link rel="preload" href="/font/pretendardvariable.css" as="style" />
+    <link rel="stylesheet" href="/font/pretendardvariable.css" />
+  </head>
+  <body class="font-pretendard min-h-screen">
+    <h1 class="text-quokka-brown p-2 text-5xl font-bold">Button 컴포넌트</h1>
+
+    <!-- [헤더] 한/영 -->
+    <h2 class="text-quokka-brown">[헤더] 한/영 전환 버튼</h2>
+    <button
+      type="button"
+      class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+    >
+      KO
+      <svg
+        width="9"
+        height="5"
+        viewBox="0 0 9 5"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="language select"
+        class="self-center"
+      >
+        <path
+          d="M7.5 1L4.5 4L1.5 1"
+          stroke="#777777"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <!-- 카테고리 -->
+    <h2 class="text-quokka-brown mt-4">카테고리 버튼</h2>
+    <button
+      type="button"
+      class="text-quokka-brown flex justify-between gap-4 rounded-4xl border bg-white px-4 py-1.5 text-sm font-semibold"
+    >
+      카테고리
+      <svg
+        width="9"
+        height="5"
+        viewBox="0 0 9 5"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="category select"
+        class="self-center"
+      >
+        <path
+          d="M7.5 1L4.5 4L1.5 1"
+          stroke="#8B6D5C"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="border-quokka-brown bg-quokka-tan flex justify-between gap-4 rounded-4xl border px-4 py-1.5 text-sm font-semibold text-white"
+    >
+      어려움
+      <svg
+        width="9"
+        height="5"
+        viewBox="0 0 9 5"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="category select"
+        class="self-center"
+      >
+        <path
+          d="M7.5 1L4.5 4L1.5 1"
+          stroke="#ffffff"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    <!-- 상세보기 -->
+    <h2 class="text-quokka-brown mt-4">상세보기 버튼</h2>
+    <button
+      type="button"
+      class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
+    >
+      상세보기
+    </button>
+
+    <!-- 새 컬렉션 추가 -->
+    <h2 class="text-quokka-brown mt-4">새 컬렉션 추가 버튼</h2>
+    <button
+      type="button"
+      class="bg-quokka-mint flex justify-between gap-2.5 self-center rounded-4xl px-6 py-3 text-sm font-semibold text-white"
+    >
+      <svg
+        width="11"
+        height="10"
+        viewBox="0 0 11 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="self-center"
+      >
+        <path
+          d="M5.5 1V9M9.5 5L1.5 5"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+
+      새 컬렉션 추가
+    </button>
+
+    <!-- 태그 -->
+    <h2 class="text-quokka-brown mt-4">태그 버튼</h2>
+    <button
+      type="button"
+      class="bg-quokka-white text-quokka-brown gap-4 self-center rounded-4xl px-2.5 py-1.5 text-xs font-semibold"
+    >
+      태그
+    </button>
+
+    <!-- [북마크] 방문/제거 -->
+    <h2 class="text-quokka-brown mt-4">[북마크] 방문, 제거 버튼</h2>
+    <button
+      type="button"
+      class="text-quokka-blue border-quokka flex justify-between gap-2.5 rounded-4xl border border-[#a0a0a0] bg-[#F9FAFB] px-3 py-1.5 text-xs font-semibold"
+    >
+      <svg
+        width="12"
+        height="13"
+        viewBox="0 0 12 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="self-center"
+      >
+        <path
+          d="M6.83333 3.16667H2.25C1.55964 3.16667 1 3.72631 1 4.41667V10.25C1 10.9404 1.55964 11.5 2.25 11.5H8.08333C8.77369 11.5 9.33333 10.9404 9.33333 10.25V5.66667M3.5 9L11 1.5M11 1.5L8.08333 1.5M11 1.5V4.41667"
+          stroke="#64B5F6"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      방문
+    </button>
+    <button
+      type="button"
+      class="text-quokka-red border-quokka flex justify-between gap-2.5 rounded-4xl border border-[#a0a0a0] bg-[#F9FAFB] px-3 py-1.5 text-xs font-semibold"
+    >
+      <svg
+        width="12"
+        height="13"
+        viewBox="0 0 12 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="self-center"
+      >
+        <path
+          d="M7.66084 4.80769L7.45105 9.88462M4.54895 9.88462L4.33916 4.80769M10.3804 2.99724C10.5877 3.02638 10.7942 3.05755 11 3.09073M10.3804 2.99724L9.73321 10.8281C9.67856 11.4894 9.08614 12 8.37359 12H3.62641C2.91386 12 2.32144 11.4894 2.26679 10.8281L1.61961 2.99724M10.3804 2.99724C9.68559 2.89958 8.98273 2.82479 8.27273 2.77372M1 3.09073C1.2058 3.05755 1.41235 3.02638 1.61961 2.99724M1.61961 2.99724C2.31441 2.89958 3.01727 2.82479 3.72727 2.77372M8.27273 2.77372V2.25693C8.27273 1.59164 7.72082 1.03623 7.00642 1.01496C6.67226 1.00501 6.33676 1 6 1C5.66324 1 5.32774 1.00501 4.99359 1.01496C4.27918 1.03623 3.72727 1.59164 3.72727 2.25693V2.77372M8.27273 2.77372C7.52276 2.71978 6.76483 2.69231 6 2.69231C5.23517 2.69231 4.47724 2.71978 3.72727 2.77372"
+          stroke="#C25048"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      제거
+    </button>
+  </body>
+</html>
