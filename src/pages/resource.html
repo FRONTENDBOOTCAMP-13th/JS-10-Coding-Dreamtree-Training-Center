@@ -13,7 +13,7 @@
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black relative">
     <!-- nav : body 에 relative, aside 에 fixed 추가 -->
-    <aside class="fixed top-0 w-32 bg-white">
+    <aside class="fixed top-0 z-10 w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]">
       <div class="flex h-screen w-32 flex-col items-center px-2 pt-6">
         <!-- Logo -->
         <div class="mb-3 flex flex-col items-center">
@@ -66,11 +66,57 @@
     </aside>
 
     <!-- header -->
+    <header
+      class="fixed top-0 left-0 z-1 flex h-16 w-full items-center justify-between bg-white pr-7 pl-[calc(8rem+1.75rem)]"
+    >
+      <!-- 검색창 -->
+      <div class="max-w-xl flex-1">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="리소스 검색..."
+            class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
+          />
+          <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
+            <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
+          </div>
+          <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
+            <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+      <!-- 언어 선택 -->
+      <button
+        type="button"
+        class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+      >
+        KO
+        <svg
+          width="9"
+          height="5"
+          viewBox="0 0 9 5"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="language select"
+          class="self-center"
+        >
+          <path
+            d="M7.5 1L4.5 4L1.5 1"
+            stroke="#777777"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </header>
 
     <!-- main content -->
-    <main class="mt-5.5 mr-7 ml-[calc(8rem+1.75rem)] flex flex-col gap-6">
+    <main class="relative mt-[calc(64px+22px)] flex flex-col gap-6 pr-7 pl-[calc(8rem+1.75rem)]">
       <h2 class="text-3xl font-bold">쿼카의 리소스 탐험 ♪</h2>
-      <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
+      <div
+        class="sticky top-[calc(64px+22px)] flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4"
+      >
         <button
           type="button"
           class="text-quokka-brown flex h-fit w-fit justify-between gap-4 rounded-4xl border bg-white px-4 py-1.5 text-sm font-semibold"
@@ -169,7 +215,7 @@
       </div>
       <section class="grid grid-cols-3 gap-5">
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -257,7 +303,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -345,7 +391,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -433,7 +479,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -521,7 +567,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -609,7 +655,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -697,7 +743,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -785,7 +831,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
@@ -873,7 +919,7 @@
           </div>
         </article>
         <article
-          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium drop-shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+          class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         >
           <!-- 제목/설명 -->
           <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
