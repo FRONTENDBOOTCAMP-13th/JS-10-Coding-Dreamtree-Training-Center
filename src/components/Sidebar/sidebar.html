@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sidebar Component</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script type="module" src="../../main.ts"></script>
+    <link rel="preload" href="/font/pretendardvariable.css" as="style" />
+    <link rel="stylesheet" href="/font/pretendardvariable.css" />
+    <!-- 폰트가 적용이 안되서 확인 부탁 -->
+    <style>
+      .active {
+        background-color: #d2b48c;
+      }
+    </style>
+  </head>
+  <body class="m-0 box-border p-0">
+    <aside>
+      <!-- 백그라운드 컬러 꿔까 화이트로 교체 필요 -->
+      <div class="flex h-screen w-32 flex-col items-center pt-6">
+        <!-- Logo -->
+        <div class="mb-3 flex flex-col items-center">
+          <img src="/public/quokkadocs 2.svg" alt="Quokkadocs icon" />
+        </div>
+
+        <!-- Navigation Items -->
+        <nav class="flex w-full flex-col items-center gap-2">
+          <div
+            class="nav-item active flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+          >
+            <div class="flex h-6 w-6 items-center justify-center text-xl">
+              <img src="/public/icons/Vector.svg" alt="" />
+            </div>
+            <span class="mt-1 text-sm font-medium text-gray-700">대시보드</span>
+          </div>
+          <div
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+          >
+            <div class="flex h-6 w-6 items-center justify-center text-xl">
+              <img src="/public/icons/Group 42.svg" alt="" />
+            </div>
+            <span class="mt-1 text-sm font-medium text-gray-700">리소스</span>
+          </div>
+          <div
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+          >
+            <div class="flex h-6 w-6 items-center justify-center text-xl">
+              <img src="/public/icons/Intersect.svg" alt="" />
+            </div>
+            <span class="mt-1 text-sm font-medium text-gray-700">북마크</span>
+          </div>
+        </nav>
+
+        <!-- Settings at bottom -->
+        <nav class="mt-auto mb-5 w-full">
+          <div
+            class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3 transition-colors duration-200 hover:bg-[#f5ebe0]"
+          >
+            <div class="flex h-6 w-6 items-center justify-center text-xl">
+              <img src="/public/icons/Setting.svg" alt="" />
+            </div>
+            <span class="mt-1 text-sm font-medium text-gray-700">설정</span>
+          </div>
+        </nav>
+      </div>
+    </aside>
+    <script>
+      // 간단한 탭 활성화 기능
+      document.querySelectorAll('.nav-item').forEach((item) => {
+        item.addEventListener('click', () => {
+          // 모든 탭에서 active 클래스 제거
+          document.querySelectorAll('.nav-item').forEach((el) => {
+            el.classList.remove('active');
+          });
+
+          // 클릭한 탭에 active 클래스 추가
+          item.classList.add('active');
+        });
+      });
+    </script>
+  </body>
+</html>
