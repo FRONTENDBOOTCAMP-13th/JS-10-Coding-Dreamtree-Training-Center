@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sample Component</title>
+    <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="../../style.css" />
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="../../main.ts"></script>
+    <link rel="preload" href="/font/pretendardvariable.css" as="style" />
+    <link rel="stylesheet" href="/font/pretendardvariable.css" />
   </head>
-  <body>
-    <h1 class="p-2 text-5xl font-bold text-[var(--quokka-brown)]">
-      Sample 컴포넌트 페이지입니다.
-    </h1>
+  <body class="font-pretendard bg-quokka-white min-h-screen">
+    <h1 class="text-quokka-brown p-2 text-5xl font-bold">Sample 컴포넌트 페이지입니다.</h1>
   </body>
 </html>
