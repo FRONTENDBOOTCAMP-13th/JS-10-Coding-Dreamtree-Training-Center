@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header Component</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../style.css" />
+    <script type="module" src="../../main.ts"></script>
+    <link rel="preload" href="/font/pretendardvariable.css" as="style" />
+    <link rel="stylesheet" href="/font/pretendardvariable.css" />
+  </head>
+  <body class="font-pretendard min-h-screen">
+    <!-- 고정 헤더 -->
+    <!-- 실제 적용시에는 header class에 shadow 제거 후 적용, 현재는 잘 보이도록 넣어둠 -->
+    <header
+      class="fixed top-0 left-0 flex h-16 w-full items-center justify-between bg-white px-[158px] pr-[28px] shadow"
+    >
+      <!-- 검색창 -->
+      <div class="max-w-xl flex-1">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="리소스 검색..."
+            class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
+          />
+          <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
+            <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
+          </div>
+          <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
+            <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
+          </div>
+        </div>
+      </div>
+      <!-- 언어 선택 -->
+      <button
+        type="button"
+        class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+      >
+        KO
+        <svg
+          width="9"
+          height="5"
+          viewBox="0 0 9 5"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="language select"
+          class="self-center"
+        >
+          <path
+            d="M7.5 1L4.5 4L1.5 1"
+            stroke="#777777"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </header>
+  </body>
+</html>
