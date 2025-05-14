@@ -2,26 +2,28 @@
 <html lang="ko-KR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuokkaDocs</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preload" href="/font/pretendardvariable.css" as="style" />
+    <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="/src/main.ts"></script>
   </head>
-  <body class="min-h-screen bg-[var(--quokka-light)]">
+  <body class="font-pretendard bg-quokka-white min-h-screen">
     <!-- 메인 컨텐츠 -->
     <main class="container mx-auto px-4 py-8">
       <!-- 헤더 섹션 -->
       <header class="mb-8 rounded-xl bg-white p-6 shadow-md">
         <div class="flex items-center justify-between">
-          <h1 class="text-3xl font-bold text-[var(--quokka-brown)]">
+          <h1 class="text-quokka-brown text-3xl font-bold">
             QuokkaDocs의 각 컴포넌트와 페이지 목록
           </h1>
           <div
-            class="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--quokka-tan)]"
+            class="bg-quokka-tan flex h-16 w-16 items-center justify-center rounded-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-10 w-10 text-[var(--quokka-brown)]"
+              class="text-quokka-brown h-10 w-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -43,7 +45,7 @@
       <!-- 컴포넌트 섹션 -->
       <div class="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <section class="overflow-hidden rounded-xl bg-white shadow-md">
-          <div class="bg-[var(--quokka-brown)] px-6 py-4 text-white">
+          <div class="bg-quokka-brown px-6 py-4 text-white">
             <h2 class="flex items-center text-xl font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +65,7 @@
             </h2>
           </div>
           <ul class="divide-y divide-gray-100">
-            <li
-              class="transition-colors duration-200 hover:bg-[var(--quokka-light)]"
-            >
+            <li class="hover:bg-quokka-white transition-colors duration-200">
               <a
                 href="./src/components/Sample/sample.html"
                 class="flex items-center justify-between px-6 py-4"
@@ -90,7 +90,7 @@
 
         <!-- 페이지 섹션 -->
         <section class="overflow-hidden rounded-xl bg-white shadow-md">
-          <div class="bg-[var(--quokka-brown)] px-6 py-4 text-white">
+          <div class="bg-quokka-brown px-6 py-4 text-white">
             <h2 class="flex items-center text-xl font-bold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,9 +110,7 @@
             </h2>
           </div>
           <ul class="divide-y divide-gray-100">
-            <li
-              class="transition-colors duration-200 hover:bg-[var(--quokka-light)]"
-            >
+            <li class="hover:bg-quokka-white transition-colors duration-200">
               <a
                 href="./src/pages/sample.html"
                 class="flex items-center justify-between px-6 py-4"
