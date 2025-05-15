@@ -3,15 +3,138 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sample Page</title>
+    <title>북마크</title>
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="../../style.css" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
-    <script type="module" src="./sample.ts"></script>
   </head>
-  <body class="font-pretendard bg-quokka-white min-h-screen">
-    <h1 class="text--quokka-brown p-2 text-5xl font-bold">Sample 페이지입니다.</h1>
+  <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
+    <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr]">
+      <aside
+        class="fixed top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+        aria-label="사이드바"
+      >
+        <nav class="flex h-full flex-col items-center px-3 pt-3" aria-label="사이드바 내비게이션">
+          <h2 class="sr-only">주요 메뉴</h2>
+          <ul class="flex w-full flex-1 flex-col items-center gap-2">
+            <!-- 로고 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/dashboard.html"
+                class="mb-3 flex flex-col items-center"
+                aria-label="대시보드로 이동"
+              >
+                <h1 class="sr-only">QuokkaDocs</h1>
+                <img src="/favicon.svg" alt="QuokkaDocs 로고" />
+              </a>
+            </li>
+            <!-- 대시보드 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/dashboard.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-active="true"
+                data-page="/src/pages/dashboard.html"
+                aria-current="page"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/dashboard.svg" alt="대시보드 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">대시보드</span>
+              </a>
+            </li>
+            <!-- 리소스 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/resource.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-page="/src/pages/resource.html"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/compass.svg" alt="리소스 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">리소스</span>
+              </a>
+            </li>
+            <!-- 북마크 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/bookmark.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-page="/src/pages/bookmark.html"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/bookmark.svg" alt="북마크 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">북마크</span>
+              </a>
+            </li>
+            <!-- 설정(하단 고정) -->
+            <li class="mt-auto w-full">
+              <a
+                href="#"
+                class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
+                data-page="#"
+                aria-label="설정"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/settings.svg" alt="설정 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">설정</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <header
+        class="z-20 col-start-2 row-start-1 flex h-16 w-full items-center justify-between bg-white pr-7 pl-[1.75rem]"
+      >
+        <!-- 검색창 -->
+        <div class="max-w-xl flex-1">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="리소스 검색..."
+              class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
+            />
+            <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
+              <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
+            </div>
+            <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
+              <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
+            </div>
+          </div>
+        </div>
+        <!-- 언어 선택 -->
+        <button
+          type="button"
+          class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+        >
+          KO
+          <svg
+            width="9"
+            height="5"
+            viewBox="0 0 9 5"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="language select"
+            class="self-center"
+          >
+            <path
+              d="M7.5 1L4.5 4L1.5 1"
+              stroke="#777777"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </header>
+      <main
+        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 px-[1.75rem] py-[1.875rem]"
+      ></main>
+    </div>
   </body>
 </html>
