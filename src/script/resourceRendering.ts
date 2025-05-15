@@ -78,6 +78,7 @@ function createResourceArticle(resource: Resource): string {
       <div class="mt-6 flex flex-row items-center justify-between">
         <button
           type="button"
+          name="detail"
           class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
         >
           상세보기
