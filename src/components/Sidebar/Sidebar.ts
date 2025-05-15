@@ -11,8 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     private init(): void {
-      // Set initial active item (dashboard)
-      this.setActiveItem(this.navItems[0]);
+      // Set initial active item (dashboard by default)
+      const currentPath = window.location.pathname;
+      let activeItemFound = false;
+
+      // Check if there's an item matching the current page
+      this.navItems.forEach((item) => {
+        const itemPath = item.getAttribute('data-page');
+        if (itemPath && currentPath.endsWith(itemPath)) {
+          this.setActiveItem(item);
+          activeItemFound = true;
+        }
+      });
+
+      // If no active item found, default to the first one
+      if (!activeItemFound) {
+        this.setActiveItem(this.navItems[0]);
+      }
 
       // Add click event listeners to all nav items
       this.navItems.forEach((item) => {
@@ -21,17 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     private handleNavItemClick(clickedItem: HTMLElement): void {
-      // Prevent unnecessary updates if clicking the already active item
-      if (clickedItem.getAttribute('data-active') === 'true') {
-        return;
+      // 페이지 이동 처리
+      const pagePath = clickedItem.getAttribute('data-page');
+      if (pagePath) {
+        // 페이지 경로가 있으면 해당 페이지로 이동
+        window.location.href = pagePath;
+      } else {
+        // 페이지 경로가 없는 경우 기본 동작만 수행
+        const itemName = clickedItem.querySelector('span')?.textContent;
+        console.log(`No page defined for: ${itemName}`);
       }
 
-      // Update active states
+      // 활성화 상태 업데이트
       this.setActiveItem(clickedItem);
-
-      // In a real application, you would navigate to the corresponding page here
-      const itemName = clickedItem.querySelector('span')?.textContent;
-      console.log(`Navigating to: ${itemName}`);
     }
 
     private setActiveItem(item: HTMLElement): void {
