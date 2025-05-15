@@ -120,98 +120,59 @@
       <div
         class="sticky top-[calc(64px+22px)] flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4"
       >
-        <button
-          type="button"
-          class="text-quokka-brown flex h-fit w-fit justify-between gap-4 rounded-4xl border bg-white px-4 py-1.5 text-sm font-semibold"
+        <!-- 카테고리 -->
+        <label for="category" class="sr-only">카테고리</label>
+        <select
+          id="category"
+          name="category"
+          class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
         >
-          카테고리
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="category select"
-            class="self-center"
-          >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#8B6D5C"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="text-quokka-brown flex h-fit w-fit justify-between gap-4 rounded-4xl border bg-white px-4 py-1.5 text-sm font-semibold"
+          <option value="">카테고리</option>
+          <option value="value1">값1</option>
+          <option value="value2">값2</option>
+          <option value="value3">값3</option>
+        </select>
+
+        <!-- 기술스택 -->
+        <label for="stack" class="sr-only">기술스택</label>
+        <select
+          id="stack"
+          name="stack"
+          class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
         >
-          기술스택
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="category select"
-            class="self-center"
-          >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#8B6D5C"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="border-quokka-brown bg-quokka-tan flex h-fit w-fit justify-between gap-4 rounded-4xl border px-4 py-1.5 text-sm font-semibold text-white"
+          <option value="">기술스택</option>
+          <option value="value1">값1</option>
+          <option value="value2">값2</option>
+          <option value="value3">값3</option>
+        </select>
+
+        <!-- 난이도 -->
+        <label for="difficulty" class="sr-only">난이도</label>
+        <select
+          id="difficulty"
+          name="difficulty"
+          class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
         >
-          어려움
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="category select"
-            class="self-center"
-          >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#ffffff"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        <button
-          type="button"
-          class="text-quokka-brown flex h-fit w-fit justify-between gap-4 rounded-4xl border bg-white px-4 py-1.5 text-sm font-semibold"
+          <option value="">난이도</option>
+          <option value="value1">값1</option>
+          <option value="value2">값2</option>
+          <option value="value3">값3</option>
+        </select>
+
+        <!-- 언어 -->
+        <label for="language" class="sr-only">언어</label>
+        <select
+          id="language"
+          name="language"
+          class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
         >
-          언어
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="category select"
-            class="self-center"
-          >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#8B6D5C"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+          <option value="">언어</option>
+          <option value="value1">값1</option>
+          <option value="value2">값2</option>
+          <option value="value3">값3</option>
+        </select>
+
+        <!-- 필터 초기화 -->
         <button type="button" class="text-quokka-brown ml-auto w-fit text-sm font-semibold">
           필터 초기화
         </button>
