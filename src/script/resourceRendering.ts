@@ -1,11 +1,13 @@
+import { type Resource } from '../types/type';
+
 // 1. 데이터 fetch 함수
-async function fetchResources() {
+async function fetchResources(): Promise<Resource[]> {
   const res = await fetch('../../src/data/resource.json');
   return await res.json();
 }
 
 // 2. article 생성 함수
-function createResourceArticle(resource: any): string {
+function createResourceArticle(resource: Resource): string {
   // 태그 span 생성
   const tagsHtml = resource.tags
     .map(
