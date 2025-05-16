@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./../style.css" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
-    <script type="module" src="../main.ts"></script>
+    <script type="module" src="./../main.ts"></script>
     <script type="module" src="./../script/resourceRendering.ts"></script>
-    <script type="module" src="../script/filter.ts"></script>
+    <script type="module" src="./../script/filter.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -145,6 +145,7 @@
             id="category"
             name="category"
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+            data-roll="selectCategory"
           >
             <option value="">카테고리</option>
             <option value="프론트엔드">프론트엔드</option>
@@ -158,6 +159,7 @@
             id="stack"
             name="stack"
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+            data-roll="selectStack"
           >
             <option value="">기술스택</option>
             <option value="React">React</option>
@@ -176,6 +178,7 @@
             id="difficulty"
             name="difficulty"
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+            data-roll="selectDifficulty"
           >
             <option value="">난이도</option>
             <option value="쉬움">쉬움</option>
