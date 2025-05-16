@@ -143,6 +143,7 @@ async function renderResources(): Promise<void> {
       const author = modal?.querySelector('[data-roll="author"]') as HTMLDivElement;
       const difficulty = modal?.querySelector('[data-roll="difficulty"]') as HTMLDivElement;
       const dateAdded = modal?.querySelector('[data-roll="dateAdded"]') as HTMLDivElement;
+      const recentView = modal?.querySelector('[data-roll="recentView"]') as HTMLDivElement;
 
       const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
       const originData = resources[resourceId - 1];
@@ -162,6 +163,7 @@ async function renderResources(): Promise<void> {
       // 아티클에 없는 정보 업데이트
       resourceUrl.setAttribute('href', originData.resourceUrl);
       author.textContent = originData.author;
+      recentView.textContent = new Date().toISOString().slice(0, 10) || '';
 
       modal?.showModal();
     });
