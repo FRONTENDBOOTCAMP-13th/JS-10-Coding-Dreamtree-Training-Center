@@ -1,14 +1,22 @@
 import data from '../../src/data/resource.json';
 import { type Resource } from '../types/type';
 
-// 1. 데이터 fetch 함수
+/**
+ * 원본 데이터를 비동기로 가져오는 함수
+ * @returns Promise<Resource[]>
+ * @description resource.json 에 접근하여 데이터를 가져오는 함수입니다.
+ */
 async function fetchResources(): Promise<Resource[]> {
   return data;
 }
 
-// 2. article 생성 함수
+/**
+ * 리소스 아티클을 생성하는 함수
+ * @param resource : Resource
+ * @returns HTMLElement
+ * @description 원본 객체의 속성 값에 접근하여 HTML article 의 요소를 동적으로 변경, 생성하는 함수입니다.
+ */
 function createResourceArticle(resource: Resource): string {
-  // 태그 span 생성
   const tagsHtml = resource.tags
     .map(
       (tag: string) =>
@@ -16,7 +24,6 @@ function createResourceArticle(resource: Resource): string {
     )
     .join(' ');
 
-  // 난이도 색상 결정
   const difficultyStroke =
     resource.difficulty === '쉬움'
       ? 'var(--color-quokka-blue)'
@@ -24,7 +31,6 @@ function createResourceArticle(resource: Resource): string {
         ? 'var(--color-quokka-green)'
         : 'var(--color-quokka-red)';
 
-  // article 템플릿
   return `
     <article
       class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]" data-index="${resource.id}"
@@ -104,8 +110,16 @@ function createResourceArticle(resource: Resource): string {
   `;
 }
 
-// 3. 렌더링 함수
-async function renderResources() {
+/**
+ * 리소스 아티클을 비동기로 렌더링하여 생성하고, 버튼 클릭 시 모달을 작동시키는 함수
+ * @returns Promise<void>
+ * @description 비동기로 데이터를 가져와서 HTML article 태그를 생성합니다.
+ * @description 생성된 HTML article 태그는 main > section 에 삽입됩니다.
+ * @description 모달 열기 버튼 클릭 시 동작하는 이벤트 리스너를 추가합니다.
+ * @description 이때, 모달에 리소스 정보가 업데이트되고, 모달이 열립니다.
+ * @description 모달 닫기 버튼 클릭 시 모달이 닫히는 이벤트 리스너를 추가합니다.
+ */
+async function renderResources(): Promise<void> {
   // 동적으로 데이터 호출
   const resources = await fetchResources();
   const section = document.querySelector('main > section');
@@ -160,7 +174,7 @@ async function renderResources() {
   });
 }
 
-// 4. DOMContentLoaded 시 렌더링
+// DOMContentLoaded 이벤트 리스너를 사용하여 DOMContentLoaded 이벤트가 발생할 때 renderResources 함수를 호출합니다.
 document.addEventListener('DOMContentLoaded', () => {
   renderResources();
 });
