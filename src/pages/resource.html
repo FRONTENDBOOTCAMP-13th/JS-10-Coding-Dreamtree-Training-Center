@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>리소스</title>
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="./../style.css" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
     <script type="module" src="./../script/resourceRendering.ts"></script>
+    <script type="module" src="../script/filter.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -146,9 +147,9 @@
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
           >
             <option value="">카테고리</option>
-            <option value="value1">값1</option>
-            <option value="value2">값2</option>
-            <option value="value3">값3</option>
+            <option value="프론트엔드">프론트엔드</option>
+            <option value="백엔드">백엔드</option>
+            <option value="모바일">모바일</option>
           </select>
 
           <!-- 기술스택 -->
@@ -159,9 +160,14 @@
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
           >
             <option value="">기술스택</option>
-            <option value="value1">값1</option>
-            <option value="value2">값2</option>
-            <option value="value3">값3</option>
+            <option value="React">React</option>
+            <option value="Node.js">Node.js</option>
+            <option value="Flutter">Flutter</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="Docker">Docker</option>
+            <option value="AWS">AWS</option>
+            <option value="GraphQL">GraphQL</option>
           </select>
 
           <!-- 난이도 -->
@@ -172,9 +178,9 @@
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
           >
             <option value="">난이도</option>
-            <option value="value1">값1</option>
-            <option value="value2">값2</option>
-            <option value="value3">값3</option>
+            <option value="쉬움">쉬움</option>
+            <option value="보통">보통</option>
+            <option value="어려움">어려움</option>
           </select>
 
           <!-- 언어 -->
@@ -185,13 +191,16 @@
             class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
           >
             <option value="">언어</option>
-            <option value="value1">값1</option>
-            <option value="value2">값2</option>
-            <option value="value3">값3</option>
+            <option value="KO">KO</option>
+            <option value="EN">EN</option>
+            <option value="JP">JP</option>
           </select>
 
           <!-- 필터 초기화 -->
-          <button type="button" class="text-quokka-brown ml-auto w-fit text-sm font-semibold">
+          <button
+            type="button"
+            class="text-quokka-brown ml-auto w-fit cursor-pointer text-sm font-semibold"
+          >
             필터 초기화
           </button>
         </div>
@@ -295,9 +304,15 @@
 
             <!-- 태그 -->
             <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
+                >프론트엔드</span
+              >
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
+                >백엔드</span
+              >
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
+                >모바일</span
+              >
             </div>
 
             <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
