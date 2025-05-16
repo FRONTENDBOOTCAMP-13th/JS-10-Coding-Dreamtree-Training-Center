@@ -85,7 +85,7 @@ function createResourceArticle(resource: Resource): string {
         <button
           type="button"
           name="detail"
-          class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
+          class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white cursor-pointer"
         >
           상세보기
         </button>
