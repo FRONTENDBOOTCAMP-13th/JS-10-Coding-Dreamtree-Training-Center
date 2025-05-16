@@ -1,9 +1,9 @@
+import data from '../../src/data/resource.json';
 import { type Resource } from '../types/type';
 
 // 1. 데이터 fetch 함수
 async function fetchResources(): Promise<Resource[]> {
-  const res = await fetch('../../src/data/resource.json');
-  return await res.json();
+  return data;
 }
 
 // 2. article 생성 함수
@@ -27,14 +27,14 @@ function createResourceArticle(resource: Resource): string {
   // article 템플릿
   return `
     <article
-      class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+      class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]" data-index="${resource.id}"
     >
-      <h3 class="text-2xl font-semibold">${resource.title}</h3>
-      <p class="text-quokka-gray mt-2 text-sm">${resource.description}</p>
-      <div class="mt-4 font-semibold">${tagsHtml}</div>
+      <h3 class="text-2xl font-semibold" data-roll="title">${resource.title}</h3>
+      <p class="text-quokka-gray mt-2 text-sm" data-roll="description">${resource.description}</p>
+      <div class="mt-4 font-semibold" data-roll="tags">${tagsHtml}</div>
       <div class="mt-5 flex flex-row justify-between">
         <div class="flex flex-row gap-3">
-          <span class="flex flex-row items-center gap-1">
+          <span class="flex flex-row items-center gap-1"  data-roll="category">
           <svg
                   width="15"
                   height="15"
@@ -58,7 +58,7 @@ function createResourceArticle(resource: Resource): string {
                   />
                 </svg>
                 ${resource.category}</span>
-          <span class="flex flex-row items-center gap-1">
+          <span class="flex flex-row items-center gap-1" data-roll="difficulty">
           <svg
                   width="15"
                   height="15"
@@ -73,7 +73,7 @@ function createResourceArticle(resource: Resource): string {
                 </svg>
                 ${resource.difficulty}</span>
         </div>
-        <span>${resource.dateAdded}</span>
+        <span data-roll="dateAdded">${resource.dateAdded}</span>
       </div>
       <div class="mt-6 flex flex-row items-center justify-between">
         <button
@@ -106,10 +106,58 @@ function createResourceArticle(resource: Resource): string {
 
 // 3. 렌더링 함수
 async function renderResources() {
+  // 동적으로 데이터 호출
   const resources = await fetchResources();
   const section = document.querySelector('main > section');
+
   if (!section) return;
   section.innerHTML = resources.map(createResourceArticle).join('');
+
+  // 모달 열기 버튼 선택
+  const detailBtn = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
+  const modal = document.querySelector('dialog');
+
+  detailBtn.forEach((button) => {
+    // 모달 열기 기능
+    button.addEventListener('click', function () {
+      // 모달 관련 요소 선택
+      const title = modal?.querySelector('[data-roll="title"]') as HTMLDivElement;
+      const tags = modal?.querySelector('[data-roll="tags"]') as HTMLDivElement;
+      const description = modal?.querySelector('[data-roll="description"]') as HTMLParagraphElement;
+      const resourceUrl = modal?.querySelector('[data-roll="resourceUrl"]') as HTMLAnchorElement;
+      const category = modal?.querySelector('[data-roll="category"]') as HTMLDivElement;
+      const author = modal?.querySelector('[data-roll="author"]') as HTMLDivElement;
+      const difficulty = modal?.querySelector('[data-roll="difficulty"]') as HTMLDivElement;
+      const dateAdded = modal?.querySelector('[data-roll="dateAdded"]') as HTMLDivElement;
+
+      const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
+      const originData = resources[resourceId - 1];
+
+      title.textContent = originData.title;
+      tags.innerHTML = originData.tags
+        .map(
+          (tag: string) =>
+            `<span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">${tag}</span>`,
+        )
+        .join(' ');
+      description.textContent = originData.description;
+      category.textContent = originData.category;
+      difficulty.textContent = originData.difficulty;
+      dateAdded.textContent = originData.dateAdded;
+
+      // 아티클에 없는 정보 업데이트
+      resourceUrl.setAttribute('href', originData.resourceUrl);
+      author.textContent = originData.author;
+
+      modal?.showModal();
+    });
+  });
+
+  // 모달 닫기 버튼 클릭 시 모달 닫기
+  const closeBtn = modal?.querySelector('button[name="close"]') as HTMLButtonElement;
+  closeBtn.addEventListener('click', () => {
+    modal?.close();
+  });
 }
 
 // 4. DOMContentLoaded 시 렌더링
