@@ -120,21 +120,21 @@ function createResourceArticle(resource: Resource): string {
  * @description 모달 닫기 버튼 클릭 시 모달이 닫히는 이벤트 리스너를 추가합니다.
  */
 async function renderResources(): Promise<void> {
-  // 동적으로 데이터 호출
+  // 동적으로 article 데이터를 호출하여, section 자식 요소로 삽입
   const resources = await fetchResources();
   const section = document.querySelector('main > section');
 
   if (!section) return;
   section.innerHTML = resources.map(createResourceArticle).join('');
 
-  // 모달 열기 버튼 선택
+  // ↓ 모달 관련 기능
   const detailBtn = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
   const modal = document.querySelector('dialog');
 
+  // 각각의 버튼 요소에 동일하게 이벤트 할당
   detailBtn.forEach((button) => {
-    // 모달 열기 기능
     button.addEventListener('click', function () {
-      // 모달 관련 요소 선택
+      // 모달에서 동적으로 변경이 필요한 요소를 추출
       const title = modal?.querySelector('[data-roll="title"]') as HTMLDivElement;
       const tags = modal?.querySelector('[data-roll="tags"]') as HTMLDivElement;
       const description = modal?.querySelector('[data-roll="description"]') as HTMLParagraphElement;
@@ -145,9 +145,11 @@ async function renderResources(): Promise<void> {
       const dateAdded = modal?.querySelector('[data-roll="dateAdded"]') as HTMLDivElement;
       const recentView = modal?.querySelector('[data-roll="recentView"]') as HTMLDivElement;
 
+      // 클릭한 버튼의 부모 요소인 article 요소에서 data-index 속성을 가져와서 해당 리소스의 배열 정보를 추출
       const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
       const originData = resources[resourceId - 1];
 
+      // 모달에 있는 요소에 원본 데이터의 속성 값으로 업데이트
       title.textContent = originData.title;
       tags.innerHTML = originData.tags
         .map(
@@ -159,12 +161,11 @@ async function renderResources(): Promise<void> {
       category.textContent = originData.category;
       difficulty.textContent = originData.difficulty;
       dateAdded.textContent = originData.dateAdded;
-
-      // 아티클에 없는 정보 업데이트
       resourceUrl.setAttribute('href', originData.resourceUrl);
       author.textContent = originData.author;
       recentView.textContent = new Date().toISOString().slice(0, 10) || '';
 
+      // 모달 정보가 모두 업데이트 된 후 열기 실행
       modal?.showModal();
     });
   });
