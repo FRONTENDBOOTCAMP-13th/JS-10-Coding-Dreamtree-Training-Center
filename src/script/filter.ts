@@ -2,7 +2,12 @@ import data from '../../src/data/resource.json';
 import { renderResources } from './resourceRendering';
 import { type Resource } from '../types/type';
 
-// 필터링 함수: 모든 조건을 만족하는 데이터만 반환
+/**
+ * 필터링 함수: 모든 조건을 만족하는 데이터만 반환
+ * @param resources : Resource 객체 데이터
+ * @param criteria : Resources 객체 데이터 값을 배열 형태로 사용
+ * @returns Resource[]
+ */
 function filterResources(
   resources: Resource[],
   criteria: { category?: string; stack?: string; difficulty?: string; language?: string },
@@ -19,7 +24,9 @@ function filterResources(
   });
 }
 
-// 필터링 이벤트 핸들러
+/**
+ * 필터링 이벤트 핸들러
+ */
 function handleFilterChange() {
   const category = (document.getElementById('category') as HTMLSelectElement)?.value || '';
   const stack = (document.getElementById('stack') as HTMLSelectElement)?.value || '';
@@ -37,7 +44,9 @@ function handleFilterChange() {
   renderResources(filtered);
 }
 
-// 필터 초기화 함수
+/**
+ * 필터링 초기화 함수
+ */
 export function resetFilters() {
   (document.getElementById('category') as HTMLSelectElement).selectedIndex = 0;
   (document.getElementById('stack') as HTMLSelectElement).selectedIndex = 0;
@@ -57,5 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn = document.querySelector('[data-roll="reset-button"]');
   resetBtn?.addEventListener('click', resetFilters);
 
+  // 결과 렌더링
   renderResources(data);
 });

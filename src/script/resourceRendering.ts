@@ -128,7 +128,7 @@ export async function renderResources(list: Resource[]): Promise<void> {
   if (!section) return;
   section.innerHTML = resources.map(createResourceArticle).join('');
 
-  //
+  // 필터링된 데이터가 존재하지 않는 경우, 대체 텍스트를 생성
   if (list.length === 0) {
     section.innerHTML = `
       <div class="col-span-3 text-center text-quokka-gray py-10">
