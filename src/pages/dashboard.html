@@ -9,12 +9,13 @@
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
+    <script type="module" src="../script/dailyResources.ts"></script>
     <script type="module" src="../components/GithubCard/GithubCard.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
       <aside
-        class="fixed  top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+        class="fixed top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
         aria-label="사이드바"
       >
         <nav class="flex h-full flex-col items-center px-3 pt-3" aria-label="사이드바 내비게이션">
@@ -147,11 +148,11 @@
         class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col px-[1.75rem] py-[1.875rem]"
       >
         <h2 class="mb-6 text-3xl font-bold">쿼카의 PICK! 오늘의 리소스 ♪</h2>
-        <section class="card-sm:grid-cols-2 card-lg:grid-cols-3 mb-11 grid grid-cols-1 gap-4">
+        <section id="daily-resources" class="mb-6 grid grid-cols-3 gap-5">
           <article
-            class="border-quokka-gray flex h-auto flex-col gap-3 rounded-2xl border bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
           >
-            <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">
+            <h3 class="text-quokka-black line-clamp-1 text-2xl font-semibold">
               JavaScript 제목입니다.
             </h3>
             <p class="text-quokka-black mb-1 line-clamp-2 overflow-hidden text-sm">
@@ -161,7 +162,7 @@
               텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
               파이팅!
             </p>
-            <div class="mb-2 flex gap-2">
+            <div class="mb-2 flex gap-2" id="tag-container">
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
@@ -240,7 +241,7 @@
             </div>
           </article>
           <article
-            class="border-quokka-gray flex h-auto flex-col gap-3 rounded-2xl border bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
           >
             <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">
               JavaScript 제목입니다.
@@ -252,7 +253,7 @@
               텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
               파이팅!
             </p>
-            <div class="mb-2 flex gap-2">
+            <div class="mb-2 flex gap-2" id="tag-container">
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
@@ -331,7 +332,7 @@
             </div>
           </article>
           <article
-            class="border-quokka-gray flex h-auto flex-col gap-3 rounded-2xl border bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
           >
             <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">
               JavaScript 제목입니다.
@@ -343,7 +344,7 @@
               텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
               파이팅!
             </p>
-            <div class="mb-2 flex gap-2">
+            <div class="mb-2 flex gap-2" id="tag-container">
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
               <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
