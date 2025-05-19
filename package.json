@@ -26,6 +26,7 @@
     "vite": "^6.3.5"
   },
   "dependencies": {
-    "@octokit/core": "^6.1.5"
+    "@octokit/core": "^6.1.5",
+    "bcryptjs": "^3.0.2"
   }
 }
