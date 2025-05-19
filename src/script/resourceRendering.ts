@@ -1,4 +1,5 @@
 import data from '../../src/data/resource.json';
+import { resetFilters } from './filter';
 import { type Resource } from '../types/type';
 
 /**
@@ -6,7 +7,7 @@ import { type Resource } from '../types/type';
  * @returns Promise<Resource[]>
  * @description resource.json 에 접근하여 데이터를 가져오는 함수입니다.
  */
-async function fetchResources(): Promise<Resource[]> {
+export async function fetchResources(): Promise<Resource[]> {
   return data;
 }
 
@@ -16,7 +17,7 @@ async function fetchResources(): Promise<Resource[]> {
  * @returns HTMLElement
  * @description 원본 객체의 속성 값에 접근하여 HTML article 의 요소를 동적으로 변경, 생성하는 함수입니다.
  */
-function createResourceArticle(resource: Resource): string {
+export function createResourceArticle(resource: Resource): string {
   const tagsHtml = resource.tags
     .map(
       (tag: string) =>
@@ -119,13 +120,27 @@ function createResourceArticle(resource: Resource): string {
  * @description 이때, 모달에 리소스 정보가 업데이트되고, 모달이 열립니다.
  * @description 모달 닫기 버튼 클릭 시 모달이 닫히는 이벤트 리스너를 추가합니다.
  */
-async function renderResources(): Promise<void> {
+export async function renderResources(list: Resource[]): Promise<void> {
   // 동적으로 article 데이터를 호출하여, section 자식 요소로 삽입
   const resources = await fetchResources();
   const section = document.querySelector('main > section');
 
   if (!section) return;
   section.innerHTML = resources.map(createResourceArticle).join('');
+
+  //
+  if (list.length === 0) {
+    section.innerHTML = `
+      <div class="col-span-3 text-center text-quokka-gray py-10">
+        검색 결과가 없습니다.<br/>
+        <button id="reset-filters" type="button" class="mt-4 px-4 py-2 rounded-2xl border text-sm">필터 초기화</button>
+      </div>
+    `;
+    document.getElementById('reset-filters')?.addEventListener('click', resetFilters);
+    return;
+  }
+
+  section.innerHTML = list.map(createResourceArticle).join('');
 
   // ↓ 모달 관련 기능
   const detailBtn = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
@@ -176,8 +191,3 @@ async function renderResources(): Promise<void> {
     modal?.close();
   });
 }
-
-// DOMContentLoaded 이벤트 리스너를 사용하여 DOMContentLoaded 이벤트가 발생할 때 renderResources 함수를 호출합니다.
-document.addEventListener('DOMContentLoaded', () => {
-  renderResources();
-});
