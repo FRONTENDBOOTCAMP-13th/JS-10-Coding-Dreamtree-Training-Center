@@ -4,9 +4,6 @@ import { type Resource } from '../types/type';
 
 /**
  * 필터링 함수: 모든 조건을 만족하는 데이터만 반환
- * @param resources : Resource 객체 데이터
- * @param criteria : Resources 객체 데이터 값을 배열 형태로 사용
- * @returns Resource[]
  */
 function filterResources(
   resources: Resource[],
