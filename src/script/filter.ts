@@ -18,8 +18,7 @@ function filterResources(
     const matchDifficulty = criteria.difficulty
       ? resource.difficulty === criteria.difficulty
       : true;
-    // 언어는 tags에 포함되어 있다고 가정 (예: "KO", "EN", "JP" 등)
-    const matchLanguage = criteria.language ? resource.tags.includes(criteria.language) : true;
+    const matchLanguage = criteria.language ? resource.language === criteria.language : true;
     return matchCategory && matchStack && matchDifficulty && matchLanguage;
   });
 }
