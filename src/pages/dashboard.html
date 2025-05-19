@@ -108,30 +108,40 @@
             </div>
           </div>
         </div>
-        <!-- 언어 선택 -->
-        <button
-          type="button"
-          class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
-        >
-          KO
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="language select"
-            class="self-center"
+        <!-- 언어 선택 및 로그인 버튼 -->
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
           >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#777777"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+            KO
+            <svg
+              width="9"
+              height="5"
+              viewBox="0 0 9 5"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="language select"
+              class="self-center"
+            >
+              <path
+                d="M7.5 1L4.5 4L1.5 1"
+                stroke="#777777"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <a href="/src/pages/login.html" id="login-header-btn">
+            <button
+              type="button"
+              class="bg-quokka-brown hover:bg-quokka-mint cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition"
+            >
+              로그인
+            </button>
+          </a>
+        </div>
       </header>
       <main
         class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col px-[1.75rem] py-[1.875rem]"
