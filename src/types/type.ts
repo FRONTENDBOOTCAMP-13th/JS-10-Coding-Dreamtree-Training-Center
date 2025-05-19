@@ -9,4 +9,5 @@ export interface Resource {
   resourceUrl: string;
   author: string;
   isBookmarked: boolean;
+  language: string; // 실제 데이터에 없으면 무시
 }

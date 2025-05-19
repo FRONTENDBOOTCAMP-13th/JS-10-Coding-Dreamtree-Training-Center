@@ -9,7 +9,8 @@
     "dateAdded": "2023-08-01",
     "resourceUrl": "https://d2.naver.com/helloworld/9223303",
     "author": "네이버 D2",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "KO"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "dateAdded": "2025-03-12",
     "resourceUrl": "https://toss.tech/article/react-performance-optimization",
     "author": "토스",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "KO"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "dateAdded": "2025-04-15",
     "resourceUrl": "https://tech.kakao.com/2023/03/01/nodejs-microservice",
     "author": "카카오",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "EN"
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
     "dateAdded": "2025-01-28",
     "resourceUrl": "https://medium.com/flutter-community/mastering-flutter-animations",
     "author": "Flutter Community",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "EN"
   },
   {
     "id": 5,
@@ -57,7 +61,8 @@
     "dateAdded": "2025-02-10",
     "resourceUrl": "https://blog.naver.com/naver_tech/2222222222",
     "author": "네이버",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "KO"
   },
   {
     "id": 6,
@@ -69,7 +74,8 @@
     "dateAdded": "2025-01-05",
     "resourceUrl": "https://techblog.woowahan.com/11111",
     "author": "우아한형제들",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "KO"
   },
   {
     "id": 7,
@@ -81,7 +87,8 @@
     "dateAdded": "2025-01-20",
     "resourceUrl": "https://techblog.woowahan.com/22222",
     "author": "우아한형제들",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "KO"
   },
   {
     "id": 8,
@@ -93,7 +100,8 @@
     "dateAdded": "2024-03-15",
     "resourceUrl": "https://vercel.com/blog/nextjs-14",
     "author": "Vercel",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "EN"
   },
   {
     "id": 9,
@@ -105,7 +113,8 @@
     "dateAdded": "2024-02-20",
     "resourceUrl": "https://devblogs.microsoft.com/typescript",
     "author": "Microsoft",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "EN"
   },
   {
     "id": 10,
@@ -117,6 +126,7 @@
     "dateAdded": "2024-03-01",
     "resourceUrl": "https://aws.amazon.com/blogs/architecture",
     "author": "AWS",
-    "isBookmarked": false
+    "isBookmarked": false,
+    "language": "EN"
   }
 ]
