@@ -16,4 +16,7 @@
   --color-quokka-cloud: #d5f5f1;
   --color-quokka-mist: #00aea9;
   --color-quokka-breeze: #fffcf9;
+
+  --breakpoint-card-lg: 68.75rem;
+  --breakpoint-card-sm: 49rem;
 }
