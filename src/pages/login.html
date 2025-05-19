@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>북마크</title>
+    <title>로그인</title>
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="../../style.css" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
-    <script type="module" src="../script/bookmarkRendering.ts"></script>
+    <script type="module" src="../script/login.ts"></script>
+    <script type="module" src="../script/header.js"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -144,87 +145,177 @@
         </div>
       </header>
       <main
-        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 px-[1.75rem] py-[1.875rem]"
+        class="min-h-[calc(100vh-4rem)]items-center col-start-2 row-start-2 flex flex-col items-center justify-center gap-6 px-[1.75rem] py-[1.875rem]"
       >
-        <h1 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h1>
-
-        <!-- 북마크 컬렉션 섹션 -->
-        <section aria-labelledby="bookmark-collection-heading">
-          <h2 id="bookmark-collection-heading" class="mb-3 text-2xl font-bold">북마크 컬렉션</h2>
-          <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
+        <!-- 로그인 폼 -->
+        <form
+          id="login-form"
+          class="flex w-full max-w-xs flex-col gap-6 rounded-2xl bg-white px-8 py-10 shadow-lg"
+        >
+          <div class="mb-2 flex flex-col items-center">
+            <h2 class="text-quokka-brown mb-1 text-2xl font-bold">로그인</h2>
+            <p class="text-quokka-gray text-sm">QuokkaDocs에 오신 것을 환영합니다!</p>
+          </div>
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-semibold">이메일</span>
+            <input
+              type="email"
+              required
+              placeholder="이메일을 입력하세요"
+              class="focus:ring-quokka-mint rounded-xl border px-4 py-2 focus:ring-2 focus:outline-none"
+            />
+          </label>
+          <label class="flex flex-col gap-2">
+            <span class="text-sm font-semibold">비밀번호</span>
+            <input
+              type="password"
+              required
+              placeholder="비밀번호를 입력하세요"
+              class="focus:ring-quokka-mint rounded-xl border px-4 py-2 focus:ring-2 focus:outline-none"
+            />
+          </label>
+          <button
+            type="submit"
+            class="bg-quokka-brown hover:bg-quokka-mint mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+          >
+            로그인
+          </button>
+          <div class="text-quokka-gray mt-2 flex justify-between text-xs">
+            <a href="#" id="show-signup" class="hover:underline">회원가입</a>
+            <a href="#" id="show-findpw" class="hover:underline">비밀번호 찾기</a>
+          </div>
+        </form>
+        <!-- 회원가입 폼 -->
+        <form
+          id="signup-form"
+          class="mx-auto flex hidden w-full max-w-xl flex-col gap-4 rounded-2xl bg-white px-12 py-10 shadow-lg"
+        >
+          <div class="mb-2 flex flex-col items-center">
+            <h2 class="text-quokka-brown mb-1 text-2xl font-bold">회원가입</h2>
+            <p class="text-quokka-gray text-sm">새 계정을 만들어보세요!</p>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <label class="flex flex-col gap-1">
+              <span class="text-xs font-semibold">이메일</span>
+              <input
+                type="email"
+                id="signup-email"
+                required
+                placeholder="이메일"
+                class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+              />
+            </label>
+            <label class="flex flex-col gap-1">
+              <span class="text-xs font-semibold">비밀번호</span>
+              <input
+                type="password"
+                id="signup-password"
+                required
+                placeholder="비밀번호"
+                class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+              />
+            </label>
+            <label class="col-span-2 flex flex-col gap-1">
+              <span class="text-xs font-semibold">본인확인 질문</span>
+              <select id="signup-question" required class="w-full rounded-xl border px-3 py-2">
+                <option value="">질문을 선택하세요</option>
+                <option value="pet">가장 좋아하는 동물은?</option>
+                <option value="school">졸업한 초등학교 이름은?</option>
+                <option value="food">가장 좋아하는 음식은?</option>
+              </select>
+            </label>
+            <label class="col-span-2 flex flex-col gap-1">
+              <span class="text-xs font-semibold">본인확인 답변</span>
+              <input
+                type="text"
+                id="signup-answer"
+                required
+                placeholder="답변"
+                class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+              />
+            </label>
+          </div>
+          <button
+            type="submit"
+            class="bg-quokka-brown hover:bg-quokka-mint mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+          >
+            회원가입
+          </button>
+          <div class="text-quokka-gray mt-2 flex justify-between text-xs">
+            <a href="#" id="back-to-login-from-signup" class="hover:underline"
+              >로그인으로 돌아가기</a
+            >
+          </div>
+        </form>
+        <!-- 비밀번호 찾기 폼 -->
+        <form
+          id="findpw-form"
+          class="mx-auto flex hidden w-full max-w-xl flex-col gap-4 rounded-2xl bg-white px-12 py-10 shadow-lg"
+        >
+          <div class="mb-2 flex flex-col items-center">
+            <h2 class="text-quokka-brown mb-1 text-2xl font-bold">비밀번호 찾기</h2>
+            <p class="text-quokka-gray text-sm">가입한 이메일과 본인확인 정보를 입력하세요.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <label class="col-span-2 flex flex-col gap-1">
+              <span class="text-xs font-semibold">이메일</span>
+              <input
+                type="email"
+                id="findpw-email"
+                required
+                placeholder="이메일"
+                class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+              />
+            </label>
+            <label class="col-span-2 flex flex-col gap-1">
+              <span class="text-xs font-semibold">본인확인 질문</span>
+              <select id="findpw-question" required class="w-full rounded-xl border px-3 py-2">
+                <option value="">질문을 선택하세요</option>
+                <option value="pet">가장 좋아하는 동물은?</option>
+                <option value="school">졸업한 초등학교 이름은?</option>
+                <option value="food">가장 좋아하는 음식은?</option>
+              </select>
+            </label>
+            <label class="col-span-2 flex flex-col gap-1">
+              <span class="text-xs font-semibold">본인확인 답변</span>
+              <input
+                type="text"
+                id="findpw-answer"
+                required
+                placeholder="답변"
+                class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+              />
+            </label>
+          </div>
+          <div id="findpw-reset-section" class="flex hidden flex-col gap-2">
+            <span class="text-xs font-semibold">새 비밀번호</span>
+            <input
+              type="password"
+              id="findpw-newpw"
+              placeholder="새 비밀번호"
+              class="focus:ring-quokka-mint w-full rounded-xl border px-3 py-2 focus:ring-2"
+            />
             <button
               type="button"
-              class="bg-quokka-mint flex justify-between gap-2.5 self-center rounded-4xl px-6 py-3 text-sm font-semibold text-white"
-              aria-label="새 컬렉션 추가"
+              id="findpw-reset-btn"
+              class="bg-quokka-brown hover:bg-quokka-mint mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
             >
-              <svg
-                width="11"
-                height="10"
-                viewBox="0 0 11 10"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="self-center"
-                aria-hidden="true"
-              >
-                <path
-                  d="M5.5 1V9M9.5 5L1.5 5"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              새 컬렉션 추가
+              비밀번호 재설정
             </button>
           </div>
-        </section>
-
-        <!-- 컬렉션 목록 섹션 -->
-        <section aria-labelledby="collection-list-heading">
-          <h2 id="collection-list-heading" class="mb-3 text-2xl font-bold">컬렉션 목록</h2>
-          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-            <div role="list" aria-label="컬렉션 목록">
-              <button
-                type="button"
-                class="bg-quokka-cloud text-quokka-brown gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                프론트엔드 자료
-              </button>
-              <button
-                type="button"
-                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                백엔드 튜토리얼
-              </button>
-              <button
-                type="button"
-                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                CS 기초
-              </button>
-            </div>
-            <div
-              class="border-quokka-mint bg-quokka-breeze text-quokka-mist flex w-full items-center justify-center rounded-xl border-2 border-dotted px-4 py-4 text-xs font-semibold"
-              role="note"
-              aria-label="북마크 위치 변경 안내"
+          <button
+            type="submit"
+            id="findpw-submit-btn"
+            class="bg-quokka-brown hover:bg-quokka-mint mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+          >
+            본인확인
+          </button>
+          <div class="text-quokka-gray mt-2 flex justify-between text-xs">
+            <a href="#" id="back-to-login-from-findpw" class="hover:underline"
+              >로그인으로 돌아가기</a
             >
-              <p>드래그 앤 드롭으로 북마크 위치 변경</p>
-            </div>
           </div>
-        </section>
-
-        <!-- 북마크 항목 섹션 -->
-        <section aria-labelledby="bookmark-items-heading">
-          <h2 id="bookmark-items-heading" class="mb-3 text-2xl font-bold">북마크 항목</h2>
-          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-            <div class="flex flex-col gap-4" role="list" aria-label="북마크된 리소스 목록">
-              <!-- 북마크된 리소스들이 동적으로 렌더링 -->
-            </div>
-          </div>
-        </section>
+        </form>
       </main>
       <footer class="bg-quokka-white col-start-2 row-start-3 mt-8 w-full">
         <div class="mx-auto px-10 py-2">

@@ -14,9 +14,9 @@ const octokit = new Octokit({
 });
 
 export const PAGINATION_CONFIG = {
-  ITEMS_PER_PAGE: 9,
+  ITEMS_PER_PAGE: 6,
   TOTAL_ITEMS: 100,
-  MAX_PAGES: 5,
+  MAX_PAGES: 8,
 } as const;
 
 function getCachedData(): CacheData | null {

@@ -78,7 +78,7 @@ function createCardElement(repo: Repo): HTMLElement {
   card.target = '_blank';
   card.rel = 'noopener noreferrer';
   card.className =
-    'block border-quokka-gray bg-white rounded-2xl border p-6 shadow-lg transition hover:shadow-xl cursor-pointer h-[12.5rem] flex flex-col';
+    'block bg-white rounded-2xl p-6 shadow-lg transition hover:shadow-xl cursor-pointer h-[12.5rem] flex flex-col';
 
   card.innerHTML = createCardTemplate(repo, langColor);
   return card;
