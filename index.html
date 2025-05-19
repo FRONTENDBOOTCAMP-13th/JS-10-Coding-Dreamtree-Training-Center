@@ -1,354 +1,504 @@
 <!doctype html>
-<html lang="ko-KR">
+<html lang="ko-KR" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QuokkaDocs</title>
+    <title>대시보드</title>
     <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="../../style.css" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="./src/main.ts"></script>
+    <script type="module" src="./src/script/dailyResources.ts"></script>
+    <script type="module" src="./src/script/githubCard.ts"></script>
   </head>
-  <body class="font-pretendard bg-quokka-white min-h-screen">
-    <!-- 메인 컨텐츠 -->
-    <main class="container mx-auto px-4 py-8">
-      <!-- 헤더 섹션 -->
-      <header class="mb-8 rounded-xl bg-white p-6 shadow-md">
-        <div class="flex items-center justify-between">
-          <h1 class="text-quokka-brown text-3xl font-bold">
-            QuokkaDocs의 각 컴포넌트와 페이지 목록
-          </h1>
-          <div class="bg-quokka-tan flex h-16 w-16 items-center justify-center rounded-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="text-quokka-brown h-10 w-10"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
+  <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
+    <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
+      <aside
+        class="fixed top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+        aria-label="사이드바"
+      >
+        <nav class="flex h-full flex-col items-center px-3 pt-3" aria-label="사이드바 내비게이션">
+          <h2 class="sr-only">주요 메뉴</h2>
+          <ul class="flex w-full flex-1 flex-col items-center gap-2">
+            <!-- 로고 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/dashboard.html"
+                class="mb-3 flex flex-col items-center"
+                aria-label="대시보드로 이동"
+              >
+                <h1 class="sr-only">QuokkaDocs</h1>
+                <img src="/favicon.svg" alt="QuokkaDocs 로고" />
+              </a>
+            </li>
+            <!-- 대시보드 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/dashboard.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-active="true"
+                data-page="/src/pages/dashboard.html"
+                aria-current="page"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/dashboard.svg" alt="대시보드 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">대시보드</span>
+              </a>
+            </li>
+            <!-- 리소스 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/resource.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-page="/src/pages/resource.html"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/compass.svg" alt="리소스 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">리소스</span>
+              </a>
+            </li>
+            <!-- 북마크 -->
+            <li class="w-full">
+              <a
+                href="/src/pages/bookmark.html"
+                class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
+                data-page="/src/pages/bookmark.html"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/bookmark.svg" alt="북마크 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">북마크</span>
+              </a>
+            </li>
+            <!-- 설정(하단 고정) -->
+            <li class="mt-auto w-full">
+              <a
+                href="#"
+                class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
+                data-page="#"
+                aria-label="설정"
+              >
+                <div class="flex h-5 w-5 items-center justify-center text-xl">
+                  <img src="/img/settings.svg" alt="설정 아이콘" />
+                </div>
+                <span class="text-quokka-black mt-1 text-sm font-medium">설정</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <header
+        class="z-20 col-start-2 row-start-1 flex h-16 w-full items-center justify-between bg-white pr-7 pl-[1.75rem]"
+      >
+        <!-- 검색창 -->
+        <div class="max-w-xl flex-1">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="리소스 검색..."
+              class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
+            />
+            <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
+              <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
+            </div>
+            <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
+              <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
+            </div>
           </div>
         </div>
-        <p class="mt-2 text-gray-600">
-          귀여운 쿼카처럼 사용하기 쉽고 친근한 컴포넌트와 페이지 모음입니다.
-        </p>
+        <!-- 언어 선택 및 로그인 버튼 -->
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+          >
+            KO
+            <svg
+              width="9"
+              height="5"
+              viewBox="0 0 9 5"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="language select"
+              class="self-center"
+            >
+              <path
+                d="M7.5 1L4.5 4L1.5 1"
+                stroke="#777777"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <a href="/src/pages/login.html" id="login-header-btn">
+            <button
+              type="button"
+              class="bg-quokka-brown hover:bg-quokka-mint cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition"
+            >
+              로그인
+            </button>
+          </a>
+        </div>
       </header>
-
-      <!-- 컴포넌트 섹션 -->
-      <div class="mb-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <section class="overflow-hidden rounded-xl bg-white shadow-md">
-          <div class="bg-quokka-brown px-6 py-4 text-white">
-            <h2 class="flex items-center text-xl font-bold">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="mr-2 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      <main
+        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col px-[1.75rem] py-[1.875rem]"
+      >
+        <h2 class="mb-6 text-3xl font-bold">쿼카의 PICK! 오늘의 리소스 ♪</h2>
+        <section id="daily-resources" class="mb-6 grid grid-cols-3 gap-5">
+          <article
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+          >
+            <h3 class="text-quokka-black line-clamp-1 text-2xl font-semibold">
+              JavaScript 제목입니다.
+            </h3>
+            <p class="text-quokka-black mb-1 line-clamp-2 overflow-hidden text-sm">
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다.
+              코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명
+              텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!
+            </p>
+            <div class="mb-2 flex gap-2" id="tag-container">
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
+            </div>
+            <div class="mb-2 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  카테고리</span
+                >
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
+                      fill="#C25048"
+                    />
+                  </svg>
+                  어려움</span
+                >
+              </div>
+              <span class="flex-shrink-0">2025-05-13</span>
+            </div>
+            <div class="mt-auto flex flex-row items-center justify-between">
+              <!-- 상세보기 버튼 -->
+              <button
+                type="button"
+                class="bg-quokka-brown cursor-pointer gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
               >
-                <path
+                상세보기
+              </button>
+              <!-- 북마크 버튼 -->
+              <button
+                type="button"
+                name="bookmark"
+                class="self h-[1.875rem] w-[1.5625rem] cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  stroke="currentColor"
+                  stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                />
-              </svg>
-              QuokkaDocs의 각 컴포넌트 목록
-            </h2>
-          </div>
-          <ul class="divide-y divide-gray-100">
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Sample/sample.html"
-                class="flex items-center justify-between px-6 py-4"
+                >
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+          </article>
+          <article
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+          >
+            <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">
+              JavaScript 제목입니다.
+            </h3>
+            <p class="text-quokka-black mb-1 line-clamp-2 overflow-hidden text-sm">
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다.
+              코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명
+              텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!
+            </p>
+            <div class="mb-2 flex gap-2" id="tag-container">
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
+            </div>
+            <div class="mb-2 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  카테고리</span
+                >
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
+                      fill="#C25048"
+                    />
+                  </svg>
+                  어려움</span
+                >
+              </div>
+              <span class="flex-shrink-0">2025-05-13</span>
+            </div>
+            <div class="mt-auto flex flex-row items-center justify-between">
+              <!-- 상세보기 버튼 -->
+              <button
+                type="button"
+                class="bg-quokka-brown cursor-pointer gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
               >
-                <span class="text-gray-700">Sample 컴포넌트</span>
+                상세보기
+              </button>
+              <!-- 북마크 버튼 -->
+              <button
+                type="button"
+                name="bookmark"
+                class="self h-[1.875rem] w-[1.5625rem] cursor-pointer"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Sidebar/sidebar.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Sidebar 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Button/button.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Button 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Header/header.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Header 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/GithubCard/github-card.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">GithubCard 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/ResourceCard/resource-card.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Resource Card 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/DailyResources/daily-resources.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Daily Resources 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Footer/footer.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Footer 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/components/Modal/modal.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">Modal 컴포넌트</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </section>
-
-        <!-- 페이지 섹션 -->
-        <section class="overflow-hidden rounded-xl bg-white shadow-md">
-          <div class="bg-quokka-brown px-6 py-4 text-white">
-            <h2 class="flex items-center text-xl font-bold">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="mr-2 h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  stroke="currentColor"
+                  stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              QuokkaDocs의 각 페이지 목록
-            </h2>
-          </div>
-          <ul class="divide-y divide-gray-100">
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a href="./src/pages/sample.html" class="flex items-center justify-between px-6 py-4">
-                <span class="text-gray-700">Sample 페이지</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                 </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/pages/dashboard.html"
-                class="flex items-center justify-between px-6 py-4"
+              </button>
+            </div>
+          </article>
+          <article
+            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+          >
+            <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">
+              JavaScript 제목입니다.
+            </h3>
+            <p class="text-quokka-black mb-1 line-clamp-2 overflow-hidden text-sm">
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다.
+              코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명
+              텍스트입니다. 코딩꿈나무양성소 파이팅!JavaScript 설명 텍스트입니다. 코딩꿈나무양성소
+              파이팅!
+            </p>
+            <div class="mb-2 flex gap-2" id="tag-container">
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
+              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
+            </div>
+            <div class="mb-2 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
+                      stroke="#121212"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  카테고리</span
+                >
+                <span class="flex items-center gap-1"
+                  ><svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
+                      fill="#C25048"
+                    />
+                  </svg>
+                  어려움</span
+                >
+              </div>
+              <span class="flex-shrink-0">2025-05-13</span>
+            </div>
+            <div class="mt-auto flex flex-row items-center justify-between">
+              <!-- 상세보기 버튼 -->
+              <button
+                type="button"
+                class="bg-quokka-brown cursor-pointer gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
               >
-                <span class="text-gray-700">dashboard 페이지</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/pages/resource.html"
-                class="flex items-center justify-between px-6 py-4"
+                상세보기
+              </button>
+              <!-- 북마크 버튼 -->
+              <button
+                type="button"
+                name="bookmark"
+                class="self h-[1.875rem] w-[1.5625rem] cursor-pointer"
               >
-                <span class="text-gray-700">resource 페이지</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
                 </svg>
-              </a>
-            </li>
-            <li class="hover:bg-quokka-white transition-colors duration-200">
-              <a
-                href="./src/pages/bookmark.html"
-                class="flex items-center justify-between px-6 py-4"
-              >
-                <span class="text-gray-700">bookmark 페이지</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 text-gray-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-            </li>
-          </ul>
+              </button>
+            </div>
+          </article>
         </section>
-      </div>
-    </main>
+        <h2 class="mb-6 text-3xl font-bold">깃허브 인기 레포지토리</h2>
+        <section>
+          <div
+            id="card-container"
+            class="grid h-auto grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            <!-- 카드들이 여기에 동적으로 생성 -->
+
+            <!-- 로딩 애니메이션 -->
+            <div id="loading" class="col-span-full flex items-center justify-center">
+              <div class="relative h-12 w-12">
+                <!-- 외부 링 -->
+                <div
+                  class="border-quokka-brown absolute inset-0 rounded-full border-4 opacity-25"
+                ></div>
+                <!-- 회전하는 테두리 -->
+                <div
+                  class="border-t-quokka-primary absolute inset-0 animate-spin rounded-full border-4 border-r-transparent border-b-transparent border-l-transparent"
+                ></div>
+                <!-- 중앙 점 -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="bg-quokka-primary h-2 w-2 rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="pagination" class="mt-6 flex justify-center gap-3">
+            <!-- 페이지네이션 버튼들이 여기에 동적으로 생성 -->
+          </div>
+        </section>
+      </main>
+      <footer class="bg-quokka-white col-start-2 row-start-3 mt-8 w-full">
+        <div class="mx-auto px-10 py-2">
+          <!-- 상단 섹션 -->
+          <div class="mb-5 flex items-center justify-between">
+            <!-- 좌측: 로고 -->
+            <a href="/" class="flex flex-col items-center">
+              <img src="/favicon.svg" alt="QuokkaDocs" class="w-14" />
+              <span class="text-quokka-brown font-bold">QuokkaDocs</span>
+            </a>
+            <!-- 우측: 링크 -->
+            <div class="flex items-center gap-6">
+              <a
+                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center"
+                target="_blank"
+                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
+              >
+                <img src="/img/github-mark.svg" alt="깃허브" class="w-7" />
+                <span class="text-sm">GitHub</span>
+              </a>
+              <a
+                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center/wiki"
+                target="_blank"
+                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
+              >
+                <img src="/img/info-circle.svg" alt="깃허브 위키" class="w-7" />
+                <span class="text-sm">Wiki</span>
+              </a>
+              <a
+                href="https://www.figma.com/design/TXRXSEICodm4Pok7XvVe0z/%EC%BD%94%EB%94%A9%EA%BF%88%EB%82%98%EB%AC%B4%EC%96%91%EC%84%B1%EC%86%8C-%EB%B0%94%EB%8B%90%EB%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=87bMmkq8VmHvkYKO-1"
+                target="_blank"
+                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
+              >
+                <img src="/img/figma-logo.svg" alt="피그마 링크" class="w-7" />
+                <span class="text-sm">Figma</span>
+              </a>
+            </div>
+          </div>
+          <!-- 하단: 카피라이트 -->
+          <div class="border-t border-[#e6d9c9] pt-4">
+            <p class="text-quokka-black text-center text-xs font-normal">
+              © 2025. Coding Dreamtree Training Center. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
-`
