@@ -9,6 +9,7 @@
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
+    <script type="module" src="../script/bookmarkRendering.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -107,212 +108,123 @@
             </div>
           </div>
         </div>
-        <!-- 언어 선택 -->
-        <button
-          type="button"
-          class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
-        >
-          KO
-          <svg
-            width="9"
-            height="5"
-            viewBox="0 0 9 5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="language select"
-            class="self-center"
-          >
-            <path
-              d="M7.5 1L4.5 4L1.5 1"
-              stroke="#777777"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-      </header>
-      <main
-        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 px-[1.75rem] py-[1.875rem]"
-      >
-        <h2 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h2>
-
-        <!-- bookmark collection -->
-        <h3 class="text-2xl font-bold">북마크 컬렉션</h3>
-        <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
+        <!-- 언어 선택 및 로그인 버튼 -->
+        <div class="flex items-center gap-2">
           <button
             type="button"
-            class="bg-quokka-mint flex justify-between gap-2.5 self-center rounded-4xl px-6 py-3 text-sm font-semibold text-white"
+            class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
           >
+            KO
             <svg
-              width="11"
-              height="10"
-              viewBox="0 0 11 10"
+              width="9"
+              height="5"
+              viewBox="0 0 9 5"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              aria-label="language select"
               class="self-center"
             >
               <path
-                d="M5.5 1V9M9.5 5L1.5 5"
-                stroke="white"
+                d="M7.5 1L4.5 4L1.5 1"
+                stroke="#777777"
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
               />
             </svg>
-
-            새 컬렉션 추가
           </button>
+          <a href="/src/pages/login.html" id="login-header-btn">
+            <button
+              type="button"
+              class="bg-quokka-brown hover:bg-quokka-mint cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition"
+            >
+              로그인
+            </button>
+          </a>
         </div>
-        <!-- Collection list -->
-        <h3 class="text-2xl font-bold">컬렉션 목록</h3>
-        <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-          <div>
-            <button
-              type="button"
-              class="bg-quokka-cloud text-quokka-brown gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-            >
-              프론트엔드 자료
-            </button>
-            <button
-              type="button"
-              class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-            >
-              백엔드 튜토리얼
-            </button>
-            <button
-              type="button"
-              class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-            >
-              CS 기초
-            </button>
-          </div>
-          <div
-            class="border-quokka-mint bg-quokka-breeze text-quokka-mist flex w-full items-center justify-center rounded-xl border-2 border-dotted px-4 py-4 text-xs font-semibold"
-          >
-            <p>드래그 앤 드롭으로 북마크 위치 변경</p>
-          </div>
-        </div>
+      </header>
+      <main
+        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 px-[1.75rem] py-[1.875rem]"
+      >
+        <h1 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h1>
 
-        <!-- bookmark list -->
-        <h3 class="text-2xl font-bold">북마크 항목</h3>
-        <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-          <div class="flex flex-col gap-4">
-            <div
-              class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4"
+        <!-- 북마크 컬렉션 섹션 -->
+        <section aria-labelledby="bookmark-collection-heading">
+          <h2 id="bookmark-collection-heading" class="mb-3 text-2xl font-bold">북마크 컬렉션</h2>
+          <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
+            <button
+              type="button"
+              class="bg-quokka-mint flex justify-between gap-2.5 self-center rounded-4xl px-6 py-3 text-sm font-semibold text-white"
+              aria-label="새 컬렉션 추가"
             >
-              <div class="flex flex-col gap-2">
-                <h3 class="text-2xl font-bold">React 성능 최적화 가이드</h3>
-                <p class="text-quokka-gray text-xs font-semibold">
-                  메모 : 컴포넌트 메모 부분 복습 필요
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  type="button"
-                  class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
-                >
-                  <svg
-                    width="12"
-                    height="13"
-                    viewBox="0 0 12 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="self-center"
-                  >
-                    <path
-                      d="M6.83333 3.16667H2.25C1.55964 3.16667 1 3.72631 1 4.41667V10.25C1 10.9404 1.55964 11.5 2.25 11.5H8.08333C8.77369 11.5 9.33333 10.9404 9.33333 10.25V5.66667M3.5 9L11 1.5M11 1.5L8.08333 1.5M11 1.5V4.41667"
-                      stroke="#64B5F6"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  방문
-                </button>
-                <button
-                  type="button"
-                  class="text-quokka-red border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
-                >
-                  <svg
-                    width="12"
-                    height="13"
-                    viewBox="0 0 12 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="self-center"
-                  >
-                    <path
-                      d="M7.66084 4.80769L7.45105 9.88462M4.54895 9.88462L4.33916 4.80769M10.3804 2.99724C10.5877 3.02638 10.7942 3.05755 11 3.09073M10.3804 2.99724L9.73321 10.8281C9.67856 11.4894 9.08614 12 8.37359 12H3.62641C2.91386 12 2.32144 11.4894 2.26679 10.8281L1.61961 2.99724M10.3804 2.99724C9.68559 2.89958 8.98273 2.82479 8.27273 2.77372M1 3.09073C1.2058 3.05755 1.41235 3.02638 1.61961 2.99724M1.61961 2.99724C2.31441 2.89958 3.01727 2.82479 3.72727 2.77372M8.27273 2.77372V2.25693C8.27273 1.59164 7.72082 1.03623 7.00642 1.01496C6.67226 1.00501 6.33676 1 6 1C5.66324 1 5.32774 1.00501 4.99359 1.01496C4.27918 1.03623 3.72727 1.59164 3.72727 2.25693V2.77372M8.27273 2.77372C7.52276 2.71978 6.76483 2.69231 6 2.69231C5.23517 2.69231 4.47724 2.71978 3.72727 2.77372"
-                      stroke="#C25048"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  제거
-                </button>
-              </div>
+              <svg
+                width="11"
+                height="10"
+                viewBox="0 0 11 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="self-center"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5.5 1V9M9.5 5L1.5 5"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              새 컬렉션 추가
+            </button>
+          </div>
+        </section>
+
+        <!-- 컬렉션 목록 섹션 -->
+        <section aria-labelledby="collection-list-heading">
+          <h2 id="collection-list-heading" class="mb-3 text-2xl font-bold">컬렉션 목록</h2>
+          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
+            <div role="list" aria-label="컬렉션 목록">
+              <button
+                type="button"
+                class="bg-quokka-cloud text-quokka-brown gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
+                role="listitem"
+              >
+                프론트엔드 자료
+              </button>
+              <button
+                type="button"
+                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
+                role="listitem"
+              >
+                백엔드 튜토리얼
+              </button>
+              <button
+                type="button"
+                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
+                role="listitem"
+              >
+                CS 기초
+              </button>
             </div>
-
             <div
-              class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4"
+              class="border-quokka-mint bg-quokka-breeze text-quokka-mist flex w-full items-center justify-center rounded-xl border-2 border-dotted px-4 py-4 text-xs font-semibold"
+              role="note"
+              aria-label="북마크 위치 변경 안내"
             >
-              <div class="flex flex-col gap-2">
-                <h3 class="text-2xl font-bold">React 성능 최적화 가이드</h3>
-                <p class="text-quokka-gray text-xs font-semibold">
-                  메모 : 컴포넌트 메모 부분 복습 필요
-                </p>
-              </div>
-              <div class="flex gap-2">
-                <button
-                  type="button"
-                  class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
-                >
-                  <svg
-                    width="12"
-                    height="13"
-                    viewBox="0 0 12 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="self-center"
-                  >
-                    <path
-                      d="M6.83333 3.16667H2.25C1.55964 3.16667 1 3.72631 1 4.41667V10.25C1 10.9404 1.55964 11.5 2.25 11.5H8.08333C8.77369 11.5 9.33333 10.9404 9.33333 10.25V5.66667M3.5 9L11 1.5M11 1.5L8.08333 1.5M11 1.5V4.41667"
-                      stroke="#64B5F6"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  방문
-                </button>
-                <button
-                  type="button"
-                  class="text-quokka-red border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
-                >
-                  <svg
-                    width="12"
-                    height="13"
-                    viewBox="0 0 12 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="self-center"
-                  >
-                    <path
-                      d="M7.66084 4.80769L7.45105 9.88462M4.54895 9.88462L4.33916 4.80769M10.3804 2.99724C10.5877 3.02638 10.7942 3.05755 11 3.09073M10.3804 2.99724L9.73321 10.8281C9.67856 11.4894 9.08614 12 8.37359 12H3.62641C2.91386 12 2.32144 11.4894 2.26679 10.8281L1.61961 2.99724M10.3804 2.99724C9.68559 2.89958 8.98273 2.82479 8.27273 2.77372M1 3.09073C1.2058 3.05755 1.41235 3.02638 1.61961 2.99724M1.61961 2.99724C2.31441 2.89958 3.01727 2.82479 3.72727 2.77372M8.27273 2.77372V2.25693C8.27273 1.59164 7.72082 1.03623 7.00642 1.01496C6.67226 1.00501 6.33676 1 6 1C5.66324 1 5.32774 1.00501 4.99359 1.01496C4.27918 1.03623 3.72727 1.59164 3.72727 2.25693V2.77372M8.27273 2.77372C7.52276 2.71978 6.76483 2.69231 6 2.69231C5.23517 2.69231 4.47724 2.71978 3.72727 2.77372"
-                      stroke="#C25048"
-                      strokeWidth="1.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  제거
-                </button>
-              </div>
+              <p>드래그 앤 드롭으로 북마크 위치 변경</p>
             </div>
           </div>
-        </div>
+        </section>
+
+        <!-- 북마크 항목 섹션 -->
+        <section aria-labelledby="bookmark-items-heading">
+          <h2 id="bookmark-items-heading" class="mb-3 text-2xl font-bold">북마크 항목</h2>
+          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
+            <div class="flex flex-col gap-4" role="list" aria-label="북마크된 리소스 목록">
+              <!-- 북마크된 리소스들이 동적으로 렌더링 -->
+            </div>
+          </div>
+        </section>
       </main>
       <footer class="bg-quokka-white col-start-2 row-start-3 mt-8 w-full">
         <div class="mx-auto px-10 py-2">

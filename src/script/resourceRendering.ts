@@ -1,6 +1,8 @@
 import data from '../../src/data/resource.json';
 import { resetFilters } from './filter';
 import { type Resource } from '../types/type';
+import { isBookmarked, addBookmark, removeBookmark } from '../service/bookmark';
+import { isAuthenticated } from '../service/auth';
 
 /**
  * 원본 데이터를 비동기로 가져오는 함수
@@ -31,6 +33,9 @@ export function createResourceArticle(resource: Resource): string {
       : resource.difficulty === '보통'
         ? 'var(--color-quokka-green)'
         : 'var(--color-quokka-red)';
+
+  const isBookmarkedResource = isBookmarked(resource.id);
+  const bookmarkFill = isBookmarkedResource ? '#7DCFCA' : 'white';
 
   return `
     <article
@@ -90,14 +95,11 @@ export function createResourceArticle(resource: Resource): string {
         >
           상세보기
         </button>
-        <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-          <svg stroke-linejoin="round"></svg>
-        </button>
-        <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
+        <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem] cursor-pointer" data-resource-id="${resource.id}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="white"
+            fill="${bookmarkFill}"
             stroke="currentColor"
             stroke-width="1.5"
             stroke-linecap="round"
@@ -189,5 +191,31 @@ export async function renderResources(list: Resource[]): Promise<void> {
   const closeBtn = modal?.querySelector('button[name="close"]') as HTMLButtonElement;
   closeBtn.addEventListener('click', () => {
     modal?.close();
+  });
+
+  // 북마크 버튼 이벤트 핸들러 추가
+  const bookmarkButtons = section.querySelectorAll<HTMLButtonElement>('button[name="bookmark"]');
+
+  bookmarkButtons.forEach((button) => {
+    button.addEventListener('click', function () {
+      const resourceId = Number(this.getAttribute('data-resource-id'));
+
+      if (!isAuthenticated()) {
+        alert('북마크 기능을 사용하려면 로그인이 필요합니다.');
+        window.location.href = '/src/pages/login.html';
+        return;
+      }
+
+      const isCurrentlyBookmarked = isBookmarked(resourceId);
+      const success = isCurrentlyBookmarked ? removeBookmark(resourceId) : addBookmark(resourceId);
+
+      if (success) {
+        // 북마크 상태에 따라 아이콘 색상 변경
+        const svg = this.querySelector('svg');
+        if (svg) {
+          svg.setAttribute('fill', isCurrentlyBookmarked ? 'white' : '#7DCFCA');
+        }
+      }
+    });
   });
 }
