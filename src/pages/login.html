@@ -11,34 +11,68 @@
     <script type="module" src="../main.ts"></script>
     <script type="module" src="../script/login.ts"></script>
     <script type="module" src="../script/header.js"></script>
+    <script type="module" src="../components/Sidebar/sidebar.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
-    <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
+    <div class="grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr_auto] lg:grid-cols-[8rem_1fr]">
+      <!-- 햄버거 메뉴 버튼 (모바일) -->
+      <button
+        type="button"
+        class="fixed top-4 left-4 z-40 cursor-pointer lg:hidden"
+        aria-label="메뉴 열기"
+        data-roll="menu-toggle"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6H20M4 12H20M4 18H20"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- 오버레이 (모바일) -->
+      <div
+        class="fixed inset-0 z-30 hidden bg-black/50 transition-opacity duration-300"
+        data-roll="overlay"
+      ></div>
+
       <aside
-        class="fixed top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+        class="fixed top-0 left-0 z-30 h-full w-32 -translate-x-full transform bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] transition-transform duration-300 lg:relative lg:row-span-3 lg:h-auto lg:translate-x-0"
         aria-label="사이드바"
       >
-        <nav class="flex h-full flex-col items-center px-3 pt-3" aria-label="사이드바 내비게이션">
+        <nav
+          class="flex h-full flex-col items-center px-3 py-5 lg:h-auto"
+          aria-label="사이드바 내비게이션"
+        >
           <h2 class="sr-only">주요 메뉴</h2>
           <ul class="flex w-full flex-1 flex-col items-center gap-2">
             <!-- 로고 -->
             <li class="w-full">
               <a
-                href="/src/pages/dashboard.html"
-                class="mb-3 flex flex-col items-center"
+                href="/"
+                class="mb-3 flex w-full flex-col items-center justify-center"
                 aria-label="대시보드로 이동"
               >
                 <h1 class="sr-only">QuokkaDocs</h1>
-                <img src="/favicon.svg" alt="QuokkaDocs 로고" />
+                <img src="/favicon.svg" alt="QuokkaDocs 로고" class="w-[4.25rem]" />
               </a>
             </li>
             <!-- 대시보드 -->
             <li class="w-full">
               <a
-                href="/src/pages/dashboard.html"
+                href="/"
                 class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
                 data-active="true"
-                data-page="/src/pages/dashboard.html"
+                data-page="/"
                 aria-current="page"
               >
                 <div class="flex h-5 w-5 items-center justify-center text-xl">
@@ -73,79 +107,24 @@
                 <span class="text-quokka-black mt-1 text-sm font-medium">북마크</span>
               </a>
             </li>
-            <!-- 설정(하단 고정) -->
-            <li class="mt-auto w-full">
-              <a
-                href="#"
-                class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
-                data-page="#"
-                aria-label="설정"
-              >
-                <div class="flex h-5 w-5 items-center justify-center text-xl">
-                  <img src="/img/settings.svg" alt="설정 아이콘" />
-                </div>
-                <span class="text-quokka-black mt-1 text-sm font-medium">설정</span>
-              </a>
-            </li>
           </ul>
         </nav>
       </aside>
       <header
-        class="z-20 col-start-2 row-start-1 flex h-16 w-full items-center justify-between bg-white pr-7 pl-[1.75rem]"
+        class="z-20 col-start-1 row-start-1 flex h-16 w-full items-center justify-end bg-white px-4 lg:col-start-2 lg:px-7"
       >
-        <!-- 검색창 -->
-        <div class="max-w-xl flex-1">
-          <div class="relative">
-            <input
-              type="text"
-              placeholder="리소스 검색..."
-              class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
-            />
-            <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
-              <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
-            </div>
-            <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
-              <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
-            </div>
-          </div>
-        </div>
-        <!-- 언어 선택 및 로그인 버튼 -->
-        <div class="flex items-center gap-2">
+        <!-- 로그인 버튼 -->
+        <a href="/src/pages/login.html" id="login-header-btn">
           <button
             type="button"
-            class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+            class="bg-quokka-brown cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition-opacity hover:opacity-80"
           >
-            KO
-            <svg
-              width="9"
-              height="5"
-              viewBox="0 0 9 5"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-label="language select"
-              class="self-center"
-            >
-              <path
-                d="M7.5 1L4.5 4L1.5 1"
-                stroke="#777777"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            로그인
           </button>
-          <a href="/src/pages/login.html" id="login-header-btn">
-            <button
-              type="button"
-              class="bg-quokka-brown hover:bg-quokka-mint cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition"
-            >
-              로그인
-            </button>
-          </a>
-        </div>
+        </a>
       </header>
       <main
-        class="min-h-[calc(100vh-4rem)]items-center col-start-2 row-start-2 flex flex-col items-center justify-center gap-6 px-[1.75rem] py-[1.875rem]"
+        class="col-start-1 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-4 px-4 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:col-start-2 lg:px-[1.75rem] lg:py-[1.875rem]"
       >
         <!-- 로그인 폼 -->
         <form
@@ -176,7 +155,7 @@
           </label>
           <button
             type="submit"
-            class="bg-quokka-brown hover:bg-quokka-mint mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+            class="bg-quokka-brown mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition-opacity hover:opacity-80"
           >
             로그인
           </button>
@@ -237,7 +216,7 @@
           </div>
           <button
             type="submit"
-            class="bg-quokka-brown hover:bg-quokka-mint mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+            class="bg-quokka-brown mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition-opacity hover:opacity-80"
           >
             회원가입
           </button>
@@ -298,7 +277,7 @@
             <button
               type="button"
               id="findpw-reset-btn"
-              class="bg-quokka-brown hover:bg-quokka-mint mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+              class="bg-quokka-brown mt-2 cursor-pointer rounded-xl py-2 font-semibold text-white transition-opacity hover:opacity-80"
             >
               비밀번호 재설정
             </button>
@@ -306,7 +285,7 @@
           <button
             type="submit"
             id="findpw-submit-btn"
-            class="bg-quokka-brown hover:bg-quokka-mint mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition"
+            class="bg-quokka-brown mt-4 cursor-pointer rounded-xl py-2 font-semibold text-white transition-opacity hover:opacity-80"
           >
             본인확인
           </button>
@@ -317,46 +296,94 @@
           </div>
         </form>
       </main>
-      <footer class="bg-quokka-white col-start-2 row-start-3 mt-8 w-full">
-        <div class="mx-auto px-10 py-2">
+      <footer class="bg-quokka-white col-start-1 row-start-3 w-full lg:col-start-2">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <!-- 상단 섹션 -->
-          <div class="mb-5 flex items-center justify-between">
-            <!-- 좌측: 로고 -->
-            <a href="/" class="flex flex-col items-center">
-              <img src="/favicon.svg" alt="QuokkaDocs" class="w-14" />
-              <span class="text-quokka-brown font-bold">QuokkaDocs</span>
-            </a>
-            <!-- 우측: 링크 -->
-            <div class="flex items-center gap-6">
-              <a
-                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/github-mark.svg" alt="깃허브" class="w-7" />
-                <span class="text-sm">GitHub</span>
+          <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <!-- 좌측: 로고 및 소개 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <a href="/" class="group flex items-center gap-2">
+                <span
+                  class="text-quokka-brown group-hover:text-quokka-brown/80 text-lg font-bold transition-colors"
+                  >QuokkaDocs</span
+                >
               </a>
-              <a
-                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center/wiki"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/info-circle.svg" alt="깃허브 위키" class="w-7" />
-                <span class="text-sm">Wiki</span>
-              </a>
-              <a
-                href="https://www.figma.com/design/TXRXSEICodm4Pok7XvVe0z/%EC%BD%94%EB%94%A9%EA%BF%88%EB%82%98%EB%AC%B4%EC%96%91%EC%84%B1%EC%86%8C-%EB%B0%94%EB%8B%90%EB%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=87bMmkq8VmHvkYKO-1"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/figma-logo.svg" alt="피그마 링크" class="w-7" />
-                <span class="text-sm">Figma</span>
-              </a>
+              <p class="text-quokka-gray text-xs">개발자들을 위한 리소스 공유 플랫폼</p>
+            </div>
+
+            <!-- 중앙: 팀 정보 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <h3 class="text-quokka-brown text-sm font-semibold">JS-10 Coding Dreamtree</h3>
+              <div class="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                <a
+                  href="https://github.com/toosign00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >노현수</a
+                >
+                <a
+                  href="https://github.com/kkjuno"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >김준오</a
+                >
+                <a
+                  href="https://github.com/ineahe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >송아현</a
+                >
+                <a
+                  href="https://github.com/jjmullan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >최영준</a
+                >
+              </div>
+            </div>
+
+            <!-- 우측: 소셜 링크 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <h3 class="text-quokka-brown text-sm font-semibold">링크</h3>
+              <div class="flex items-center justify-center gap-4">
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="GitHub 저장소"
+                >
+                  <img src="/img/github-mark.svg" alt="깃허브" class="h-6.5 w-6.5" />
+                </a>
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center/wiki"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="GitHub 위키"
+                >
+                  <img src="/img/info-circle.svg" alt="깃허브 위키" class="h-6.5 w-6.5" />
+                </a>
+                <a
+                  href="https://www.figma.com/design/TXRXSEICodm4Pok7XvVe0z/%EC%BD%94%EB%94%A9%EA%BF%88%EB%82%98%EB%AC%B4%EC%96%91%EC%84%B1%EC%86%8C-%EB%B0%94%EB%8B%90%EB%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=87bMmkq8VmHvkYKO-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="Figma 디자인"
+                >
+                  <img src="/img/figma-logo.svg" alt="피그마 링크" class="h-6.5 w-7.5" />
+                </a>
+              </div>
             </div>
           </div>
+
           <!-- 하단: 카피라이트 -->
           <div class="border-t border-[#e6d9c9] pt-4">
-            <p class="text-quokka-black text-center text-xs font-normal">
+            <p class="text-quokka-gray text-center text-xs">
               © 2025. Coding Dreamtree Training Center. All rights reserved.
             </p>
           </div>
