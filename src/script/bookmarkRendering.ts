@@ -2,6 +2,7 @@ import { getUserBookmarks, removeBookmark } from '../service/bookmark';
 import { isAuthenticated } from '../service/auth';
 import data from '../../src/data/resource.json';
 import { type Resource } from '../types/type';
+import type { Bookmark, BookmarkIntoCollection } from '../types/bookmark.type';
 
 /**
  * 북마크된 리소스 정보를 가져오는 함수
@@ -25,16 +26,40 @@ async function getBookmarkedResources(): Promise<Resource[]> {
  * @param resource Resource
  * @returns string
  */
-function createBookmarkArticle(resource: Resource): string {
+export function createBookmarkArticle(resource: Resource): string {
   return `
-    <div class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4">
-      <div class="flex flex-col gap-2">
-        <h3 class="text-2xl font-bold">${resource.title}</h3>
+    <div class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4" data-roll="bookmakr article" data-index="${resource.id}">
+      <div class="flex flex-col gap-1">
+        <h3 class="text-xl font-semibold">${resource.title}</h3>
         <p class="text-quokka-gray text-xs font-semibold">
           ${resource.description}
         </p>
       </div>
       <div class="flex gap-2">
+        <button
+          type="button"
+          class="text-quokka-blue border-quokka-mint bg-quokka-snow flex justify-between w-fit items-center gap-2.5 rounded-4xl border border-dashed px-3 py-1.5 text-xs font-semibold"
+          data-roll="into-collection"
+        >
+          <svg
+                width="11"
+                height="10"
+                viewBox="0 0 11 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="self-center"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5.5 1V9M9.5 5L1.5 5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+          컬렉션에 추가
+        </button>
         <button
           type="button"
           class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
@@ -89,10 +114,8 @@ function createBookmarkArticle(resource: Resource): string {
 /**
  * 북마크된 리소스들을 렌더링하는 함수
  */
-async function renderBookmarkedResources(): Promise<void> {
-  const bookmarkList = document.querySelector(
-    '.flex.h-fit.flex-col.gap-4.rounded-2xl.bg-white.px-7.py-4 > div.flex.flex-col.gap-4',
-  );
+export async function renderBookmarkedResources(): Promise<void> {
+  const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
   if (!bookmarkList) return;
 
   const bookmarkedResources = await getBookmarkedResources();
@@ -137,6 +160,133 @@ async function renderBookmarkedResources(): Promise<void> {
       if (url) {
         window.open(url, '_blank');
       }
+    });
+  });
+
+  /**
+   * '컬렉션에 추가' 버튼을 클릭하면 모달이 팝업된다.
+   * 모달 창에는 Local Storage 에 저장된 로그인 아이디의 하위 컬렉션 리스트가 나온다.
+   * 하위 컬렉션 리스트는 input type="checkbox"로 구현된다.
+   * checkbox 를 선택하면 체크된 상태는 유지되며, 유지된 상태로 렌더링한다. (즉, 모달창을 다시 열어도 체크된 상태가 유지된다.)
+   * 해당 컬렉션에 체크한 경우, Local Storage 의 Bookmark 에 collection 속성의 값으로 기록한다.
+   */
+  const addCollectionButtons = bookmarkList.querySelectorAll<HTMLButtonElement>(
+    '[data-roll="into-collection"]',
+  );
+  addCollectionButtons.forEach((button: HTMLButtonElement) => {
+    button.addEventListener('click', () => {
+      // 모달 생성
+      const collectionModal = document.createElement('div');
+      collectionModal.style.position = 'fixed';
+      collectionModal.style.top = '0';
+      collectionModal.style.left = '0';
+      collectionModal.style.width = '100vw';
+      collectionModal.style.height = '100vh';
+      collectionModal.style.background = 'rgba(0,0,0,0.3)';
+      collectionModal.style.display = 'flex';
+      collectionModal.style.alignItems = 'center';
+      collectionModal.style.justifyContent = 'center';
+      collectionModal.style.zIndex = '9999';
+
+      // 모달 내부 콘텐츠
+      const collectionModalContent = document.createElement('div');
+      collectionModalContent.style.background = '#fff';
+      collectionModalContent.style.padding = '2rem';
+      collectionModalContent.style.borderRadius = '1rem';
+      collectionModalContent.style.minWidth = '250px';
+      collectionModalContent.style.boxShadow = '0 2px 16px rgba(0,0,0,0.15)';
+
+      collectionModal.appendChild(collectionModalContent);
+
+      // 모달 내부 타이틀
+      const collectionModalTitle = document.createElement('p');
+      collectionModalTitle.textContent = '컬렉션을 선택해주세요.';
+      collectionModalTitle.style.marginBottom = '1rem';
+      collectionModalTitle.style.fontSize = '1.2rem';
+
+      collectionModalContent.appendChild(collectionModalTitle);
+
+      // Local Storage 에 저장된 Collection 정보를 가져오기
+      const email = localStorage.getItem('loginUser');
+      const collectionsObj = JSON.parse(localStorage.getItem('collections') || '{}');
+      const userCollections: string[] = email && collectionsObj[email] ? collectionsObj[email] : [];
+
+      // 컬렉션 체크박스 리스트 생성
+      userCollections.forEach((name, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex flex-row items-center gap-4';
+
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = `selectCollection${idx}`;
+        input.value = name;
+        input.style.margin = '0.5rem 0';
+        input.style.cursor = 'pointer';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', `selectCollection${idx}`);
+        label.textContent = name;
+
+        row.appendChild(input);
+        row.appendChild(label);
+        collectionModalContent.appendChild(row);
+      });
+
+      // Local Storage 에 저장된 bookmarks 정보를 가져오기
+      const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '{}');
+      const resourceId = button
+        .closest('[data-roll="bookmakr article"]')
+        ?.getAttribute('data-index');
+      const bookmark = bookmarks.find((b: Bookmark) => String(b.resourceId) === resourceId);
+
+      // 모달창 내부의 input type="checkbox" 를 클릭했을 때, 해당 원본 객체의 'collection' 속성을 초기화하고 체크된 컬렉션 이름을 저장하기
+      userCollections.forEach((name, idx) => {
+        const input = collectionModalContent.querySelector<HTMLInputElement>(
+          `#selectCollection${idx}`,
+        );
+        if (!input) return;
+
+        // 체크 상태 유지
+        if (bookmark && Array.isArray(bookmark.collection) && bookmark.collection.includes(name)) {
+          input.checked = true;
+        }
+
+        // 체크박스 변경 시 localStorage에 반영
+        input.addEventListener('change', () => {
+          // 체크된 컬렉션 이름만 수집
+          const checkedCollections: string[] = Array.from(
+            collectionModalContent.querySelectorAll<HTMLInputElement>(
+              'input[type="checkbox"]:checked',
+            ),
+          ).map((input) => input.value);
+
+          // 해당 북마크의 collection 프로퍼티 갱신
+          bookmarks.forEach((b: BookmarkIntoCollection) => {
+            if (String(b.resourceId) === resourceId) {
+              b.collection = checkedCollections;
+            }
+          });
+          localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        });
+      });
+
+      // 닫기 버튼
+      const collectionModalCloseBtn = document.createElement('button');
+      collectionModalCloseBtn.id = 'close-collection-modal';
+      collectionModalCloseBtn.textContent = '닫기';
+      collectionModalCloseBtn.style.marginTop = '1rem';
+      collectionModalCloseBtn.style.width = '100%';
+      collectionModalCloseBtn.style.padding = '0.5rem';
+      collectionModalCloseBtn.style.borderRadius = '0.5rem';
+      collectionModalCloseBtn.style.border = 'none';
+      collectionModalCloseBtn.style.background = '#eee';
+      collectionModalCloseBtn.style.cursor = 'pointer';
+      collectionModalCloseBtn.addEventListener('click', () => {
+        collectionModal.remove();
+      });
+
+      collectionModalContent.appendChild(collectionModalCloseBtn);
+      document.body.appendChild(collectionModal);
     });
   });
 }

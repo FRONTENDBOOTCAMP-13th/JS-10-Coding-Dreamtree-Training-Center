@@ -17,3 +17,7 @@ export interface BookmarkResource extends Bookmark {
     author: string;
   };
 }
+
+export interface BookmarkIntoCollection extends Bookmark {
+  collection: string | string[];
+}

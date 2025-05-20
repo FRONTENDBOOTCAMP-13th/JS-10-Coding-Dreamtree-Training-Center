@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
     <script type="module" src="../script/bookmarkRendering.ts"></script>
+    <script type="module" src="../script/collectionRendering.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -148,14 +149,16 @@
       >
         <h1 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h1>
 
-        <!-- 북마크 컬렉션 섹션 -->
-        <section aria-labelledby="bookmark-collection-heading">
-          <h2 id="bookmark-collection-heading" class="mb-3 text-2xl font-bold">북마크 컬렉션</h2>
-          <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
+        <!-- 북마크 항목 섹션 -->
+        <section aria-labelledby="bookmark-items-heading">
+          <h2 id="bookmark-items-heading" class="mb-3 text-2xl font-bold">북마크 항목</h2>
+          <div class="mb-3 flex flex-row gap-1">
+            <!-- 새 컬렉션 추가 -->
             <button
               type="button"
-              class="bg-quokka-mint flex justify-between gap-2.5 self-center rounded-4xl px-6 py-3 text-sm font-semibold text-white"
+              class="border-quokka-mint bg-quokka-breeze text-quokka-mist flex w-fit cursor-pointer items-center justify-center gap-1 rounded-4xl border-1 border-dotted px-3.5 py-2 text-xs font-medium"
               aria-label="새 컬렉션 추가"
+              data-roll="new-collection"
             >
               <svg
                 width="11"
@@ -168,7 +171,7 @@
               >
                 <path
                   d="M5.5 1V9M9.5 5L1.5 5"
-                  stroke="white"
+                  stroke="currentColor"
                   stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -176,51 +179,18 @@
               </svg>
               새 컬렉션 추가
             </button>
-          </div>
-        </section>
 
-        <!-- 컬렉션 목록 섹션 -->
-        <section aria-labelledby="collection-list-heading">
-          <h2 id="collection-list-heading" class="mb-3 text-2xl font-bold">컬렉션 목록</h2>
-          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-            <div role="list" aria-label="컬렉션 목록">
-              <button
-                type="button"
-                class="bg-quokka-cloud text-quokka-brown gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                프론트엔드 자료
-              </button>
-              <button
-                type="button"
-                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                백엔드 튜토리얼
-              </button>
-              <button
-                type="button"
-                class="bg-quokka-snow text-quokka-gray gap-2 self-center rounded-xl px-4 py-2 text-xs font-semibold"
-                role="listitem"
-              >
-                CS 기초
-              </button>
+            <div data-roll="collections" class="flex flex-row gap-1">
+              <!-- 동적으로 생성(createCollection.ts) -->
             </div>
+          </div>
+          <div class="flex h-fit flex-col gap-4">
             <div
-              class="border-quokka-mint bg-quokka-breeze text-quokka-mist flex w-full items-center justify-center rounded-xl border-2 border-dotted px-4 py-4 text-xs font-semibold"
-              role="note"
-              aria-label="북마크 위치 변경 안내"
+              class="flex flex-col gap-4"
+              role="list"
+              aria-label="북마크된 리소스 목록"
+              data-roll="allBookmark"
             >
-              <p>드래그 앤 드롭으로 북마크 위치 변경</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 북마크 항목 섹션 -->
-        <section aria-labelledby="bookmark-items-heading">
-          <h2 id="bookmark-items-heading" class="mb-3 text-2xl font-bold">북마크 항목</h2>
-          <div class="flex h-fit flex-col gap-4 rounded-2xl bg-white px-7 py-4">
-            <div class="flex flex-col gap-4" role="list" aria-label="북마크된 리소스 목록">
               <!-- 북마크된 리소스들이 동적으로 렌더링 -->
             </div>
           </div>
