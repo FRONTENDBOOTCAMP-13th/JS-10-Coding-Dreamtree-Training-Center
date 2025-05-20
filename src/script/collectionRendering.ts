@@ -1,3 +1,8 @@
+import type { BookmarkIntoCollection } from '../types/bookmark.type';
+import type { Resource } from '../types/type';
+import data from '../data/resource.json';
+import { createBookmarkArticle } from './bookmarkRendering';
+
 /**
  * 이메일 별로 Local Storage 에 저장된 Collections 를 화면에 렌더링하는 함수
  */
@@ -95,4 +100,58 @@ newCollectionBtn?.addEventListener('click', () => {
 
   // 컬렉션 추가 후, 다시 렌더링
   renderCollectionsFromStorage();
+});
+
+// 함수
+function renderFilteredArticles(filteredBookmarks: BookmarkIntoCollection[]) {
+  const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
+  if (!bookmarkList) return;
+
+  // resourceId만 추출
+  const filteredResourceIds = filteredBookmarks.map((b) => b.resourceId);
+
+  // resource.json에서 해당 리소스만 추출
+  const filteredResources = (data as Resource[]).filter((resource) =>
+    filteredResourceIds.includes(resource.id),
+  );
+
+  // article 렌더링
+  if (filteredResources.length === 0) {
+    bookmarkList.innerHTML = `
+      <div class="text-center text-quokka-gray py-10">
+        해당 컬렉션에 북마크된 리소스가 없습니다.
+      </div>
+    `;
+    return;
+  }
+
+  bookmarkList.innerHTML = filteredResources.map(createBookmarkArticle).join('');
+}
+
+// 필터링하는 기능
+collections?.addEventListener('change', (event) => {
+  const target = event.target as HTMLInputElement;
+
+  // 체크되었을 때 실행하는 내용
+  if (target.name === 'collection' && target.checked) {
+    // 체크된 컬렉션 이름 e.g. '컬렉션 1'
+    const selectedCollection = target.nextElementSibling?.textContent || target.value;
+
+    // bookmarks에서 해당 컬렉션만 필터링
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+
+    // 배열이면 include 로, 문자열이면 === 로 이름과 일치하는지 확인
+    const filtered = bookmarks.filter((bookmark: { collection: string | string[] }) => {
+      if (Array.isArray(bookmark.collection)) {
+        console.log(bookmark.collection.includes(selectedCollection));
+        return bookmark.collection.includes(selectedCollection);
+      } else {
+        console.log(bookmark.collection === selectedCollection);
+        return bookmark.collection === selectedCollection;
+      }
+    });
+
+    // 필터링된 데이터를 화면에서 다시 렌더링하는 기능
+    renderFilteredArticles(filtered);
+  }
 });

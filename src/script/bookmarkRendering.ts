@@ -26,7 +26,7 @@ async function getBookmarkedResources(): Promise<Resource[]> {
  * @param resource Resource
  * @returns string
  */
-function createBookmarkArticle(resource: Resource): string {
+export function createBookmarkArticle(resource: Resource): string {
   return `
     <div class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4" data-roll="bookmakr article" data-index="${resource.id}">
       <div class="flex flex-col gap-1">
@@ -114,7 +114,7 @@ function createBookmarkArticle(resource: Resource): string {
 /**
  * 북마크된 리소스들을 렌더링하는 함수
  */
-async function renderBookmarkedResources(): Promise<void> {
+export async function renderBookmarkedResources(): Promise<void> {
   const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
   if (!bookmarkList) return;
 
@@ -206,12 +206,12 @@ async function renderBookmarkedResources(): Promise<void> {
 
       collectionModalContent.appendChild(collectionModalTitle);
 
-      // 🅾️ Local Storage 에 저장된 Collection 정보를 가져오기
+      // Local Storage 에 저장된 Collection 정보를 가져오기
       const email = localStorage.getItem('loginUser');
       const collectionsObj = JSON.parse(localStorage.getItem('collections') || '{}');
       const userCollections: string[] = email && collectionsObj[email] ? collectionsObj[email] : [];
 
-      // 🅾️ 컬렉션 체크박스 리스트 생성
+      // 컬렉션 체크박스 리스트 생성
       userCollections.forEach((name, idx) => {
         const row = document.createElement('div');
         row.className = 'flex flex-row items-center gap-4';
