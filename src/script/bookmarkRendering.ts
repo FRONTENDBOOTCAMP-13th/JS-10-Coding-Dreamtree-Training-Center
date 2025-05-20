@@ -3,17 +3,22 @@ import { isAuthenticated } from '../service/auth';
 import data from '../../src/data/resource.json';
 import { type Resource } from '../types/type';
 
+// 페이지 로드 전에 로그인 체크
+if (!isAuthenticated()) {
+  alert('로그인 후 이용해주세요.');
+  window.location.href = '/src/pages/login.html';
+} else {
+  // 로그인된 경우에만 페이지 로드 이벤트 리스너 등록
+  window.addEventListener('DOMContentLoaded', () => {
+    renderBookmarkedResources();
+  });
+}
+
 /**
  * 북마크된 리소스 정보를 가져오는 함수
  * @returns Promise<Resource[]>
  */
 async function getBookmarkedResources(): Promise<Resource[]> {
-  if (!isAuthenticated()) {
-    alert('로그인 후 이용해주세요.');
-    window.location.href = '/src/pages/login.html';
-    return [];
-  }
-
   const bookmarks = getUserBookmarks();
   return data.filter((resource) =>
     bookmarks.some((bookmark) => bookmark.resourceId === resource.id),
@@ -140,6 +145,3 @@ async function renderBookmarkedResources(): Promise<void> {
     });
   });
 }
-
-// 페이지 로드 시 북마크된 리소스 렌더링
-window.addEventListener('DOMContentLoaded', renderBookmarkedResources);
