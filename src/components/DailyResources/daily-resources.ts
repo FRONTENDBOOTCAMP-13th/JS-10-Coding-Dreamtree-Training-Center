@@ -1,3 +1,5 @@
+import resources from '../../data/resource.json';
+
 // 리소스 데이터 모양을 정의하는 인터페이스
 interface Resource {
   id: number;
@@ -29,11 +31,8 @@ function seededRandom(seed: number): () => number {
 // 리소스 데이터를 가져오는 함수
 async function fetchResources(): Promise<Resource[]> {
   try {
-    const response = await fetch('/src/data/resource.json');
-    if (!response.ok) {
-      throw new Error('리소스 데이터를 불러오는데 실패했습니다.');
-    }
-    return await response.json();
+    // JSON 파일에서 리소스 데이터 가져오기
+    return resources;
   } catch (error) {
     console.error('리소스 데이터 로딩 오류:', error);
     return [];
