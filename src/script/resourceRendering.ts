@@ -1,6 +1,6 @@
 import data from '../../src/data/resource.json';
 import { resetFilters } from './filter';
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 import { isBookmarked, addBookmark, removeBookmark } from '../service/bookmark';
 import { isAuthenticated } from '../service/auth';
 import { setupModalEvents } from './modalRendering';

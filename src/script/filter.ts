@@ -1,6 +1,6 @@
 import data from '../../src/data/resource.json';
 import { renderResources } from './resourceRendering';
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 
 /**
  * 필터링 함수: 모든 조건을 만족하는 데이터만 반환

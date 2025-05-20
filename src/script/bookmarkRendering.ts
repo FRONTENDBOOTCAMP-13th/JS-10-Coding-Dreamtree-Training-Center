@@ -1,7 +1,7 @@
 import { getUserBookmarks, removeBookmark } from '../service/bookmark';
 import { isAuthenticated } from '../service/auth';
 import data from '../../src/data/resource.json';
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 
 // 페이지 로드 전에 로그인 체크
 if (!isAuthenticated()) {

@@ -1,5 +1,5 @@
 // 컴포넌트 테스트를 위한 파일이며, 실제 렌더링시 사용되지 않습니다.
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 
 /**
  * 모달을 열고 리소스 정보를 업데이트하는 함수
