@@ -90,9 +90,7 @@ function createBookmarkArticle(resource: Resource): string {
  * 북마크된 리소스들을 렌더링하는 함수
  */
 async function renderBookmarkedResources(): Promise<void> {
-  const bookmarkList = document.querySelector(
-    '.flex.h-fit.flex-col.gap-4.rounded-2xl.bg-white.px-7.py-4 > div.flex.flex-col.gap-4',
-  );
+  const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
   if (!bookmarkList) return;
 
   const bookmarkedResources = await getBookmarkedResources();
