@@ -2,6 +2,7 @@ import { getUserBookmarks, removeBookmark } from '../service/bookmark';
 import { isAuthenticated } from '../service/auth';
 import data from '../../src/data/resource.json';
 import { type Resource } from '../types/resource.type';
+import { createCollectionModal } from './collectionModal';
 
 // 페이지 로드 전에 로그인 체크
 if (!isAuthenticated()) {
@@ -30,19 +31,43 @@ async function getBookmarkedResources(): Promise<Resource[]> {
  * @param resource Resource
  * @returns string
  */
-function createBookmarkArticle(resource: Resource): string {
+export function createBookmarkArticle(resource: Resource): string {
   return `
-    <div class="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4">
-      <div class="flex flex-col gap-2">
-        <h3 class="text-2xl font-bold">${resource.title}</h3>
-        <p class="text-quokka-gray text-xs font-semibold">
+    <div class="flex gap-5 flex-col items-start justify-between rounded-xl border border-gray-100 bg-white p-6 hover:shadow-md transition-shadow md:flex-row md:items-center md:gap-6" data-roll="bookmakr article" data-index="${resource.id}">
+      <div class="flex flex-col gap-2 flex-1">
+        <h3 class="text-xl font-semibold">${resource.title}</h3>
+        <p class="text-quokka-gray text-sm line-clamp-2">
           ${resource.description}
         </p>
       </div>
-      <div class="flex gap-2">
+      <div class="flex gap-3">
         <button
           type="button"
-          class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
+          class="text-quokka-blue border-quokka-mint bg-quokka-snow flex justify-between w-fit items-center gap-2.5 rounded-4xl border border-dashed px-4 py-2 text-sm font-semibold hover:bg-quokka-mint/10 hover:border-quokka-mint/80 transition-all duration-200 cursor-pointer"
+          data-roll="into-collection"
+        >
+          <svg
+                width="11"
+                height="10"
+                viewBox="0 0 11 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="self-center"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5.5 1V9M9.5 5L1.5 5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+          컬렉션에 추가
+        </button>
+        <button
+          type="button"
+          class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-4 py-2 text-sm font-semibold hover:bg-quokka-blue/10 hover:border-quokka-blue/80 transition-all duration-200 cursor-pointer"
           data-resource-url="${resource.resourceUrl}"
         >
           <svg
@@ -65,7 +90,7 @@ function createBookmarkArticle(resource: Resource): string {
         </button>
         <button
           type="button"
-          class="text-quokka-red border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-3 py-1.5 text-xs font-semibold"
+          class="text-quokka-red border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-4 py-2 text-sm font-semibold hover:bg-quokka-red/10 hover:border-quokka-red/80 transition-all duration-200 cursor-pointer"
           data-resource-id="${resource.id}"
         >
           <svg
@@ -94,10 +119,8 @@ function createBookmarkArticle(resource: Resource): string {
 /**
  * 북마크된 리소스들을 렌더링하는 함수
  */
-async function renderBookmarkedResources(): Promise<void> {
-  const bookmarkList = document.querySelector(
-    '.flex.h-fit.flex-col.gap-4.rounded-2xl.bg-white.px-7.py-4 > div.flex.flex-col.gap-4',
-  );
+export async function renderBookmarkedResources(): Promise<void> {
+  const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
   if (!bookmarkList) return;
 
   const bookmarkedResources = await getBookmarkedResources();
@@ -144,4 +167,22 @@ async function renderBookmarkedResources(): Promise<void> {
       }
     });
   });
+
+  // 컬렉션 추가 버튼 이벤트 핸들러
+  const addCollectionButtons = bookmarkList.querySelectorAll<HTMLButtonElement>(
+    '[data-roll="into-collection"]',
+  );
+  addCollectionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const resourceId = button
+        .closest('[data-roll="bookmakr article"]')
+        ?.getAttribute('data-index');
+      if (resourceId) {
+        createCollectionModal(resourceId);
+      }
+    });
+  });
 }
+
+// 페이지 로드 시 북마크된 리소스 렌더링
+window.addEventListener('DOMContentLoaded', renderBookmarkedResources);
