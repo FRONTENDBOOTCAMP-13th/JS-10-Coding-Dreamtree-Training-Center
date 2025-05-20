@@ -3,14 +3,20 @@ import { type Resource } from '../types/resource.type';
 
 /**
  * 모달을 열고 리소스 정보를 업데이트하는 함수
- * @param resources 전체 리소스 데이터
- * @param resourceId 클릭한 리소스의 인덱스
+ * @param {Resource[]} resources - 전체 리소스 데이터 배열
+ * @param {number} resourceId - 표시할 리소스의 인덱스 (1부터 시작)
+ * @description
+ * 1. 현재 스크롤 위치를 저장하고 모달에 저장
+ * 2. 리소스 데이터로 모달 내용 업데이트
+ * 3. 모달을 표시하고 body 스크롤을 고정
  */
 export function openModal(resources: Resource[], resourceId: number): void {
   const modal = document.querySelector('dialog');
   if (!modal) return;
 
-  // 모달에서 동적으로 변경이 필요한 요소를 추출
+  const scrollY = window.scrollY;
+  modal.setAttribute('data-scroll-y', scrollY.toString());
+
   const title = modal.querySelector('[data-roll="title"]') as HTMLDivElement;
   const tags = modal.querySelector('[data-roll="tags"]') as HTMLDivElement;
   const description = modal.querySelector('[data-roll="description"]') as HTMLParagraphElement;
@@ -20,10 +26,8 @@ export function openModal(resources: Resource[], resourceId: number): void {
   const difficulty = modal.querySelector('[data-roll="difficulty"]') as HTMLDivElement;
   const dateAdded = modal.querySelector('[data-roll="dateAdded"]') as HTMLDivElement;
 
-  // 클릭한 리소스의 데이터 추출
   const originData = resources[resourceId - 1];
 
-  // 모달에 있는 요소에 원본 데이터의 속성 값으로 업데이트
   title.textContent = originData.title;
   tags.innerHTML = originData.tags
     .map(
@@ -38,39 +42,52 @@ export function openModal(resources: Resource[], resourceId: number): void {
   resourceUrl.setAttribute('href', originData.resourceUrl);
   author.textContent = originData.author;
 
-  // 모달 정보가 모두 업데이트 된 후 열기 실행
   modal.showModal();
-  // 모달이 열렸을 때 body 스크롤 막기 (스크롤바는 유지)
+
   document.body.style.overflowY = 'scroll';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
-  document.body.style.top = `-${window.scrollY}px`;
+  document.body.style.top = `-${scrollY}px`;
 }
 
 /**
- * 모달을 닫는 함수
+ * 모달을 닫고 스크롤 위치를 복원하는 함수
+ * @description
+ * 1. 저장된 스크롤 위치를 가져옴
+ * 2. 모달을 닫음
+ * 3. 스크롤 위치를 복원
+ * 4. 다음 프레임에서 body 스타일 초기화
  */
 export function closeModal(): void {
   const modal = document.querySelector('dialog');
-  modal?.close();
-  // 모달이 닫혔을 때 body 스크롤 복원
-  const scrollY = document.body.style.top;
-  document.body.style.position = '';
-  document.body.style.width = '';
-  document.body.style.top = '';
-  document.body.style.overflowY = '';
-  window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  if (!modal) return;
+
+  const scrollY = parseInt(modal.getAttribute('data-scroll-y') || '0');
+
+  modal.close();
+
+  window.scrollTo(0, scrollY);
+
+  requestAnimationFrame(() => {
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    document.body.style.overflowY = '';
+  });
 }
 
 /**
  * 모달 관련 이벤트 리스너를 설정하는 함수
- * @param resources 전체 리소스 데이터
+ * @param {Resource[]} resources - 전체 리소스 데이터 배열
+ * @description
+ * 1. 상세보기 버튼 클릭 시 모달 열기
+ * 2. 모달 닫기 버튼 클릭 시 모달 닫기
+ * 3. 모달이 닫힐 때 스크롤 위치 복원
  */
 export function setupModalEvents(resources: Resource[]): void {
   const section = document.querySelector('main > section');
   if (!section) return;
 
-  // 상세보기 버튼에 이벤트 리스너 추가
   const detailButtons = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
   detailButtons.forEach((button) => {
     button.addEventListener('click', function () {
@@ -79,12 +96,10 @@ export function setupModalEvents(resources: Resource[]): void {
     });
   });
 
-  // 모달 닫기 버튼에 이벤트 리스너 추가
   const modal = document.querySelector('dialog');
   const closeBtn = modal?.querySelector('button[name="close"]') as HTMLButtonElement;
   closeBtn?.addEventListener('click', closeModal);
 
-  // 모달이 닫힐 때 body 스크롤 복원
   modal?.addEventListener('close', () => {
     const scrollY = document.body.style.top;
     document.body.style.position = '';
