@@ -1,7 +1,7 @@
 import type { BookmarkIntoCollection } from '../types/bookmark.type';
 import type { Resource } from '../types/type';
 import data from '../data/resource.json';
-import { createBookmarkArticle } from './bookmarkRendering';
+import { createBookmarkArticle, renderBookmarkedResources } from './bookmarkRendering';
 
 /**
  * 이메일 별로 Local Storage 에 저장된 Collections 를 화면에 렌더링하는 함수
@@ -102,8 +102,11 @@ newCollectionBtn?.addEventListener('click', () => {
   renderCollectionsFromStorage();
 });
 
-// 함수
-function renderFilteredArticles(filteredBookmarks: BookmarkIntoCollection[]) {
+/**
+ * 필터링된 결과를 다시 렌더링하여 브라우저에 노출시키는 기능
+ * @param filteredBookmarks
+ */
+function renderFilteredArticles(filteredBookmarks: BookmarkIntoCollection[]): void {
   const bookmarkList = document.querySelector('[data-roll="allBookmark"]');
   if (!bookmarkList) return;
 
@@ -129,29 +132,31 @@ function renderFilteredArticles(filteredBookmarks: BookmarkIntoCollection[]) {
 }
 
 // 필터링하는 기능
-collections?.addEventListener('change', (event) => {
-  const target = event.target as HTMLInputElement;
+collections?.addEventListener('change', () => {
+  // 모든 체크된 컬렉션 이름을 배열로 수집
+  const checkeCollections = collections.querySelectorAll<HTMLInputElement>(
+    'input[type="checkbox"][name="collection"]:checked',
+  );
+  const checkedCollectionName = Array.from(checkeCollections).map(
+    (input) => input.nextElementSibling?.textContent || input.value,
+  );
 
-  // 체크되었을 때 실행하는 내용
-  if (target.name === 'collection' && target.checked) {
-    // 체크된 컬렉션 이름 e.g. '컬렉션 1'
-    const selectedCollection = target.nextElementSibling?.textContent || target.value;
-
-    // bookmarks에서 해당 컬렉션만 필터링
+  // 하나 이상 체크된 경우: 해당 컬렉션에 속한 모든 북마크를 필터링
+  if (checkedCollectionName.length > 0) {
     const bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
 
-    // 배열이면 include 로, 문자열이면 === 로 이름과 일치하는지 확인
+    // 여러 컬렉션 중 하나라도 포함되면 필터링
     const filtered = bookmarks.filter((bookmark: { collection: string | string[] }) => {
       if (Array.isArray(bookmark.collection)) {
-        console.log(bookmark.collection.includes(selectedCollection));
-        return bookmark.collection.includes(selectedCollection);
+        return bookmark.collection.some((col) => checkedCollectionName.includes(col));
       } else {
-        console.log(bookmark.collection === selectedCollection);
-        return bookmark.collection === selectedCollection;
+        return checkedCollectionName.includes(bookmark.collection);
       }
     });
 
-    // 필터링된 데이터를 화면에서 다시 렌더링하는 기능
     renderFilteredArticles(filtered);
+  } else {
+    // 아무것도 체크 안 된 경우 전체 북마크 렌더링
+    renderBookmarkedResources();
   }
 });
