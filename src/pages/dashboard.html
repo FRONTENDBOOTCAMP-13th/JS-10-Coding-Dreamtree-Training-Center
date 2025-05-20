@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>대시보드</title>
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="../../style.css" />
+    <link rel="preload" href="./../style.css" as="style" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="../main.ts"></script>
     <script type="module" src="../script/dailyResources.ts"></script>
     <script type="module" src="../components/GithubCard/githubCard.ts"></script>
-    <script type="module" src="./../script/modalRendering.ts"></script>
+    <script type="module" src="./../script/dailyResources.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
@@ -598,7 +598,7 @@
             <!-- 리소스 방문하기 -->
             <a
               href="#"
-              class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-3 text-sm font-semibold text-white"
+              class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-2.5 text-sm font-semibold text-white"
               data-roll="resourceUrl"
               target="_blank"
               rel="noopener"

@@ -47,12 +47,12 @@
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
 
     <!-- CSS -->
-    <link rel="preload" href="/src/style.css" as="style" />
-    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="preload" href="./src/style.css" as="style" />
 
     <!-- Script -->
     <script type="module" src="./src/main.ts"></script>
     <script type="module" src="./src/components/GithubCard/githubCard.ts"></script>
+    <script type="module" src="./src/script/dailyResources.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
     <div class="grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr_auto] lg:grid-cols-[8rem_1fr]">
@@ -571,5 +571,88 @@
         </div>
       </footer>
     </div>
+    <dialog
+      class="text-quokka-black backdrop:bg-quokka-brown/80 fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+    >
+      <form method="dialog" class="flex flex-col gap-9">
+        <!-- 닫기 -->
+        <button
+          type="button"
+          name="close"
+          class="absolute top-6 right-6 cursor-pointer"
+          data-roll="isBookmarked"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 15L15 1M1 1L15 15"
+              stroke="#777777"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <!-- 제목, 태그, 북마크 & 공유 -->
+        <div class="gap- flex flex-col gap-3">
+          <!-- 제목 -->
+          <h3 class="text-2xl font-bold" data-roll="title">JavaScript 제목입니다.</h3>
+
+          <!-- 태그 -->
+          <div class="text-xs font-semibold" data-roll="tags">
+            <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
+            <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
+            <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
+          </div>
+
+          <!-- 설명, 설명 텍스트, 리소스 방문하기 -->
+          <div class="flex flex-col">
+            <!-- 설명 -->
+            <h4 class="mb-2">설명</h4>
+            <p
+              class="text-quokka-gray mb-6 border-t-[1px] border-t-[#F3F3F3] pt-2 text-sm"
+              data-roll="description"
+            >
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
+            </p>
+
+            <!-- 리소스 방문하기 -->
+            <a
+              href="#"
+              class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-2.5 text-sm font-semibold text-white"
+              data-roll="resourceUrl"
+              target="_blank"
+              rel="noopener"
+            >
+              리소스 방문하기
+            </a>
+          </div>
+        </div>
+
+        <!-- 리소스 정보, 카테고리, 작성자, 최근 방문, 난이도, 추가일 -->
+        <div class="flex flex-col">
+          <!-- 리소스 정보 -->
+          <h4 class="mb-2">리소스 정보</h4>
+          <dl
+            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2"
+          >
+            <dt class="text-quokka-gray">카테고리 :</dt>
+            <dd class="col-start-2 col-end-3" data-roll="category">프론트엔드</dd>
+            <dt class="text-quokka-gray">작성자 :</dt>
+            <dd class="col-start-2 col-end-3" data-roll="author">React 팀</dd>
+            <dt class="text-quokka-gray">난이도 :</dt>
+            <dd class="col-start-4 col-end-5" data-roll="difficulty">중급</dd>
+            <dt class="text-quokka-gray">추가일 :</dt>
+            <dd class="col-start-4 col-end-5" data-roll="dateAdded">2025-01-15</dd>
+          </dl>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>
