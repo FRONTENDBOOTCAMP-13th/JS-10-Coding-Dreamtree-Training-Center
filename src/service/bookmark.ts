@@ -1,14 +1,14 @@
 import { isAuthenticated } from './auth';
-import type { Bookmark } from '../types/bookmark.type';
+import type { Bookmark, BookmarkIntoCollection } from '../types/bookmark.type';
 
 // 북마크 데이터를 로컬스토리지에서 가져오는 함수
-function getBookmarks(): Bookmark[] {
+function getBookmarks(): BookmarkIntoCollection[] {
   const bookmarks = localStorage.getItem('bookmarks');
   return bookmarks ? JSON.parse(bookmarks) : [];
 }
 
 // 북마크 데이터를 로컬스토리지에 저장하는 함수
-function setBookmarks(bookmarks: Bookmark[]): void {
+function setBookmarks(bookmarks: BookmarkIntoCollection[]): void {
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 }
 
@@ -41,11 +41,12 @@ export function addBookmark(resourceId: number): boolean {
   // 이미 북마크되어 있는지 확인
   if (isBookmarked(resourceId)) return false;
 
-  const newBookmark: Bookmark = {
+  const newBookmark: BookmarkIntoCollection = {
     id: crypto.randomUUID(),
     userId: userEmail,
     resourceId,
     createdAt: new Date().toISOString(),
+    collection: 'none',
   };
 
   bookmarks.push(newBookmark);

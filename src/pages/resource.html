@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>리소스</title>
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="./../style.css" />
+    <link rel="preload" href="./../style.css" as="style" />
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
     <link rel="stylesheet" href="/font/pretendardvariable.css" />
     <script type="module" src="./../main.ts"></script>
@@ -13,32 +13,65 @@
     <script type="module" src="./../script/filter.ts"></script>
   </head>
   <body class="font-pretendard bg-quokka-white text-quokka-black min-h-screen">
-    <div class="grid min-h-screen grid-cols-[8rem_1fr] grid-rows-[4rem_1fr_auto]">
+    <div class="grid min-h-screen grid-cols-1 grid-rows-[4rem_1fr_auto] lg:grid-cols-[8rem_1fr]">
+      <!-- 햄버거 메뉴 버튼 (모바일) -->
+      <button
+        type="button"
+        class="fixed top-4 left-4 z-40 cursor-pointer lg:hidden"
+        aria-label="메뉴 열기"
+        data-roll="menu-toggle"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 6H20M4 12H20M4 18H20"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <!-- 오버레이 (모바일) -->
+      <div
+        class="fixed inset-0 z-30 hidden bg-black/50 transition-opacity duration-300"
+        data-roll="overlay"
+      ></div>
+
       <aside
-        class="fixed top-0 left-0 z-30 h-screen w-32 bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+        class="fixed top-0 left-0 z-30 h-full w-32 -translate-x-full transform bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] transition-transform duration-300 lg:relative lg:row-span-3 lg:h-auto lg:translate-x-0"
         aria-label="사이드바"
       >
-        <nav class="flex h-full flex-col items-center px-3 pt-3" aria-label="사이드바 내비게이션">
+        <nav
+          class="flex h-full flex-col items-center px-3 py-5 lg:h-auto"
+          aria-label="사이드바 내비게이션"
+        >
           <h2 class="sr-only">주요 메뉴</h2>
           <ul class="flex w-full flex-1 flex-col items-center gap-2">
             <!-- 로고 -->
             <li class="w-full">
               <a
-                href="/src/pages/dashboard.html"
-                class="mb-3 flex flex-col items-center"
+                href="/"
+                class="mb-3 flex w-full flex-col items-center justify-center"
                 aria-label="대시보드로 이동"
               >
                 <h1 class="sr-only">QuokkaDocs</h1>
-                <img src="/favicon.svg" alt="QuokkaDocs 로고" />
+                <img src="/favicon.svg" alt="QuokkaDocs 로고" class="w-[4.25rem]" />
               </a>
             </li>
             <!-- 대시보드 -->
             <li class="w-full">
               <a
-                href="/src/pages/dashboard.html"
+                href="/"
                 class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
                 data-active="true"
-                data-page="/src/pages/dashboard.html"
+                data-page="/"
                 aria-current="page"
               >
                 <div class="flex h-5 w-5 items-center justify-center text-xl">
@@ -73,728 +106,188 @@
                 <span class="text-quokka-black mt-1 text-sm font-medium">북마크</span>
               </a>
             </li>
-            <!-- 설정(하단 고정) -->
-            <li class="mt-auto w-full">
-              <a
-                href="#"
-                class="nav-item flex w-full cursor-pointer flex-col items-center rounded-xl px-2 py-3"
-                data-page="#"
-                aria-label="설정"
-              >
-                <div class="flex h-5 w-5 items-center justify-center text-xl">
-                  <img src="/img/settings.svg" alt="설정 아이콘" />
-                </div>
-                <span class="text-quokka-black mt-1 text-sm font-medium">설정</span>
-              </a>
-            </li>
           </ul>
         </nav>
       </aside>
       <header
-        class="z-20 col-start-2 row-start-1 flex h-16 w-full items-center justify-between bg-white pr-7 pl-[1.75rem]"
+        class="z-20 col-start-1 row-start-1 flex h-16 w-full items-center justify-end bg-white px-4 lg:col-start-2 lg:px-7"
       >
-        <!-- 검색창 -->
-        <div class="max-w-xl flex-1">
-          <div class="relative">
-            <input
-              type="text"
-              placeholder="리소스 검색..."
-              class="focus:ring-quokka-mint w-full rounded-4xl bg-[#F3F3F3] py-1.5 pr-11 pl-11 text-sm font-semibold text-[#a0a0a0] focus:ring-2 focus:outline-none"
-            />
-            <div class="absolute top-1/2 left-4 -translate-y-1/2 transform">
-              <img src="/img/search.svg" alt="검색 아이콘" class="h-4 w-4" />
-            </div>
-            <div class="absolute top-1/2 right-4 -translate-y-1/2 transform">
-              <img src="/img/mike.svg" alt="마이크 아이콘" class="h-4 w-4" />
-            </div>
-          </div>
-        </div>
-        <!-- 언어 선택 및 로그인 버튼 -->
-        <div class="flex items-center gap-2">
+        <!-- 로그인 버튼 -->
+        <a href="/src/pages/login.html" id="login-header-btn">
           <button
             type="button"
-            class="text-quokka-gray flex justify-between gap-4 rounded-4xl border border-[#a0a0a0] bg-[#F3F3F3] px-3 py-1.5 text-sm font-semibold"
+            class="bg-quokka-brown cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition-opacity hover:opacity-80"
           >
-            KO
-            <svg
-              width="9"
-              height="5"
-              viewBox="0 0 9 5"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-label="language select"
-              class="self-center"
-            >
-              <path
-                d="M7.5 1L4.5 4L1.5 1"
-                stroke="#777777"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            로그인
           </button>
-          <a href="/src/pages/login.html" id="login-header-btn">
-            <button
-              type="button"
-              class="bg-quokka-brown hover:bg-quokka-mint cursor-pointer rounded-4xl px-4 py-1.5 text-sm font-semibold text-white transition"
-            >
-              로그인
-            </button>
-          </a>
-        </div>
+        </a>
       </header>
       <main
-        class="col-start-2 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 px-[1.75rem] py-[1.875rem]"
+        class="col-start-1 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-6 p-4 lg:col-start-2 lg:px-6 lg:py-8"
       >
         <h2 class="text-3xl font-bold">쿼카의 리소스 탐험 ♪</h2>
-        <div class="flex h-fit flex-row gap-1.5 rounded-2xl bg-white px-7 py-4">
-          <!-- 카테고리 -->
-          <label for="category" class="sr-only">카테고리</label>
-          <select
-            id="category"
-            name="category"
-            class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
-            data-roll="selectCategory"
-          >
-            <option value="">카테고리</option>
-            <option value="프론트엔드">프론트엔드</option>
-            <option value="백엔드">백엔드</option>
-            <option value="모바일">모바일</option>
-          </select>
+        <div class="flex flex-wrap gap-2 rounded-2xl bg-white p-4 lg:px-7 lg:py-4">
+          <div class="flex flex-1 flex-wrap gap-2">
+            <!-- 카테고리 -->
+            <label for="category" class="sr-only">카테고리</label>
+            <select
+              id="category"
+              name="category"
+              class="text-quokka-brown w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+              data-roll="selectCategory"
+            >
+              <option value="">카테고리</option>
+              <option value="프론트엔드">프론트엔드</option>
+              <option value="백엔드">백엔드</option>
+              <option value="모바일">모바일</option>
+            </select>
 
-          <!-- 기술스택 -->
-          <label for="stack" class="sr-only">기술스택</label>
-          <select
-            id="stack"
-            name="stack"
-            class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
-            data-roll="selectStack"
-          >
-            <option value="">기술스택</option>
-            <option value="React">React</option>
-            <option value="Node.js">Node.js</option>
-            <option value="Flutter">Flutter</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="TypeScript">TypeScript</option>
-            <option value="Docker">Docker</option>
-            <option value="AWS">AWS</option>
-            <option value="GraphQL">GraphQL</option>
-          </select>
+            <!-- 기술스택 -->
+            <label for="stack" class="sr-only">기술스택</label>
+            <select
+              id="stack"
+              name="stack"
+              class="text-quokka-brown w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+              data-roll="selectStack"
+            >
+              <option value="">기술스택</option>
+              <option value="React">React</option>
+              <option value="Node.js">Node.js</option>
+              <option value="Flutter">Flutter</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="Docker">Docker</option>
+              <option value="AWS">AWS</option>
+              <option value="GraphQL">GraphQL</option>
+            </select>
 
-          <!-- 난이도 -->
-          <label for="difficulty" class="sr-only">난이도</label>
-          <select
-            id="difficulty"
-            name="difficulty"
-            class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
-            data-roll="selectDifficulty"
-          >
-            <option value="">난이도</option>
-            <option value="쉬움">쉬움</option>
-            <option value="보통">보통</option>
-            <option value="어려움">어려움</option>
-          </select>
+            <!-- 난이도 -->
+            <label for="difficulty" class="sr-only">난이도</label>
+            <select
+              id="difficulty"
+              name="difficulty"
+              class="text-quokka-brown w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+              data-roll="selectDifficulty"
+            >
+              <option value="">난이도</option>
+              <option value="쉬움">쉬움</option>
+              <option value="보통">보통</option>
+              <option value="어려움">어려움</option>
+            </select>
 
-          <!-- 언어 -->
-          <label for="language" class="sr-only">언어</label>
-          <select
-            id="language"
-            name="language"
-            class="text-quokka-brown h-fit w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
-          >
-            <option value="">언어</option>
-            <option value="KO">KO</option>
-            <option value="EN">EN</option>
-            <option value="JP">JP</option>
-          </select>
+            <!-- 언어 -->
+            <label for="language" class="sr-only">언어</label>
+            <select
+              id="language"
+              name="language"
+              class="text-quokka-brown w-fit appearance-none rounded-4xl border bg-white bg-[url(/img/arrow-to-bottom.svg)] bg-position-[center_right_12px] bg-no-repeat py-1.5 pr-7 pl-4 text-center text-sm font-semibold"
+            >
+              <option value="">언어</option>
+              <option value="KO">KO</option>
+              <option value="EN">EN</option>
+              <option value="JP">JP</option>
+            </select>
+          </div>
 
           <!-- 필터 초기화 -->
           <button
             type="button"
             data-roll="reset-button"
-            class="text-quokka-brown ml-auto w-fit cursor-pointer text-sm font-semibold"
+            class="text-quokka-brown w-fit cursor-pointer text-sm font-semibold"
           >
             필터 초기화
           </button>
         </div>
-        <section class="grid grid-cols-3 gap-5">
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
-                >프론트엔드</span
-              >
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
-                >백엔드</span
-              >
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5"
-                >모바일</span
-              >
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-          <article
-            class="text-quokka-black rounded-[.625rem] bg-white px-7 py-5 text-xs font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
-          >
-            <!-- 제목/설명 -->
-            <h3 class="text-2xl font-semibold">JavaScript 제목입니다.</h3>
-            <p class="text-quokka-gray mt-2 text-sm">
-              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-            </p>
-
-            <!-- 태그 -->
-            <div class="mt-4 font-semibold">
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
-              <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
-            </div>
-
-            <!-- 추가 설명 : 카테고리, 어려움, 등록일자 -->
-            <div class="mt-5 flex flex-row justify-between">
-              <div class="flex flex-row gap-3">
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.64317 1H2.59061C1.71214 1 1 1.71214 1 2.59061V5.64317C1 6.06502 1.16758 6.4696 1.46588 6.7679L8.23911 13.5411C8.73302 14.035 9.49729 14.1573 10.0817 13.7747C11.5525 12.8118 12.8118 11.5525 13.7747 10.0817C14.1573 9.49729 14.035 8.73302 13.5411 8.23911L6.7679 1.46588C6.4696 1.16758 6.06502 1 5.64317 1Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M3.12081 3.12081H3.12611V3.12611H3.12081V3.12081Z"
-                      stroke="#121212"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  카테고리</span
-                >
-                <span class="flex flex-row items-center gap-1"
-                  ><svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 15 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.21191 0C11.1944 0.000203187 14.4226 3.22939 14.4229 7.21191C14.4226 11.1944 11.1944 14.4226 7.21191 14.4229C3.22941 14.4226 0.000203183 11.1944 0 7.21191C0.000203002 3.22941 3.22941 0.000230065 7.21191 0ZM7.21191 1.5C4.05784 1.50023 1.5002 4.05783 1.5 7.21191C1.5002 10.366 4.05784 12.9226 7.21191 12.9229C10.366 12.9226 12.9226 10.366 12.9229 7.21191C12.9226 4.05782 10.366 1.5002 7.21191 1.5ZM7.21191 3.62207C9.19447 3.62207 10.8018 5.22935 10.8018 7.21191C10.8018 9.19447 9.19447 10.8018 7.21191 10.8018C5.22938 10.8017 3.62207 9.19446 3.62207 7.21191C3.62207 5.22937 5.22938 3.6221 7.21191 3.62207Z"
-                      fill="#C25048"
-                    />
-                  </svg>
-                  어려움</span
-                >
-              </div>
-              <span>2025-05-13</span>
-            </div>
-
-            <!-- 상세보기/북마크 -->
-            <div class="mt-6 flex flex-row items-center justify-between">
-              <!-- 상세보기 버튼 -->
-              <button
-                type="button"
-                class="bg-quokka-brown gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
-              >
-                상세보기
-              </button>
-              <!-- 북마크 버튼 -->
-              <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="white"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                </svg>
-              </button>
-            </div>
-          </article>
-        </section>
+        <section class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"></section>
       </main>
-      <footer class="bg-quokka-white col-start-2 row-start-3 mt-8 w-full">
-        <div class="mx-auto px-10 py-2">
+      <footer class="bg-quokka-white col-start-1 row-start-3 w-full lg:col-start-2">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <!-- 상단 섹션 -->
-          <div class="mb-5 flex items-center justify-between">
-            <!-- 좌측: 로고 -->
-            <a href="/" class="flex flex-col items-center">
-              <img src="/favicon.svg" alt="QuokkaDocs" class="w-14" />
-              <span class="text-quokka-brown font-bold">QuokkaDocs</span>
-            </a>
-            <!-- 우측: 링크 -->
-            <div class="flex items-center gap-6">
-              <a
-                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/github-mark.svg" alt="깃허브" class="w-7" />
-                <span class="text-sm">GitHub</span>
+          <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <!-- 좌측: 로고 및 소개 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <a href="/" class="group flex items-center gap-2">
+                <span
+                  class="text-quokka-brown group-hover:text-quokka-brown/80 text-lg font-bold transition-colors"
+                  >QuokkaDocs</span
+                >
               </a>
-              <a
-                href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center/wiki"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/info-circle.svg" alt="깃허브 위키" class="w-7" />
-                <span class="text-sm">Wiki</span>
-              </a>
-              <a
-                href="https://www.figma.com/design/TXRXSEICodm4Pok7XvVe0z/%EC%BD%94%EB%94%A9%EA%BF%88%EB%82%98%EB%AC%B4%EC%96%91%EC%84%B1%EC%86%8C-%EB%B0%94%EB%8B%90%EB%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=87bMmkq8VmHvkYKO-1"
-                target="_blank"
-                class="text-quokka-black flex items-center gap-2 hover:opacity-80"
-              >
-                <img src="/img/figma-logo.svg" alt="피그마 링크" class="w-7" />
-                <span class="text-sm">Figma</span>
-              </a>
+              <p class="text-quokka-gray text-xs">개발자들을 위한 리소스 공유 플랫폼</p>
+            </div>
+
+            <!-- 중앙: 팀 정보 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <h3 class="text-quokka-brown text-sm font-semibold">JS-10 Coding Dreamtree</h3>
+              <div class="flex flex-wrap justify-center gap-x-4 gap-y-1">
+                <a
+                  href="https://github.com/toosign00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >노현수</a
+                >
+                <a
+                  href="https://github.com/kkjuno"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >김준오</a
+                >
+                <a
+                  href="https://github.com/ineahe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >송아현</a
+                >
+                <a
+                  href="https://github.com/jjmullan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown text-xs transition-colors"
+                  >최영준</a
+                >
+              </div>
+            </div>
+
+            <!-- 우측: 소셜 링크 -->
+            <div class="flex flex-col items-center gap-2 text-center">
+              <h3 class="text-quokka-brown text-sm font-semibold">링크</h3>
+              <div class="flex items-center justify-center gap-4">
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="GitHub 저장소"
+                >
+                  <img src="/img/github-mark.svg" alt="깃허브" class="h-6.5 w-6.5" />
+                </a>
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/JS-10-Coding-Dreamtree-Training-Center/wiki"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="GitHub 위키"
+                >
+                  <img src="/img/info-circle.svg" alt="깃허브 위키" class="h-6.5 w-6.5" />
+                </a>
+                <a
+                  href="https://www.figma.com/design/TXRXSEICodm4Pok7XvVe0z/%EC%BD%94%EB%94%A9%EA%BF%88%EB%82%98%EB%AC%B4%EC%96%91%EC%84%B1%EC%86%8C-%EB%B0%94%EB%8B%90%EB%9D%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=87bMmkq8VmHvkYKO-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-quokka-gray hover:text-quokka-brown transition-colors"
+                  aria-label="Figma 디자인"
+                >
+                  <img src="/img/figma-logo.svg" alt="피그마 링크" class="h-6.5 w-7.5" />
+                </a>
+              </div>
             </div>
           </div>
+
           <!-- 하단: 카피라이트 -->
           <div class="border-t border-[#e6d9c9] pt-4">
-            <p class="text-quokka-black text-center text-xs font-normal">
+            <p class="text-quokka-gray text-center text-xs">
               © 2025. Coding Dreamtree Training Center. All rights reserved.
             </p>
           </div>
@@ -806,7 +299,12 @@
     >
       <form method="dialog" class="flex flex-col gap-9">
         <!-- 닫기 -->
-        <button type="button" name="close" class="absolute top-6 right-6" data-roll="isBookmarked">
+        <button
+          type="button"
+          name="close"
+          class="absolute top-6 right-6 cursor-pointer"
+          data-roll="isBookmarked"
+        >
           <svg
             width="16"
             height="16"
@@ -836,75 +334,28 @@
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
           </div>
 
-          <!-- 북마크 | 공유 -->
-          <div class="flex flex-row justify-end gap-2">
-            <button
-              type="button"
-              name="bookmark"
-              class="self bg-quokka-snow flex items-center gap-2.5 rounded-3xl border-1 border-[#a0a0a0] px-4.5 py-2 text-xs font-semibold"
+          <!-- 설명, 설명 텍스트, 리소스 방문하기 -->
+          <div class="flex flex-col">
+            <!-- 설명 -->
+            <h4 class="mb-2">설명</h4>
+            <p
+              class="text-quokka-gray mb-6 border-t-[1px] border-t-[#F3F3F3] pt-2 text-sm"
+              data-roll="description"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="#7DCFCA"
-                width="13"
-                height="14"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-              </svg>
-              북마크
-            </button>
-            <button
-              type="button"
-              name="share"
-              class="self bg-quokka-snow flex items-center gap-2.5 rounded-3xl border-1 border-[#a0a0a0] px-4.5 py-2 text-xs font-semibold"
-            >
-              <svg
-                width="13"
-                height="14"
-                viewBox="0 0 13 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3.8429 6.3835C3.62942 5.99416 3.22 5.73077 2.75 5.73077C2.05964 5.73077 1.5 6.29902 1.5 7C1.5 7.70098 2.05964 8.26923 2.75 8.26923C3.22 8.26923 3.62942 8.00584 3.8429 7.6165M3.8429 6.3835C3.94298 6.56603 4 6.77626 4 7C4 7.22374 3.94298 7.43397 3.8429 7.6165M3.8429 6.3835L9.1571 3.38574M3.8429 7.6165L9.1571 10.6143M9.1571 10.6143C9.05702 10.7968 9 11.007 9 11.2308C9 11.9317 9.55964 12.5 10.25 12.5C10.9404 12.5 11.5 11.9317 11.5 11.2308C11.5 10.5298 10.9404 9.96154 10.25 9.96154C9.78 9.96154 9.37058 10.2249 9.1571 10.6143ZM9.1571 3.38574C9.37058 3.77507 9.78 4.03846 10.25 4.03846C10.9404 4.03846 11.5 3.47021 11.5 2.76923C11.5 2.06825 10.9404 1.5 10.25 1.5C9.55964 1.5 9 2.06825 9 2.76923C9 2.99298 9.05702 3.2032 9.1571 3.38574Z"
-                  stroke="#121212"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
+            </p>
 
-              공유
-            </button>
+            <!-- 리소스 방문하기 -->
+            <a
+              href="#"
+              class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-2.5 text-sm font-semibold text-white"
+              data-roll="resourceUrl"
+              target="_blank"
+              rel="noopener"
+            >
+              리소스 방문하기
+            </a>
           </div>
-        </div>
-
-        <!-- 설명, 설명 텍스트, 리소스 방문하기 -->
-        <div class="flex flex-col">
-          <!-- 설명 -->
-          <h4 class="mb-2">설명</h4>
-          <p
-            class="text-quokka-gray mb-6 border-t-[1px] border-t-[#F3F3F3] pt-2 text-sm"
-            data-roll="description"
-          >
-            JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-          </p>
-
-          <!-- 리소스 방문하기 -->
-          <a
-            href="#"
-            class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-3 text-sm font-semibold text-white"
-            data-roll="resourceUrl"
-            target="_blank"
-            rel="noopener"
-          >
-            리소스 방문하기
-          </a>
         </div>
 
         <!-- 리소스 정보, 카테고리, 작성자, 최근 방문, 난이도, 추가일 -->
@@ -912,14 +363,12 @@
           <!-- 리소스 정보 -->
           <h4 class="mb-2">리소스 정보</h4>
           <dl
-            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-3 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2"
+            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2"
           >
             <dt class="text-quokka-gray">카테고리 :</dt>
             <dd class="col-start-2 col-end-3" data-roll="category">프론트엔드</dd>
             <dt class="text-quokka-gray">작성자 :</dt>
             <dd class="col-start-2 col-end-3" data-roll="author">React 팀</dd>
-            <dt class="text-quokka-gray">최근 방문 :</dt>
-            <dd class="col-start-2 col-end-3" data-roll="recentView">2025-05-05</dd>
             <dt class="text-quokka-gray">난이도 :</dt>
             <dd class="col-start-4 col-end-5" data-roll="difficulty">중급</dd>
             <dt class="text-quokka-gray">추가일 :</dt>

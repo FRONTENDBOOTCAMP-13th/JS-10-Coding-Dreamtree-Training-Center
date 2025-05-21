@@ -1,12 +1,9 @@
 import data from '../../src/data/resource.json';
 import { renderResources } from './resourceRendering';
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 
 /**
  * 필터링 함수: 모든 조건을 만족하는 데이터만 반환
- * @param resources : Resource 객체 데이터
- * @param criteria : Resources 객체 데이터 값을 배열 형태로 사용
- * @returns Resource[]
  */
 function filterResources(
   resources: Resource[],
@@ -18,8 +15,7 @@ function filterResources(
     const matchDifficulty = criteria.difficulty
       ? resource.difficulty === criteria.difficulty
       : true;
-    // 언어는 tags에 포함되어 있다고 가정 (예: "KO", "EN", "JP" 등)
-    const matchLanguage = criteria.language ? resource.tags.includes(criteria.language) : true;
+    const matchLanguage = criteria.language ? resource.language === criteria.language : true;
     return matchCategory && matchStack && matchDifficulty && matchLanguage;
   });
 }

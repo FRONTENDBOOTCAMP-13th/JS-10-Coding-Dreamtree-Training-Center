@@ -9,4 +9,5 @@ export interface Resource {
   resourceUrl: string;
   author: string;
   isBookmarked: boolean;
+  language: string; // 반드시 포함!
 }
