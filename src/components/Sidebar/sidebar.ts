@@ -3,6 +3,8 @@
  * @description 페이지 로드 시 실행되며, 네비게이션 아이템의 활성화 상태, 클릭 이벤트, 모바일 메뉴 토글 기능을 처리합니다.
  */
 
+import { isAuthenticated } from '../../service/auth';
+
 /**
  * 모바일 메뉴 토글 기능을 구현하는 함수
  * @description 사이드바의 열림/닫힘 상태를 관리하고, 스크롤 동작을 제어합니다.
@@ -193,8 +195,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 클릭 이벤트 리스너 추가
-    item.addEventListener('click', () => {
-      if (itemPath) window.location.href = itemPath;
+    item.addEventListener('click', (e) => {
+      if (!itemPath) return;
+
+      // 북마크 페이지로 이동하는 경우 인증 체크
+      if (itemPath.includes('bookmark')) {
+        if (!isAuthenticated()) {
+          e.preventDefault();
+          alert('로그인이 필요한 페이지입니다. 로그인 페이지로 이동합니다.');
+          window.location.href = '/src/pages/login.html';
+          return;
+        }
+      }
+
+      window.location.href = itemPath;
       setActive(item);
     });
   });
