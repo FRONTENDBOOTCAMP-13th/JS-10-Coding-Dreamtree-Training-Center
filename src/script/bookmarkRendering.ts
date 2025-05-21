@@ -33,7 +33,7 @@ async function getBookmarkedResources(): Promise<Resource[]> {
  */
 export function createBookmarkArticle(resource: Resource): string {
   return `
-    <div class="flex gap-5 flex-col items-start justify-between rounded-xl border border-gray-100 bg-white p-6 hover:shadow-md transition-shadow md:flex-row md:items-center md:gap-6" data-roll="bookmakr article" data-index="${resource.id}">
+    <div class="flex gap-5 flex-col items-start justify-between rounded-xl border border-gray-100 bg-white p-6 hover:shadow-md transition-shadow md:flex-row md:items-center md:gap-6" data-roll="bookmark article" data-index="${resource.id}">
       <div class="flex flex-col gap-2 flex-1">
         <h3 class="text-xl font-semibold">${resource.title}</h3>
         <p class="text-quokka-gray text-sm line-clamp-2">
@@ -175,7 +175,7 @@ export async function renderBookmarkedResources(): Promise<void> {
   addCollectionButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const resourceId = button
-        .closest('[data-roll="bookmakr article"]')
+        .closest('[data-roll="bookmark article"]')
         ?.getAttribute('data-index');
       if (resourceId) {
         createCollectionModal(resourceId);
