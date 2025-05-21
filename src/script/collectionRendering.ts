@@ -74,10 +74,22 @@ newCollectionBtn?.addEventListener('click', () => {
     // 사용자 이메일 정보와 일치하는 Local Storage 에 컬렉션을 저장
     const key = 'collections';
     const email = localStorage.getItem('loginUser');
+
     if (email) {
       const stored = localStorage.getItem(key);
       const collectionsObj = stored ? JSON.parse(stored) : {};
-      if (!collectionsObj[email]) collectionsObj[email] = [];
+      if (!collectionsObj[email]) {
+        collectionsObj[email] = [];
+      }
+
+      // 동일한 컬렉션이 존재하는 경우 생성하지 못하도록 조건 추가
+      const userCollections: string[] = collectionsObj[email] || [];
+      if (userCollections.includes(collectionName.trim())) {
+        alert('이미 존재하는 컬렉션 이름입니다.');
+        return;
+      }
+
+      // 동일한 컬렉션이 없으면, local storage 에 저장
       collectionsObj[email].push(collectionName.trim());
       localStorage.setItem(key, JSON.stringify(collectionsObj));
     }
