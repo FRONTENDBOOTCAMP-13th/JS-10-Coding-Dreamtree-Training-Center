@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QoukkaDocs</title>
+    <title>QuokkaDocs - 개발 리소스 공유 플랫폼</title>
 
     <!-- 기본 메타 태그 -->
     <meta
       name="description"
-      content="쿼카의 개발 리소스 공유 플랫폼. 프론트엔드, 백엔드, CS 등 다양한 개발 자료를 한 곳에서 찾아보세요."
+      content="귀여운 쿼카와 함께하는 개발 리소스 공유 플랫폼 QuokkaDocs. 프론트엔드, 백엔드, CS 등 개발자 필수 자료를 쉽고 빠르게 찾아보세요."
     />
-    <meta name="keywords" content="개발, 리소스, 프론트엔드, 백엔드, CS, 쿼카, QuokkaDocs" />
+    <meta
+      name="keywords"
+      content="개발, 리소스, 프론트엔드, 백엔드, 풀스택, 모바일, DevOps, AI, 개발 정보, CS, 쿼카, QuokkaDocs"
+    />
     <meta name="author" content="Coding Dreamtree Training Center" />
 
     <!-- Open Graph / Facebook -->
@@ -19,28 +22,34 @@
     <meta property="og:title" content="QuokkaDocs - 개발 리소스 공유 플랫폼" />
     <meta
       property="og:description"
-      content="개발 리소스 공유 플랫폼 QoukkaDocs 입니다. 프론트엔드, 백엔드, CS 등 다양한 개발 자료를 한 곳에서 찾아보세요."
+      content="귀여운 쿼카와 함께하는 개발 리소스 공유 플랫폼 QuokkaDocs. 프론트엔드, 백엔드, CS 등 개발자 필수 자료를 쉽고 빠르게 찾아보세요."
     />
-    <meta property="og:image" content="https://quokkadocs.com/img/og-image.png" />
+    <meta property="site_name" content="QuokkaDocs"  />
+    <meta property="og:image" content="https://quokkadocs.netlify.app/img/og-image.png" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://quokkadocs.com/" />
+    <meta property="twitter:url" content="https://quokkadocs.netlify.app" />
     <meta property="twitter:title" content="QuokkaDocs - 개발 리소스 공유 플랫폼" />
     <meta
       property="twitter:description"
-      content="쿼카의 개발 리소스 공유 플랫폼. 프론트엔드, 백엔드, CS 등 다양한 개발 자료를 한 곳에서 찾아보세요."
+      content="귀여운 쿼카와 함께하는 개발 리소스 공유 플랫폼 QuokkaDocs. 프론트엔드, 백엔드, CS 등 개발자 필수 자료를 쉽고 빠르게 찾아보세요."
     />
-    <meta property="twitter:image" content="https://quokkadocs.com/img/og-image.png" />
+    <meta property="twitter:image" content="https://quokkadocs.netlify.app/img/og-image.png" />
 
     <!-- 추가 메타 태그 -->
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#8B6D5C" />
-    <link rel="canonical" href="https://quokkadocs.com/" />
+    <meta name="theme-color" content="#8b6d5c" />
+    <link rel="canonical" href="https://quokkadocs.netlify.app/" />
 
     <!-- 파비콘 -->
     <link rel="icon" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Apple touch icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/path/to/apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/path/to/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/path/to/apple-touch-icon-120x120.png">
 
     <!-- Font -->
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
@@ -48,6 +57,17 @@
 
     <!-- CSS -->
     <link rel="preload" href="./src/style.css" as="style" />
+
+    <!-- 구조화된 데이터 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "QuokkaDocs",
+        "url": "https://quokkadocs.netlify.app",
+        "description": "귀여운 쿼카와 함께하는 개발 리소스 공유 플랫폼"
+      }
+    </script>
 
     <!-- Script -->
     <script type="module" src="./src/main.ts"></script>
@@ -127,7 +147,7 @@
               <a
                 href="/src/pages/resource.html"
                 class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
-                data-page="/src/pages/resource.html"
+                data-page="resource.html"
               >
                 <div class="flex h-5 w-5 items-center justify-center text-xl">
                   <img src="/img/compass.svg" alt="리소스 아이콘" />
@@ -140,7 +160,7 @@
               <a
                 href="/src/pages/bookmark.html"
                 class="nav-item box-border flex h-[4.25rem] w-full cursor-pointer flex-col items-center justify-center rounded-xl px-2 py-3"
-                data-page="/src/pages/bookmark.html"
+                data-page="bookmark.html"
               >
                 <div class="flex h-5 w-5 items-center justify-center text-xl">
                   <img src="/img/bookmark.svg" alt="북마크 아이콘" />
