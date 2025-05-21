@@ -44,7 +44,7 @@ export function createResourceArticle(resource: Resource): string {
     >
       <div class="flex flex-col gap-2">
         <h3 class="text-quokka-black line-clamp-2 text-lg sm:text-xl md:text-2xl font-semibold">${resource.title}</h3>
-        <p class="text-quokka-black line-clamp-2 overflow-hidden text-xs sm:text-sm">${resource.description}</p>
+        <p class="text-quokka-gray line-clamp-2 overflow-hidden text-xs sm:text-sm font-normal">${resource.description}</p>
       </div>
       
       <div class="flex flex-wrap gap-1.5 sm:gap-2" data-roll="tags">${tagsHtml}</div>
