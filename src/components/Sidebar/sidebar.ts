@@ -173,8 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (itemPath === '/' && (currentPath === '/' || currentPath.endsWith('dashboard.html'))) {
         setActive(item);
       }
-      // 다른 링크들은 기존 로직대로 처리
-      else if (currentPath.endsWith(itemPath)) {
+      // 다른 링크들은 현재 경로와 비교하여 활성화
+      else if (
+        currentPath.endsWith(itemPath) ||
+        currentPath.endsWith(itemPath.replace('/src/pages/', ''))
+      ) {
         setActive(item);
       }
     }
