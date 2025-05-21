@@ -170,15 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemPath = item.getAttribute('data-page');
     if (itemPath) {
       // 대시보드 링크인 경우 index.html과 dashboard.html 모두 활성화
-      if (itemPath === '/' && (currentPath === '/' || currentPath.endsWith('dashboard.html'))) {
+      if (
+        itemPath === '/' &&
+        (currentPath === '/' ||
+          currentPath.endsWith('dashboard.html') ||
+          currentPath.endsWith('dashboard'))
+      ) {
         setActive(item);
       }
       // 다른 링크들은 현재 경로와 비교하여 활성화
-      else if (
-        currentPath.endsWith(itemPath) ||
-        currentPath.endsWith(itemPath.replace('/src/pages/', ''))
-      ) {
-        setActive(item);
+      else {
+        const normalizedItemPath = itemPath.replace('.html', '');
+        const normalizedCurrentPath = currentPath.replace(/\/$/, '').replace('.html', '');
+
+        if (
+          normalizedCurrentPath.endsWith(normalizedItemPath) ||
+          normalizedCurrentPath.endsWith(normalizedItemPath.replace('/src/pages/', ''))
+        ) {
+          setActive(item);
+        }
       }
     }
 
