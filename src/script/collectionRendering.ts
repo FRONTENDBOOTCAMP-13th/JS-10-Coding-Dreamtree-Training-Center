@@ -2,6 +2,8 @@ import type { BookmarkIntoCollection } from '../types/bookmark.type';
 import type { Resource } from '../types/resource.type';
 import data from '../data/resource.json';
 import { createBookmarkArticle, renderBookmarkedResources } from './bookmarkRendering';
+import { createCollectionModal } from './collectionModal';
+import { removeBookmark } from '../service/bookmark';
 
 /**
  * 이메일 별로 Local Storage 에 저장된 Collections 를 화면에 렌더링하는 함수
@@ -129,6 +131,50 @@ function renderFilteredArticles(filteredBookmarks: BookmarkIntoCollection[]): vo
   }
 
   bookmarkList.innerHTML = filteredResources.map(createBookmarkArticle).join('');
+
+  // 북마크 제거 버튼 이벤트 핸들러
+  const removeButtons = bookmarkList.querySelectorAll<HTMLButtonElement>(
+    'button[data-resource-id]',
+  );
+  removeButtons.forEach((button) => {
+    button.addEventListener('click', function () {
+      const resourceId = Number(this.getAttribute('data-resource-id'));
+      const success = removeBookmark(resourceId);
+
+      if (success) {
+        // 북마크 제거 후 페이지 새로고침
+        window.location.reload();
+      }
+    });
+  });
+
+  // 방문 버튼 이벤트 핸들러
+  const visitButtons = bookmarkList.querySelectorAll<HTMLButtonElement>(
+    'button[data-resource-url]',
+  );
+  visitButtons.forEach((button) => {
+    button.addEventListener('click', function () {
+      const url = this.getAttribute('data-resource-url');
+      if (url) {
+        window.open(url, '_blank');
+      }
+    });
+  });
+
+  // 컬렉션 추가 버튼 이벤트 핸들러
+  const addCollectionButtons = bookmarkList.querySelectorAll<HTMLButtonElement>(
+    '[data-roll="into-collection"]',
+  );
+  addCollectionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const resourceId = button
+        .closest('[data-roll="bookmark article"]')
+        ?.getAttribute('data-index');
+      if (resourceId) {
+        createCollectionModal(resourceId);
+      }
+    });
+  });
 }
 
 // 필터링하는 기능
