@@ -67,6 +67,16 @@ export function createBookmarkArticle(resource: Resource): string {
         </button>
         <button
           type="button"
+          class="text-quokka-mint border-quokka-mint bg-quokka-snow flex justify-between w-fit items-center gap-2.5 rounded-4xl border border-dashed px-4 py-2 text-sm font-semibold hover:bg-quokka-mint/10 hover:border-quokka-mint/80 transition-all duration-200 cursor-pointer hidden"
+          data-roll="into-collection"
+        >
+          <svg width="10" height="3" viewBox="0 0 10 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1.5L1 1.5" stroke="#7DCFCA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          컬렉션에서 삭제
+        </button>
+        <button
+          type="button"
           class="text-quokka-blue border-quokka border-quokka-gray bg-quokka-snow flex justify-between gap-2.5 rounded-4xl border px-4 py-2 text-sm font-semibold hover:bg-quokka-blue/10 hover:border-quokka-blue/80 transition-all duration-200 cursor-pointer"
           data-resource-url="${resource.resourceUrl}"
         >
