@@ -24,7 +24,7 @@
       property="og:description"
       content="귀여운 쿼카와 함께하는 개발 리소스 공유 플랫폼 QuokkaDocs. 프론트엔드, 백엔드, CS 등 개발자 필수 자료를 쉽고 빠르게 찾아보세요."
     />
-    <meta property="site_name" content="QuokkaDocs"  />
+    <meta property="site_name" content="QuokkaDocs" />
     <meta property="og:image" content="https://quokkadocs.netlify.app/img/og-image.png" />
 
     <!-- Twitter -->
@@ -46,10 +46,10 @@
     <link rel="icon" href="/favicon.svg" />
 
     <!-- Apple touch icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/img/apple-touch-icon-167x167.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon-180x180.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/img/apple-touch-icon-167x167.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
 
     <!-- Font -->
     <link rel="preload" href="/font/pretendardvariable.css" as="style" />
@@ -185,9 +185,15 @@
         </a>
       </header>
       <main
-        class="col-start-1 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col p-4 lg:col-start-2 lg:px-6 lg:py-8"
+        class="col-start-1 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-8 p-4 lg:col-start-2 lg:px-6 lg:py-8"
       >
-        <h2 class="mb-6 text-3xl font-bold">쿼카의 PICK! 오늘의 리소스 ♪</h2>
+        <!-- 오늘의 리소스 -->
+        <div class="flex flex-col gap-2">
+          <h2 class="text-3xl font-bold">쿼카의 PICK! 오늘의 리소스 ♪</h2>
+          <p class="text-quokka-gray text-base">
+            쿼카가 직접 골라온 신선한 개발 아티클을 만나보세요
+          </p>
+        </div>
         <section
           id="daily-resources"
           class="mb-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
@@ -466,7 +472,12 @@
             </div>
           </article>
         </section>
-        <h2 class="mb-6 text-3xl font-bold">깃허브 인기 레포지토리</h2>
+        <!-- 인기 레포지토리 -->
+        <div class="flex flex-col gap-2">
+          <h2 class="text-3xl font-bold">깃허브 인기 레포지토리 ♪</h2>
+          <p class="text-quokka-gray text-base">화제의 깃허브 레포지토리를 소개해드려요</p>
+        </div>
+
         <section>
           <div
             id="card-container"
