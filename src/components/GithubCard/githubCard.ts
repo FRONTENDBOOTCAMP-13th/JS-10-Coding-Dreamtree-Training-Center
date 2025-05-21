@@ -9,10 +9,40 @@ const API_CONFIG = {
 const colors: Record<string, LanguageColor> = colorsData;
 let allRepos: Repo[] = [];
 
+function renderSkeletonCards(count: number = 6) {
+  const container = document.getElementById('card-container');
+  if (!container) return;
+  let skeletons = '';
+  for (let i = 0; i < count; i++) {
+    skeletons += `
+      <div class="block bg-quokka-gray/20 rounded-2xl p-6 shadow-lg h-[12.5rem] flex flex-col animate-pulse">
+        <div class="mb-2 flex items-center gap-4">
+          <div class="h-[1.625rem] w-[1.625rem] rounded-full bg-quokka-gray"></div>
+          <div class="h-6 w-2/3 rounded bg-quokka-gray"></div>
+        </div>
+        <div class="mb-4 h-4 w-full rounded bg-quokka-gray"></div>
+        <div class="mb-2 h-4 w-5/6 rounded bg-quokka-gray"></div>
+        <div class="flex items-center justify-between mt-auto">
+          <div class="h-4 w-16 rounded bg-quokka-gray"></div>
+          <div class="h-4 w-12 rounded bg-quokka-gray"></div>
+        </div>
+      </div>
+    `;
+  }
+  container.innerHTML = skeletons;
+}
+
 function setLoading(visible: boolean) {
   const loadingElement = document.getElementById('loading');
   if (loadingElement) {
-    loadingElement.style.display = visible ? 'flex' : 'none';
+    loadingElement.style.display = 'none'; // 항상 숨김 처리
+  }
+  const container = document.getElementById('card-container');
+  if (!container) return;
+  if (visible) {
+    renderSkeletonCards();
+  } else {
+    // 실제 카드 렌더링은 renderCards에서 처리
   }
 }
 

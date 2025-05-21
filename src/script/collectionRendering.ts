@@ -1,5 +1,5 @@
 import type { BookmarkIntoCollection } from '../types/bookmark.type';
-import type { Resource } from '../types/type';
+import type { Resource } from '../types/resource.type';
 import data from '../data/resource.json';
 import { createBookmarkArticle, renderBookmarkedResources } from './bookmarkRendering';
 
@@ -26,7 +26,7 @@ function renderCollectionsFromStorage(): void {
     newLabel.setAttribute('for', `collection${idx + 1}`);
     newLabel.setAttribute(
       'class',
-      `text-quokka-tan flex w-fit items-center justify-center rounded-4xl bg-white px-3.5 py-2 text-xs font-medium peer-checked:bg-quokka-tan peer-checked:text-white`,
+      `text-quokka-tan flex w-fit items-center justify-center rounded-4xl bg-white px-3.5 py-2 text-xs font-medium peer-checked:bg-quokka-tan peer-checked:text-white cursor-pointer`,
     );
     newLabel.textContent = name;
 

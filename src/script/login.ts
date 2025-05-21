@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    window.location.href = '/src/pages/dashboard.html';
+    window.location.href = '/';
   };
 
   findpwForm.onsubmit = async (e: Event) => {

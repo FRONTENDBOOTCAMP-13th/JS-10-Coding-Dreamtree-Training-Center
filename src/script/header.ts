@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (isLoggedIn) {
       loginBtn.innerHTML = `
-        <button type="button" class="bg-quokka-brown text-white rounded-4xl px-4 py-1.5 text-sm font-semibold hover:bg-quokka-mint transition cursor-pointer">
+        <button type="button" class="bg-quokka-brown text-white rounded-4xl px-4 py-1.5 text-sm font-semibold transition-opacity hover:opacity-80 cursor-pointer">
           로그아웃
         </button>
       `;
@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
       loginBtn.removeAttribute('href');
     } else {
       loginBtn.innerHTML = `
-        <button type="button" class="bg-quokka-brown text-white rounded-4xl px-4 py-1.5 text-sm font-semibold hover:bg-quokka-mint transition cursor-pointer">
+        <button type="button" class="bg-quokka-brown text-white rounded-4xl px-4 py-1.5 text-sm font-semibold transition-opacity hover:opacity-80 cursor-pointer">
           로그인
         </button>
       `;

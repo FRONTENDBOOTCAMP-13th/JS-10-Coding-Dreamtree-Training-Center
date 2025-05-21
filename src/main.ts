@@ -1,3 +1,3 @@
 import './style.css';
-import './components/Sidebar/Sidebar.ts';
+import './components/Sidebar/sidebar.ts';
 import './script/header.ts';

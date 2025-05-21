@@ -1,8 +1,9 @@
 import data from '../../src/data/resource.json';
 import { resetFilters } from './filter';
-import { type Resource } from '../types/type';
+import { type Resource } from '../types/resource.type';
 import { isBookmarked, addBookmark, removeBookmark } from '../service/bookmark';
 import { isAuthenticated } from '../service/auth';
+import { setupModalEvents } from './modalRendering';
 
 /**
  * 원본 데이터를 비동기로 가져오는 함수
@@ -39,17 +40,22 @@ export function createResourceArticle(resource: Resource): string {
 
   return `
     <article
-            class="flex h-auto flex-col gap-3 rounded-2xl bg-white px-7 py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
-      >
-      <h3 class="text-quokka-black line-clamp-2 text-2xl font-semibold">${resource.title}</h3>
-      <p class="text-quokka-black mb-1 line-clamp-2 overflow-hidden text-sm">${resource.description}</p>
-      <div class="mb-2 flex gap-2" data-roll="tags">${tagsHtml}</div>
-      <div class="mb-2 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex flex-wrap items-center gap-3">
-          <span class="flex items-center gap-1" data-roll="category">
+      class="flex h-full flex-col gap-3 rounded-2xl bg-white px-4 sm:px-5 md:px-7 py-4 sm:py-5 text-xs font-medium shadow-lg transition hover:shadow-xl"
+    >
+      <div class="flex flex-col gap-2">
+        <h3 class="text-quokka-black line-clamp-2 text-lg sm:text-xl md:text-2xl font-semibold">${resource.title}</h3>
+        <p class="text-quokka-black line-clamp-2 overflow-hidden text-xs sm:text-sm">${resource.description}</p>
+      </div>
+      
+      <div class="flex flex-wrap gap-1.5 sm:gap-2" data-roll="tags">${tagsHtml}</div>
+      
+      <div class="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <span class="flex items-center gap-1 text-xs sm:text-sm" data-roll="category">
             <svg
-              width="15"
-              height="15"
+              width="12"
+              height="12"
+              class="sm:w-[15px] sm:h-[15px]"
               viewBox="0 0 15 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -70,10 +76,11 @@ export function createResourceArticle(resource: Resource): string {
               />
             </svg>
             ${resource.category}</span>
-          <span class="flex items-center gap-1" data-roll="difficulty">
+          <span class="flex items-center gap-1 text-xs sm:text-sm" data-roll="difficulty">
             <svg
-              width="15"
-              height="15"
+              width="12"
+              height="12"
+              class="sm:w-[15px] sm:h-[15px]"
               viewBox="0 0 15 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -85,17 +92,18 @@ export function createResourceArticle(resource: Resource): string {
             </svg>
             ${resource.difficulty}</span>
         </div>
-        <span class="flex-shrink-0" data-roll="dateAdded">${resource.dateAdded}</span>
+        <span class="flex-shrink-0 text-xs sm:text-sm" data-roll="dateAdded">${resource.dateAdded}</span>
       </div>
-      <div class="mt-auto flex flex-row items-center justify-between">
+
+      <div class="mt-auto flex flex-row items-center justify-between pt-2">
         <button
           type="button"
           name="detail"
-          class="bg-quokka-brown cursor-pointer gap-4 self-center rounded-4xl px-5 py-1.5 text-sm font-semibold text-white"
+          class="bg-quokka-brown cursor-pointer rounded-4xl px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold text-white hover:opacity-80"
         >
           상세보기
         </button>
-        <button type="button" name="bookmark" class="self h-[1.875rem] w-[1.5625rem] cursor-pointer" data-resource-id="${resource.id}">
+        <button type="button" name="bookmark" class="h-[1.5rem] w-[1.25rem] sm:h-[1.875rem] sm:w-[1.5625rem] cursor-pointer" data-resource-id="${resource.id}">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -149,54 +157,8 @@ export async function renderResources(list: Resource[]): Promise<void> {
     })
     .join('');
 
-  // ↓ 모달 관련 기능
-  const detailBtn = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
-  const modal = document.querySelector('dialog');
-
-  // 각각의 버튼 요소에 동일하게 이벤트 할당
-  detailBtn.forEach((button) => {
-    button.addEventListener('click', function () {
-      // 모달에서 동적으로 변경이 필요한 요소를 추출
-      const title = modal?.querySelector('[data-roll="title"]') as HTMLDivElement;
-      const tags = modal?.querySelector('[data-roll="tags"]') as HTMLDivElement;
-      const description = modal?.querySelector('[data-roll="description"]') as HTMLParagraphElement;
-      const resourceUrl = modal?.querySelector('[data-roll="resourceUrl"]') as HTMLAnchorElement;
-      const category = modal?.querySelector('[data-roll="category"]') as HTMLDivElement;
-      const author = modal?.querySelector('[data-roll="author"]') as HTMLDivElement;
-      const difficulty = modal?.querySelector('[data-roll="difficulty"]') as HTMLDivElement;
-      const dateAdded = modal?.querySelector('[data-roll="dateAdded"]') as HTMLDivElement;
-      const recentView = modal?.querySelector('[data-roll="recentView"]') as HTMLDivElement;
-
-      // 클릭한 버튼의 부모 요소인 article 요소에서 data-index 속성을 가져와서 해당 리소스의 배열 정보를 추출
-      const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
-      const originData = resources[resourceId - 1];
-
-      // 모달에 있는 요소에 원본 데이터의 속성 값으로 업데이트
-      title.textContent = originData.title;
-      tags.innerHTML = originData.tags
-        .map(
-          (tag: string) =>
-            `<span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">${tag}</span>`,
-        )
-        .join(' ');
-      description.textContent = originData.description;
-      category.textContent = originData.category;
-      difficulty.textContent = originData.difficulty;
-      dateAdded.textContent = originData.dateAdded;
-      resourceUrl.setAttribute('href', originData.resourceUrl);
-      author.textContent = originData.author;
-      recentView.textContent = new Date().toISOString().slice(0, 10) || '';
-
-      // 모달 정보가 모두 업데이트 된 후 열기 실행
-      modal?.showModal();
-    });
-  });
-
-  // 모달 닫기 버튼 클릭 시 모달 닫기
-  const closeBtn = modal?.querySelector('button[name="close"]') as HTMLButtonElement;
-  closeBtn.addEventListener('click', () => {
-    modal?.close();
-  });
+  // 모달 이벤트 설정
+  setupModalEvents(resources);
 
   // 북마크 버튼 이벤트 핸들러 추가
   const bookmarkButtons = section.querySelectorAll<HTMLButtonElement>('button[name="bookmark"]');
