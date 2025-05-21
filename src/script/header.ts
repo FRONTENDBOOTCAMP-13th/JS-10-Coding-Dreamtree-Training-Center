@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
       loginBtn.onclick = function (e) {
         e.preventDefault();
         clearAuthState();
-        window.location.href = '/src/pages/dashboard.html';
+        window.location.href = '/';
       };
 
       loginBtn.removeAttribute('href');
