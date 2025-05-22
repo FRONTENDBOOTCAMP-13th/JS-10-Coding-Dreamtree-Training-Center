@@ -12,7 +12,7 @@ export function createCollectionModal(resourceId: string): void {
   collectionModal.style.left = '0';
   collectionModal.style.width = '100vw';
   collectionModal.style.height = '100vh';
-  collectionModal.style.background = 'rgba(0,0,0,0.3)';
+  collectionModal.style.background = 'rgba(139,109,92,0.80)';
   collectionModal.style.display = 'flex';
   collectionModal.style.alignItems = 'center';
   collectionModal.style.justifyContent = 'center';
