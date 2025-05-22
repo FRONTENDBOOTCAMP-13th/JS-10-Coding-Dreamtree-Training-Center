@@ -87,23 +87,23 @@
   
   <tr>
     <td align="center"><strong>대시보드</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/62c44a3a-d6d9-4e9d-8307-359991fb6a37" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/ed9e4722-5d14-44fd-b325-051b7f0ca474" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/0f555a93-b6cb-4d7f-8999-e39d0fe9b68c" width="100%"></td>
 </tr>
 <tr>
     <td align="center"><strong>리소스</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/b2056bd2-41a6-4485-8c89-eec71303fd57" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/af2bd97f-bb9a-48b7-a4a1-b1c759a605d7" width="100%" height="50%"></td>
 </tr>
 <tr>
     <td align="center"> <strong>로그인</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/b9c37f31-5b07-4335-86b2-8fa4a171be52" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/54f79f70-d111-4734-9587-d28d05f76f50" width="100%"></td>
 </tr>
 <tr>
     <td align="center"><strong>북마크</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/048f29cc-c71d-46b8-93f3-145fc766b246" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/e0e99f99-8638-48c9-8fc9-47b0bc2f61f5" width="100%"></td>
+    <td align="center"><img src="https://github.com/user-attachments/assets/bf880c07-b6b2-4256-9d4d-d48e8d4a95b2" width="100%"></td>
 </tr>
 </table>
 <br />
@@ -120,7 +120,7 @@
 graph TD
     A[북마크 페이지 접근] --> B{로그인 상태 확인}
     B -->|미로그인| C[로그인 페이지]
-    B -->|로그인됨| D[북마크 페이지]
+    B -->|로그인됨| D[대시보드]
     C --> E[회원가입/로그인]
     E --> F{인증 성공?}
     F -->|성공| G[세션 저장]
@@ -142,6 +142,7 @@ graph TD
     F --> G
     G --> H[UI 상태 변경]
 ```
+
 <h4>GitHub API 캐싱 플로우</h4>
 
 ```mermaid
