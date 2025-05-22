@@ -365,12 +365,12 @@
     <dialog
       class="text-quokka-black backdrop:bg-quokka-brown/80 max-modal:max-h-[90vh] max-modal:w-[80vw] max-modal:overflow-y-auto fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
     >
-      <form method="dialog" class="flex flex-col gap-9">
+      <form method="dialog" class="flex flex-col gap-9 overflow-x-hidden">
         <!-- 닫기 -->
         <button
           type="button"
           name="close"
-          class="absolute top-6 right-6 cursor-pointer"
+          class="absolute top-4 right-4 cursor-pointer"
           data-roll="isBookmarked"
         >
           <svg
@@ -396,7 +396,10 @@
           <h3 class="mb-3 text-2xl font-bold" data-roll="title">JavaScript 제목입니다.</h3>
 
           <!-- 태그 -->
-          <div class="mb-8 text-xs font-semibold" data-roll="tags">
+          <div
+            class="mb-8 flex flex-row flex-wrap items-center justify-start gap-2 text-xs font-semibold"
+            data-roll="tags"
+          >
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
