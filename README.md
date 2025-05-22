@@ -78,74 +78,60 @@
 
 
 <h3>🖥️ 페이지별 화면 구성</h3> 
- <table align="center">
-  <tr>
-    <th align="center">페이지</th>
-    <th align="center" colspan="2">GIF 시연</th>
-  </tr>
-  
-  <tr>
-    <td align="center"><strong>대시보드</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/ed9e4722-5d14-44fd-b325-051b7f0ca474" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/0f555a93-b6cb-4d7f-8999-e39d0fe9b68c" width="100%"></td>
-</tr>
-<tr>
-    <td align="center"><strong>리소스</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/b2056bd2-41a6-4485-8c89-eec71303fd57" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/af2bd97f-bb9a-48b7-a4a1-b1c759a605d7" width="100%" height="50%"></td>
-</tr>
-<tr>
-    <td align="center"> <strong>로그인</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/b9c37f31-5b07-4335-86b2-8fa4a171be52" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/54f79f70-d111-4734-9587-d28d05f76f50" width="100%"></td>
-</tr>
-<tr>
-    <td align="center"><strong>북마크</strong></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/e0e99f99-8638-48c9-8fc9-47b0bc2f61f5" width="100%"></td>
-    <td align="center"><img src="https://github.com/user-attachments/assets/bf880c07-b6b2-4256-9d4d-d48e8d4a95b2" width="100%"></td>
-</tr>
-</table>
-<br />
+
+<details>
+<summary><h4>🏠 대시보드</h4></summary>
+
+<h4>오늘의 리소스</h4>
+<img src="https://github.com/user-attachments/assets/0f555a93-b6cb-4d7f-8999-e39d0fe9b68c" width="100%"><br/>
+<br/>
+<h4>깃허브 인기 레포지토리</h4>
+<img src="https://github.com/user-attachments/assets/ed9e4722-5d14-44fd-b325-051b7f0ca474" width="100%"><br/>
+</details>
+<br/>
+
+<details>
+<summary><h4>🔍 리소스</h4></summary>
+
+<h4>필터링</h4>
+<img src="https://github.com/user-attachments/assets/b2056bd2-41a6-4485-8c89-eec71303fd57" width="100%"><br/>
+<br/>
+<h4>반응형 모달창</h4>
+<img src="https://github.com/user-attachments/assets/af2bd97f-bb9a-48b7-a4a1-b1c759a605d7" width="100%"><br/>
+</details>
+<br/>
+
+<details>
+<summary><h4>🔐 사용자 인증</h4></summary>
+
+<h5>로그인 페이지</h5><br/>
+<img src="https://github.com/user-attachments/assets/b9c37f31-5b07-4335-86b2-8fa4a171be52" width="100%"><br/>
+<br/>
+<h5>회원가입 및 비밀번호 찾기</h5><br/>
+<img src="https://github.com/user-attachments/assets/54f79f70-d111-4734-9587-d28d05f76f50" width="100%"><br/>
+</details>
+<br/>
+
+<details>
+<summary><h4>📌 북마크 & 컬렉션</h4></summary>
+ 
+<h5>북마크 추가</h5><br/>
+<img  src="https://github.com/user-attachments/assets/e0e99f99-8638-48c9-8fc9-47b0bc2f61f5" width="100%"><br/>
+<br/>
+<h5>컬렉션 추가</h5><br/>
+<img src="https://github.com/user-attachments/assets/bf880c07-b6b2-4256-9d4d-d48e8d4a95b2" width="100%"><br/>
+</details>
+<br/>
 <br />
 
 <h3>🔄 프로젝트 워크 플로우</h3>
-
 <details>
 <summary>🔄 플로우 차트 보기</summary>
-
-<h4>사용자 인증 플로우</h4>
-
-```mermaid
-graph TD
-    A[북마크 페이지 접근] --> B{로그인 상태 확인}
-    B -->|미로그인| C[로그인 페이지]
-    B -->|로그인됨| D[대시보드]
-    C --> E[회원가입/로그인]
-    E --> F{인증 성공?}
-    F -->|성공| G[세션 저장]
-    F -->|실패| H[에러 메시지]
-    G --> D
-    H --> C
-```
-
-<h4>북마크 기능 플로우</h4>
-
-```mermaid
-graph TD
-    A[북마크 클릭] --> B{로그인 상태?}
-    B -->|미로그인| C[로그인 요청]
-    B -->|로그인됨| D{이미 북마크?}
-    D -->|예| E[북마크 제거]
-    D -->|아니오| F[북마크 추가]
-    E --> G[localStorage 업데이트]
-    F --> G
-    G --> H[UI 상태 변경]
-```
 
 <h4>GitHub API 캐싱 플로우</h4>
 
 ```mermaid
-graph TD
+flowchart TD
     A[API 요청] --> B{캐시 존재?}
     B -->|있음| C{캐시 유효?}
     B -->|없음| D[GitHub API 호출]
@@ -156,21 +142,6 @@ graph TD
     E --> H[화면 렌더링]
     G --> H
 ```
-
-<h4>리소스 필터링 플로우</h4>
-
-```mermaid
-graph TD
-    A[필터 조건 변경] --> B[이벤트 리스너 동작]
-    B --> C[현재 필터 상태 수집]
-    C --> D[리소스 배열 필터링]
-    D --> E{결과 존재?}
-    E -->|있음| F[카드 UI 렌더링]
-    E -->|없음| G[검색 결과가 없습니다.]
-    F --> H[UI 업데이트]
-    G --> I[필터 초기화 옵션]
-```
-
 </details>
 <br />
 
