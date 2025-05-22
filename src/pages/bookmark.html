@@ -106,7 +106,7 @@
       ></div>
 
       <aside
-        class="fixed top-0 left-0 z-30 h-full w-32 -translate-x-full transform bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] transition-transform duration-300 lg:relative lg:row-span-3 lg:h-auto lg:translate-x-0"
+        class="fixed top-0 left-0 z-30 h-screen w-32 -translate-x-full transform bg-white shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0"
         aria-label="사이드바"
       >
         <nav
@@ -187,8 +187,10 @@
         class="col-start-1 row-start-2 flex min-h-[calc(100vh-4rem)] flex-col gap-8 p-4 lg:col-start-2 lg:px-6 lg:py-8"
       >
         <div class="flex flex-col gap-2">
-          <h1 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h1>
-          <p class="text-quokka-gray text-sm">북마크한 리소스와 컬렉션을 관리해보세요.</p>
+          <h2 class="text-3xl font-bold">쿼카의 리소스 보관함 ♪</h2>
+          <p class="text-quokka-gray text-base">
+            마음에 드는 리소스와 컬렉션을 안전하게 보관해드려요
+          </p>
         </div>
 
         <!-- 북마크 항목 섹션 -->
@@ -199,7 +201,7 @@
               <!-- 새 컬렉션 추가 -->
               <button
                 type="button"
-                class="border-quokka-mint bg-quokka-breeze text-quokka-mist hover:bg-quokka-mist/10 flex w-fit cursor-pointer items-center justify-center gap-1.5 rounded-4xl border-1 border-dotted px-4 py-2 text-sm font-medium transition-all duration-200"
+                class="border-quokka-mint bg-quokka-breeze text-quokka-mist hover:bg-quokka-mist/10 flex w-fit cursor-pointer items-center justify-center gap-1.5 rounded-4xl border-1 border-dotted px-4 py-2 text-sm font-medium"
                 aria-label="새 컬렉션 추가"
                 data-roll="new-collection"
               >

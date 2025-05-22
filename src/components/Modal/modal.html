@@ -14,11 +14,16 @@
     <h1 class="text-quokka-brown p-2 text-5xl font-bold">Modal 컴포넌트 페이지입니다.</h1>
     <button name="detail">열기</button>
     <dialog
-      class="text-quokka-black backdrop:bg-quokka-brown/80 fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
+      class="text-quokka-black backdrop:bg-quokka-brown/80 fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] max-[690px]:max-h-[90vh] max-[690px]:w-[80vw] max-[690px]:overflow-y-auto"
     >
       <form method="dialog" class="flex flex-col gap-9">
         <!-- 닫기 -->
-        <button type="button" name="close" class="absolute top-6 right-6">
+        <button
+          type="button"
+          name="close"
+          class="absolute top-6 right-6 cursor-pointer"
+          data-roll="isBookmarked"
+        >
           <svg
             width="16"
             height="16"
@@ -36,34 +41,40 @@
           </svg>
         </button>
 
-        <!-- 제목, 태그 -->
-        <div class="gap- flex flex-col gap-3">
+        <!-- 제목, 태그, 북마크 & 공유 -->
+        <div class="flex flex-col">
           <!-- 제목 -->
-          <h3 class="text-2xl font-bold">JavaScript 제목입니다.</h3>
+          <h3 class="mb-3 text-2xl font-bold" data-roll="title">JavaScript 제목입니다.</h3>
 
           <!-- 태그 -->
-          <div class="text-xs font-semibold">
+          <div class="mb-8 text-xs font-semibold" data-roll="tags">
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그1</span>
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그2</span>
             <span class="text-quokka-brown bg-quokka-white rounded-4xl px-2.5 py-1.5">태그3</span>
           </div>
-        </div>
 
-        <!-- 설명, 설명 텍스트, 리소스 방문하기 -->
-        <div class="flex flex-col">
-          <!-- 설명 -->
-          <h4 class="mb-2">설명</h4>
-          <p class="text-quokka-gray mb-6 border-t-[1px] border-t-[#F3F3F3] pt-2 text-sm">
-            JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
-          </p>
+          <!-- 설명, 설명 텍스트, 리소스 방문하기 -->
+          <div class="flex flex-col">
+            <!-- 설명 -->
+            <h4 class="mb-2">설명</h4>
+            <p
+              class="text-quokka-gray mb-6 border-t-[1px] border-t-[#F3F3F3] pt-2 text-sm"
+              data-roll="description"
+            >
+              JavaScript 설명 텍스트입니다. 코딩꿈나무양성소 파이팅!
+            </p>
 
-          <!-- 리소스 방문하기 -->
-          <a
-            href="#"
-            class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-3 text-sm font-semibold text-white"
-          >
-            리소스 방문하기
-          </a>
+            <!-- 리소스 방문하기 -->
+            <a
+              href="#"
+              class="bg-quokka-brown mr-auto rounded-4xl px-4.5 py-2.5 text-sm font-semibold text-white"
+              data-roll="resourceUrl"
+              target="_blank"
+              rel="noopener"
+            >
+              리소스 방문하기
+            </a>
+          </div>
         </div>
 
         <!-- 리소스 정보, 카테고리, 작성자, 최근 방문, 난이도, 추가일 -->
@@ -71,18 +82,60 @@
           <!-- 리소스 정보 -->
           <h4 class="mb-2">리소스 정보</h4>
           <dl
-            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-3 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2"
+            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2 max-[690px]:flex max-[690px]:flex-col max-[690px]:gap-2"
           >
-            <dt class="text-quokka-gray">카테고리 :</dt>
-            <dd class="col-start-2 col-end-3">프론트엔드</dd>
-            <dt class="text-quokka-gray">작성자 :</dt>
-            <dd class="col-start-2 col-end-3">React 팀</dd>
-            <dt class="text-quokka-gray">최근 방문 :</dt>
-            <dd class="col-start-2 col-end-3">2025-05-05</dd>
-            <dt class="text-quokka-gray">난이도 :</dt>
-            <dd class="col-start-4 col-end-5">중급</dd>
-            <dt class="text-quokka-gray">추가일 :</dt>
-            <dd class="col-start-4 col-end-5">2025-01-15</dd>
+            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+              <dt
+                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+              >
+                카테고리 :
+              </dt>
+              <dd
+                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                data-roll="category"
+              >
+                프론트엔드
+              </dd>
+            </div>
+            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+              <dt
+                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+              >
+                작성자 :
+              </dt>
+              <dd
+                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                data-roll="author"
+              >
+                React 팀
+              </dd>
+            </div>
+            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+              <dt
+                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+              >
+                난이도 :
+              </dt>
+              <dd
+                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                data-roll="difficulty"
+              >
+                중급
+              </dd>
+            </div>
+            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+              <dt
+                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+              >
+                추가일 :
+              </dt>
+              <dd
+                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                data-roll="dateAdded"
+              >
+                2025-01-15
+              </dd>
+            </div>
           </dl>
         </div>
       </form>

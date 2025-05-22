@@ -91,8 +91,21 @@ export function setupModalEvents(resources: Resource[]): void {
   const detailButtons = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
   detailButtons.forEach((button) => {
     button.addEventListener('click', function () {
+      // resource 데이터를 필터링된 결과로 변경하는 기능 추가
+      const articles = section.querySelectorAll<HTMLElement>('article');
+      const articleTitles = Array.from(articles).map((article) => {
+        const h3 = article.querySelector('h3');
+        return h3 ? h3.textContent?.trim() : '';
+      });
+
+      // resource.json 데이터에서 id가 articleIds에 포함된 것만 필터링
+      const filteredResources = resources.filter((resource) =>
+        articleTitles.includes(resource.title),
+      );
+
       const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
-      openModal(resources, resourceId);
+
+      openModal(filteredResources, resourceId);
     });
   });
 
