@@ -205,6 +205,8 @@
               <option value="모바일">모바일</option>
               <option value="DevOps">DevOps</option>
               <option value="클라우드">클라우드</option>
+              <option value="CS">CS</option>
+              <option value="AI">AI</option>
             </select>
 
             <!-- 기술스택 -->
@@ -225,6 +227,12 @@
               <option value="AWS">AWS</option>
               <option value="GraphQL">GraphQL</option>
               <option value="Next.js">Next.js</option>
+              <option value="Spring Boot">Spring Boot</option>
+              <option value="Elasticsearch">Elasticsearch</option>
+              <option value="C++">C++</option>
+              <option value="Python">Python</option>
+              <option value="Kubernetes">Kubernetes</option>
+              <option value="클라우드">클라우드</option>
             </select>
 
             <!-- 난이도 -->
@@ -361,7 +369,7 @@
       </footer>
     </div>
     <dialog
-      class="text-quokka-black backdrop:bg-quokka-brown/80 fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] max-[690px]:max-h-[90vh] max-[690px]:w-[80vw] max-[690px]:overflow-y-auto"
+      class="text-quokka-black backdrop:bg-quokka-brown/80 shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]--breakpoint-modal:max-h-[90vh]--breakpoint-modal:w-[80vw]--breakpoint-modal:overflow-y-auto fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium"
     >
       <form method="dialog" class="flex flex-col gap-9">
         <!-- 닫기 -->
@@ -429,55 +437,63 @@
           <!-- 리소스 정보 -->
           <h4 class="mb-2">리소스 정보</h4>
           <dl
-            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2 max-[690px]:flex max-[690px]:flex-col max-[690px]:gap-2"
+            class="pt-2--breakpoint-modal:flex--breakpoint-modal:flex-col--breakpoint-modal:gap-2 grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3]"
           >
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+            <div
+              class="contents--breakpoint-modal:flex--breakpoint-modal:flex-row--breakpoint-modal:items-center"
+            >
               <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+                class="text-quokka-gray--breakpoint-modal:w-24--breakpoint-modal:shrink-0--breakpoint-modal:text-left"
               >
                 카테고리 :
               </dt>
               <dd
-                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                class="col-end-3--breakpoint-modal:ml-2--breakpoint-modal:text-left col-start-2"
                 data-roll="category"
               >
                 프론트엔드
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+            <div
+              class="contents--breakpoint-modal:flex--breakpoint-modal:flex-row--breakpoint-modal:items-center"
+            >
               <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+                class="text-quokka-gray--breakpoint-modal:w-24--breakpoint-modal:shrink-0--breakpoint-modal:text-left"
               >
                 작성자 :
               </dt>
               <dd
-                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                class="col-end-3--breakpoint-modal:ml-2--breakpoint-modal:text-left col-start-2"
                 data-roll="author"
               >
                 React 팀
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+            <div
+              class="contents--breakpoint-modal:flex--breakpoint-modal:flex-row--breakpoint-modal:items-center"
+            >
               <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+                class="text-quokka-gray--breakpoint-modal:w-24--breakpoint-modal:shrink-0--breakpoint-modal:text-left"
               >
                 난이도 :
               </dt>
               <dd
-                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                class="col-end-5--breakpoint-modal:ml-2--breakpoint-modal:text-left col-start-4"
                 data-roll="difficulty"
               >
                 중급
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
+            <div
+              class="contents--breakpoint-modal:flex--breakpoint-modal:flex-row--breakpoint-modal:items-center"
+            >
               <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
+                class="text-quokka-gray--breakpoint-modal:w-24--breakpoint-modal:shrink-0--breakpoint-modal:text-left"
               >
                 추가일 :
               </dt>
               <dd
-                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                class="col-end-5--breakpoint-modal:ml-2--breakpoint-modal:text-left col-start-4"
                 data-roll="dateAdded"
               >
                 2025-01-15
