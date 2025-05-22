@@ -603,7 +603,7 @@
       </footer>
     </div>
     <dialog
-      class="text-quokka-black backdrop:bg-quokka-brown/80 fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)] max-[690px]:max-h-[90vh] max-[690px]:w-[80vw] max-[690px]:overflow-y-auto"
+      class="text-quokka-black backdrop:bg-quokka-brown/80 max-modal:max-h-[90vh] max-modal:w-[80vw] max-modal:overflow-y-auto fixed top-[50%] left-[50%] translate-[-50%] rounded-[.625rem] bg-white px-9 py-[30px] text-base font-medium shadow-[0_4px_4px_0_rgba(139,109,92,0.10)]"
     >
       <form method="dialog" class="flex flex-col gap-9">
         <!-- 닫기 -->
@@ -671,55 +671,47 @@
           <!-- 리소스 정보 -->
           <h4 class="mb-2">리소스 정보</h4>
           <dl
-            class="grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2 max-[690px]:flex max-[690px]:flex-col max-[690px]:gap-2"
+            class="max-modal:flex max-modal:flex-col max-modal:gap-2 grid grid-flow-col grid-cols-[100px_200px_100px_200px] grid-rows-2 gap-y-1 border-t-[1px] border-t-[#F3F3F3] pt-2"
           >
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
-              <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
-              >
+            <div class="max-modal:flex max-modal:flex-row max-modal:items-center contents">
+              <dt class="text-quokka-gray max-modal:w-24 max-modal:shrink-0 max-modal:text-left">
                 카테고리 :
               </dt>
               <dd
-                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                class="max-modal:ml-2 max-modal:text-left col-start-2 col-end-3"
                 data-roll="category"
               >
                 프론트엔드
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
-              <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
-              >
+            <div class="max-modal:flex max-modal:flex-row max-modal:items-center contents">
+              <dt class="text-quokka-gray max-modal:w-24 max-modal:shrink-0 max-modal:text-left">
                 작성자 :
               </dt>
               <dd
-                class="col-start-2 col-end-3 max-[690px]:ml-2 max-[690px]:text-left"
+                class="max-modal:ml-2 max-modal:text-left col-start-2 col-end-3"
                 data-roll="author"
               >
                 React 팀
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
-              <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
-              >
+            <div class="max-modal:flex max-modal:flex-row max-modal:items-center contents">
+              <dt class="text-quokka-gray max-modal:w-24 max-modal:shrink-0 max-modal:text-left">
                 난이도 :
               </dt>
               <dd
-                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                class="max-modal:ml-2 max-modal:text-left col-start-4 col-end-5"
                 data-roll="difficulty"
               >
                 중급
               </dd>
             </div>
-            <div class="contents max-[690px]:flex max-[690px]:flex-row max-[690px]:items-center">
-              <dt
-                class="text-quokka-gray max-[690px]:w-24 max-[690px]:shrink-0 max-[690px]:text-left"
-              >
+            <div class="max-modal:flex max-modal:flex-row max-modal:items-center contents">
+              <dt class="text-quokka-gray max-modal:w-24 max-modal:shrink-0 max-modal:text-left">
                 추가일 :
               </dt>
               <dd
-                class="col-start-4 col-end-5 max-[690px]:ml-2 max-[690px]:text-left"
+                class="max-modal:ml-2 max-modal:text-left col-start-4 col-end-5"
                 data-roll="dateAdded"
               >
                 2025-01-15
