@@ -44,10 +44,62 @@ export function openModal(resources: Resource[], resourceId: number): void {
 
   modal.showModal();
 
+  // 스크롤바는 보이되 스크롤은 막기
   document.body.style.overflowY = 'scroll';
   document.body.style.position = 'fixed';
   document.body.style.width = '100%';
   document.body.style.top = `-${scrollY}px`;
+  document.body.style.pointerEvents = 'none';
+
+  // 모달 내부 요소들은 클릭 가능하도록 설정
+  modal.style.pointerEvents = 'auto';
+
+  // 모달 내부 스크롤바 숨기기
+  const modalContent = modal.querySelector('[data-roll="description"]')?.parentElement;
+  if (modalContent) {
+    modalContent.style.overflowY = 'auto';
+    modalContent.style.overflowX = 'hidden';
+    // Firefox
+    modalContent.style.scrollbarWidth = 'none';
+    // Chrome/Safari/Opera
+    const style = document.createElement('style');
+    style.textContent = `
+      dialog > div::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        background: transparent;
+      }
+      dialog > div::-webkit-scrollbar-thumb {
+        background: transparent;
+      }
+      dialog > div::-webkit-scrollbar-track {
+        background: transparent;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // 리사이즈 이벤트 처리
+  const handleResize = () => {
+    // 스크롤바는 보이되 스크롤은 막기
+    document.body.style.overflowY = 'scroll';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.pointerEvents = 'none';
+  };
+
+  window.addEventListener('resize', handleResize);
+  modal.addEventListener('close', () => {
+    window.removeEventListener('resize', handleResize);
+  });
+
+  // ESC 키로 모달 닫기 방지
+  modal.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+    }
+  });
 }
 
 /**
@@ -64,16 +116,19 @@ export function closeModal(): void {
 
   const scrollY = parseInt(modal.getAttribute('data-scroll-y') || '0');
 
-  modal.close();
-
-  window.scrollTo(0, scrollY);
-
+  // 모달 닫기 전에 스타일 초기화
   requestAnimationFrame(() => {
     document.body.style.position = '';
     document.body.style.width = '';
     document.body.style.top = '';
     document.body.style.overflowY = '';
+    document.body.style.pointerEvents = '';
+
+    // 스크롤 위치 복원
+    window.scrollTo(0, scrollY);
   });
+
+  modal.close();
 }
 
 /**
@@ -91,34 +146,35 @@ export function setupModalEvents(resources: Resource[]): void {
   const detailButtons = section.querySelectorAll<HTMLButtonElement>('button[name="detail"]');
   detailButtons.forEach((button) => {
     button.addEventListener('click', function () {
-      // resource 데이터를 필터링된 결과로 변경하는 기능 추가
       const articles = section.querySelectorAll<HTMLElement>('article');
       const articleTitles = Array.from(articles).map((article) => {
         const h3 = article.querySelector('h3');
-        return h3 ? h3.textContent?.trim() : '';
+        return h3?.textContent?.trim() ?? '';
       });
 
-      // resource.json 데이터에서 id가 articleIds에 포함된 것만 필터링
       const filteredResources = resources.filter((resource) =>
         articleTitles.includes(resource.title),
       );
 
       const resourceId = Number(this.closest('article')?.getAttribute('data-index'));
+      if (!resourceId) return;
 
       openModal(filteredResources, resourceId);
     });
   });
 
   const modal = document.querySelector('dialog');
-  const closeBtn = modal?.querySelector('button[name="close"]') as HTMLButtonElement;
-  closeBtn?.addEventListener('click', closeModal);
+  if (!modal) return;
 
-  modal?.addEventListener('close', () => {
-    const scrollY = document.body.style.top;
-    document.body.style.position = '';
-    document.body.style.width = '';
-    document.body.style.top = '';
-    document.body.style.overflowY = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  const closeBtn = modal.querySelector<HTMLButtonElement>('button[name="close"]');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  // 모달 외부 클릭 시 닫기
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
   });
 }
